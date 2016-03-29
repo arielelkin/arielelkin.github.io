@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Using The Amazing Audio Engine with the Synthesis Toolkit in C++</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://arielelkin.github.io/articles/mandolin.html">
+  <link rel="alternate" type="application/rss+xml" title="Ariel Elkin" href="http://arielelkin.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Ariel Elkin's Website</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+          <a href="/apps">Apps</a><span> |</span>
+          <a href="/libraries">Libraries</a><span> |</span>
+          <a href="/articles">Articles</a><span> |</span>
+          <a href="/talks">Talks</a><span> |</span>
+          <a href="/cooking">Cooking</a><span> |</span>
+          <a href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51731054-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Using The Amazing Audio Engine with the Synthesis Toolkit in C++</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 id="intro">Intro</h2>
+
+<p>In this tutorial we’ll explore a technique for making musical instrument apps on iOS, by combining two fantastic open-source libraries: The Amazing Audio Engine and the Synthesis Toolkit in C++.</p>
+
+<p>A good musical instrument needs to offer the user a substantial amount of control over its sound. Music-makers expect to be able to control several attributes of a sound, not just its onset. So the more fine-grained control <em>our code</em> has over the generation and manipulation of sound, the more fine-grained control we can offer the user. Generating the sound from scratch (i.e. not from a sound file), like non-virtual instruments do, is one of the ways to achieve that goal; we’ll make an app that will generate and control its own sounds.</p>
+
+<p>We’ll need an audio <em>synthesizer</em> to generate the samples of audio in response to user input, and an <em>audio engine</em> that will deliver the audio to the user. We’ll use The Amazing Audio Engine as our audio engine and a class from the Synthesis Toolkit in C++ as our synthesizer.</p>
+
+<p>Our final result will be a handheld mandolin.</p>
+
+<h2 id="first-steps">First steps</h2>
+
+<ol>
+  <li>Open up Xcode and create a new project.</li>
+  <li>In “Choose a template for your new project”:
+    <ol>
+      <li>Under the heading “iOS”, pick <strong>Application</strong></li>
+      <li>Choose <strong>Single View Application</strong></li>
+      <li>Click <strong>Next</strong></li>
+    </ol>
+  </li>
+  <li>In “Choose options for your new project”:
+    <ol>
+      <li>For “Product Name”, enter <strong>Mandolin</strong></li>
+      <li>Under “Devices”, select <strong>iPhone</strong>.</li>
+    </ol>
+  </li>
+  <li>Click <strong>Next</strong> and save the project somewhere dear to you.</li>
+</ol>
+
+<p>##Add the Amazing Audio Engine<br />
+1. Add The Amazing Audio Engine to your project. <br />
+    1. <strong>If you’re using CocoaPods:</strong> add <code class="highlighter-rouge">pod 'TheAmazingAudioEngine'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>. Remember to close <strong>Mandolin.xcodeproj</strong> and use <strong>Mandolin.xcworkspace</strong> instead. <br />
+    1. <strong>If you’re not using CocoaPods:</strong> <a href="http://theamazingaudioengine.com/doc/_getting-_started.html">visit this page</a> and follow steps 1-6 to the letter. <br />
+1. Open <strong>AppDelegate.m</strong>, under <code class="highlighter-rouge">#import "AppDelegate.h"</code> write</p>
+
+<pre><code class="language-objective-c">#import "AEAudioController.h"
+</code></pre>
+
+<p>Let’s see if you’ve correctly added TAAE. Build (⌘+B), make sure the build succeeds. If the build fails, you haven’t followed the above steps to the letter, go back and make sure you do. If the build succeeds, you get to move on.</p>
+
+<h2 id="our-audio-plumbing">Our audio plumbing</h2>
+
+<p>We’ll be generating our Mandolin sound within a <em>channel</em>, and we’ll connect this channel directly to the <em>audio engine</em>. The audio engine gathers the sound it receives from all the channels connected to it, and sends it to the headphones or speaker.</p>
+
+<p>Let’s now set up our app’s <em>audio engine</em>. Our audio engine will be the entity responsible for managing audio sources and outputs, and communicating with the OS. In TAAE, <code class="highlighter-rouge">AEAudioController</code> is the class that wraps the audio engine. We will place it inside our app delegate, for a couple of reasons:</p>
+
+<ul>
+  <li>The app delegate should handle launch-time initialization of our core app components, and those include our audio engine.</li>
+  <li>Given that the app delegate manages transitions to and from the background, it should deal with the audio engine during those transitions. For example, it should suspend audio rendering when our app is sent to the background.</li>
+</ul>
+
+<p>Open <strong>AppDelegate.h</strong>, write this above <code class="highlighter-rouge">#import &lt;UIKit/UIKit.h&gt;</code>:</p>
+
+<pre><code class="language-objective-c">@class AEAudioController;
+</code></pre>
+<p>This is a <a href="http://stackoverflow.com/questions/5191487/objective-c-forward-class-declaration">forward declaration</a> of <code class="highlighter-rouge">AEAudioController</code>. We’ll be importing <strong>AEAudioController.h</strong> in the app delegate’s implementation (it’s cleaner to import it here to avoid circular inclusions of files).</p>
+
+<p>Let’s now add an <code class="highlighter-rouge">AEAudioController</code> property to our <code class="highlighter-rouge">AppDelegate</code>:</p>
+
+<pre><code class="language-objective-c">@property (nonatomic, readonly) AEAudioController *audioController;
+</code></pre>
+
+<p>Other files will be able to refer to the <code class="highlighter-rouge">audioController</code> variable, but we’re adding the <code class="highlighter-rouge">readonly</code> identifier because we don’t want to let them change what it points to.</p>
+
+<p>Open <strong>AppDelegate.m</strong>. Under the <code class="highlighter-rouge">#import "AppDelegate.h"</code> line we wrote earlier on, write:</p>
+
+<pre><code class="language-objective-c">@interface AppDelegate()
+
+@property (nonatomic) AEAudioController *audioController;
+
+@end
+</code></pre>
+
+<p>This is a <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html">class extension</a> in which we allow the implementation of AppDelegate to actually set its <code class="highlighter-rouge">audioController</code> property.</p>
+
+<p>At the end of the <code class="highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:<br />
+<code class="highlighter-rouge">objective-c
+self.audioController = [[AEAudioController alloc]
+                        initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
+                        inputEnabled:NO];
+</code></p>
+
+<p>Your <strong>AppDelegate.m</strong> should look like this:</p>
+
+<pre><code class="language-objective-c">#import "AppDelegate.h"
+#import "AEAudioController.h"
+
+@interface AppDelegate()
+
+@property (nonatomic) AEAudioController *audioController;
+
+@end
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Override point for customization after application launch.
+    self.audioController = [[AEAudioController alloc]
+                            initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
+                            inputEnabled:NO];
+    return YES;
+}
+</code></pre>
+
+<p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="highlighter-rouge">#import "ViewController.h"</code>, write:<br />
+<code class="highlighter-rouge">objective-c
+#import "AppDelegate.h"
+</code></p>
+
+<p>In <code class="highlighter-rouge">viewDidLoad</code>, write:</p>
+
+<pre><code class="language-objective-c">- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSError *errorAudioSetup = NULL;
+    BOOL result = [[appDelegate audioController] start:&amp;errorAudioSetup];
+    if ( !result ) {
+        NSLog(@"Error starting audio engine: %@", errorAudioSetup.localizedDescription);
+    }
+}
+</code></pre>
+
+<p>Let’s break this down. First, we get a reference to our app delegate instance. It needs to be of class <code class="highlighter-rouge">AppDelegate</code> because we need to use its <code class="highlighter-rouge">audioController</code> property.</p>
+
+<p>Then, we send a <code class="highlighter-rouge">start</code> message to the audioController, to tell it to start processing audio. <code class="highlighter-rouge">start</code> returns a <code class="highlighter-rouge">BOOL</code>: <code class="highlighter-rouge">YES</code> if it successfully started the audio engine, and <code class="highlighter-rouge">NO</code> otherwise. <code class="highlighter-rouge">start</code>’s only parameter is a pointer to an <code class="highlighter-rouge">NSError</code> object, and if an error occurs, the pointer is set to an error object containing the error information.  We want to be prepared for any errors; so we’ll check <code class="highlighter-rouge">start</code>’s return value, if there’s an error, print <code class="highlighter-rouge">errorAudioSetup</code>, let the user gracefully know, etc.</p>
+
+<h2 id="add-the-stk">Add the STK</h2>
+
+<p>If you’re using CocoaPods: add <code class="highlighter-rouge">pod 'STK'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>.</p>
+
+<p>If you’re not using CocoaPods: <a href="https://github.com/thestk/stk/blob/master/iOS/README-iOS.md">visit this page</a> and follow the instructions there to add the STK to your project.</p>
+
+<h2 id="building-our-mandolin">Building our mandolin</h2>
+
+<p>STK source files are written in C++, so any source file that imports them must be Objective-C++. Rename <strong>ViewController.m</strong> to <strong>ViewController.mm</strong> so that it becomes Objective-C++.</p>
+
+<p>Open <strong>ViewController.mm</strong> and under <code class="highlighter-rouge">#import "AppDelegate.h"</code>, write: <br />
+<code class="highlighter-rouge">objective-c
+#import "AEBlockChannel.h"
+#import "Mandolin.h"
+</code></p>
+
+<h3 id="rawwaves">Rawwaves</h3>
+
+<p>The <code class="highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="highlighter-rouge">viewDidLoad</code> code we wrote, add this line:<br />
+<code class="highlighter-rouge">objective-c
+stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
+</code></p>
+
+<h3 id="the-mandolins-user-interface">The mandolin’s user interface</h3>
+
+<p>Let’s now make the UI for the mandolin. The user will pluck the mandolin by pressing a button, and will change the mandolin’s pitch by moving a slider. Open up the Storyboard, drag and drop a Button and a Slider onto the screen:</p>
+
+<p><img src="http://i.imgur.com/RDFxrAI.png" /></p>
+
+<p>A mandolin’s frequency usually varies between 200Hz and 3000Hz, but by default <code class="highlighter-rouge">UISliders</code> send values between <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">1</code>. So we want the slider’s minimum and maximum values to reflect that. Click on the slider, then click on the fourth button at the top of the inspector pane on the right. Set “Minimum” to <strong>200</strong> and set “Maximum” to <strong>1000</strong> (yes, we could set this to <strong>3000</strong> as mandolins do go above 1000Hz, but for our prototyping purposes <strong>1000</strong> is fine). Set “Current” to <strong>400</strong>.</p>
+
+<p><img src="http://imgur.com/sBLC5dn.png" /></p>
+
+<p>Open <strong>ViewController.mm</strong> and add an instance variable for our <code class="highlighter-rouge">Mandolin</code>:</p>
+
+<pre><code class="language-objective-c">@implementation ViewController {
+    stk::Mandolin *myMandolin;
+}
+</code></pre>
+
+<p>(You could also declare the mandolin as a property <code class="highlighter-rouge"><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">stk</span><span class="o">::</span><span class="n">Mandolin</span> <span class="o">*</span><span class="n">myMandolin</span><span class="p">;</span></code> but an instance variable is really all you need here.)</p>
+
+<p>In case you’re wondering, we prefixed <code class="highlighter-rouge">Mandolin</code> with <code class="highlighter-rouge">stk::</code> to indicate that <code class="highlighter-rouge">Mandolin</code> is part of the STK’s <em>namespace</em> (a <a href="http://www.cplusplus.com/doc/tutorial/namespaces/">namespace</a> is a way in which classes and variables are grouped together in C++, and the STK groups its peeps in the <code class="highlighter-rouge">stk</code> namespace).</p>
+
+<p>We’ll be creating a <code class="highlighter-rouge">Mandolin</code> instance which will generate sound when plucked, and whose frequency/pitch we can adjust.</p>
+
+<p>Further down <strong>ViewController.mm</strong>, write the two methods that define the behaviour for the button and slider:</p>
+
+<pre><code class="language-objective-c">-(IBAction)pluckMyMandolin {
+    self.myMandolin-&gt;pluck(1);
+}
+
+-(IBAction)changeFrequency:(UISlider *)sender {
+    self.myMandolin-&gt;setFrequency(sender.value);
+}
+</code></pre>
+
+<p>Let’s tell the button and the slider that these are the methods they’re dealing with. Save <strong>ViewController.mm</strong> and go back into the Storyboard. Leave <code class="highlighter-rouge">control</code> pressed and click and drag from the “Pluck my mandolin” button to the yellow circle at the bottom of the view controller. Let go, and select <strong>pluckMyMandolin</strong></p>
+
+<p>Do the same for the slider. Leave <code class="highlighter-rouge">control</code> pressed and click and drag from the slider to the yellow circle at the bottom of the view controller. Let go, and this time select <strong>changeFrequency:</strong></p>
+
+<p>Those are the basics of our UI.</p>
+
+<p>##The mandolin’s back-end</p>
+
+<p>In <strong>ViewController.mm</strong>, add an instance variable for our <code class="highlighter-rouge">AEBlockChannel</code>:</p>
+
+<pre><code class="language-objective-c">@implementation ViewController {
+    AEBlockChannel *myMandolinChannel;
+    stk::Mandolin *myMandolin;
+}
+</code></pre>
+
+<p>Now let’s create our Mandolin and place it inside a channel. At the bottom of <code class="highlighter-rouge">viewDidLoad</code>, write:</p>
+
+<pre><code class="language-objective-c">myMandolin = new stk::Mandolin(400);
+myMandolin-&gt;setFrequency(400);
+
+myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *time,
+                                                            UInt32 frames,
+                                                            AudioBufferList *audio) {
+    for ( int i=0; i&lt;frames; i++ ) {
+        
+        ((float*)audio-&gt;mBuffers[0].mData)[i] =
+        ((float*)audio-&gt;mBuffers[1].mData)[i] = myMandolin-&gt;tick();
+        
+    }
+}];
+
+[[appDelegate audioController] addChannels:@[myMandolinChannel]];
+</code></pre>
+
+<p>We first initialise a new <code class="highlighter-rouge">Mandolin</code> object, and set its frequency to 400.</p>
+
+<p>We then create an <code class="highlighter-rouge">AEBlockChannel</code>, which takes in a block as a parameter. This block, in turn, has parameters <em>in which</em> you have to store the audio you generate: we’ll be generating audio one sample at a time and placing it in the audio buffers on their way to the headphones.</p>
+
+<h3 id="understanding-tick">Understanding <code class="highlighter-rouge">tick()</code></h3>
+
+<p>STK classes have a <code class="highlighter-rouge">tick()</code> function which computes and generates one sample of audio; <code class="highlighter-rouge">myMandolin-&gt;tick()</code> returns consecutive samples of mandolin audio.</p>
+
+<p>The STK classes compute and output one consecutive sample at a time, their <code class="highlighter-rouge">tick()</code> function returns one sample of computed audio, which we place in our audio buffers. The STK objects tick according to their state. So <code class="highlighter-rouge">tick()</code> returns <code class="highlighter-rouge">0</code> (i.e. silence) if we haven’t plucked the mandolin, but if you pluck it it’ll return a number higher or lower than <code class="highlighter-rouge">0</code>.</p>
+
+<h3 id="understanding-audiobuffers">Understanding <code class="highlighter-rouge">AudioBuffers</code></h3>
+
+<p>The <code class="highlighter-rouge">for</code> loop places the output of <code class="highlighter-rouge">myMandolin-&gt;tick()</code> in the audio buffers. Let’s take a closer look at how that works.</p>
+
+<p>An <code class="highlighter-rouge">AudioBuffer</code> is a <code class="highlighter-rouge">struct</code> that contains audio (and data about the audio). Its <code class="highlighter-rouge">mData</code> member points to the buffer’s audio data. This is an array, each member of this array is a sample. The audio samples we place in this array will be delivered to the headphones.</p>
+
+<p>The STK works with <em>non-interleaved</em> audio, which means that there is one <code class="highlighter-rouge">AudioBuffer</code> for the left channel: <code class="highlighter-rouge">audio-&gt;mBuffers[0]</code>, and one <code class="highlighter-rouge">AudioBuffer</code> for the right channel: <code class="highlighter-rouge">audio-&gt;mBuffers[1]</code>.</p>
+
+<p>The <code class="highlighter-rouge">frames</code> argument in the block specifies the number of samples in a buffer, i.e. the length of the array over which the <code class="highlighter-rouge">for</code> loop is iterating.</p>
+
+<p><code class="highlighter-rouge">Mandolin</code> produces mono sound, which is why we’re placing its sample in both the left and the right channel.</p>
+
+<h2 id="outro">Outro</h2>
+
+<p>Good musical apps often require synthesizers and audio engines. Making a speedy and robust audio engine requires a substantial amount of engineering, and delving into complex and unsavoury APIs. Making an interesting synthesizer also requires a good amount of basic audio engineering.</p>
+
+<p>It’s better to focus your efforts on the experience your instrument will provide. Interesting ways for the user to interact with your instrument. On iOS, users can drag things across the screen, double tap buttons, use the accelerometer, etc. What sort of interactions would make your instrument unique? And what should the instrument’s sonic response be?</p>
+
+<p>You have a readymade audio engine, and readymade synthesizers. Customise them, build on top of that, and you’ll spend more time refining the user experience and less time re-inventing the wheel.</p>
+
+<p>Speaking of which, here are some pretty assets to get you started. They’ve been tailor-made for us by the amazing <a href="http://marazita.com">Justin Marazita</a>.</p>
+
+<ul>
+  <li><a href="https://www.dropbox.com/s/44t220mynnbl8ut/Mandolin%20Assets.zip">Mandolin assets</a></li>
+</ul>
+
+<p>Below is a screenshot of what it could look like. The green button pucks the mandolin.</p>
+
+<p><img src="http://i.imgur.com/kZ69wSv.png" width="250" /></p>
+
+<h2 id="sample-project">Sample project</h2>
+<p>To see what this looks like when complete, check out this sample project: <a href="https://github.com/arielelkin/Mandolin">The Mandolin on GitHub</a></p>
+
+<h2 id="further-reading">Further reading</h2>
+<ul>
+  <li><a href="https://ccrma.stanford.edu/software/stk/classstk_1_1Mandolin.html"><code class="highlighter-rouge">Mandolin</code>’s Documentation</a>
+    <ul>
+      <li>There are many more things you can do with the mandolin, read this thoroughly.</li>
+    </ul>
+  </li>
+  <li><a href="http://theamazingaudioengine.com/doc/">The Amazing Audio Engine Documentation</a></li>
+</ul>
+
+<h2 id="thanks-to">Thanks to</h2>
+<ul>
+  <li><a href="http://atastypixel.com/">Michael Tyson</a> for useful pointers on developing with TAAE.</li>
+  <li>Daniel Kent and Péter Gyurkó for helping develop this tutorial.</li>
+</ul>
+
+  </div>
+
+
+
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	    var disqus_shortname = 'arielelkin';
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+<li>
+<img src="https://avatars3.githubusercontent.com/u/1756909?v=3&s=460" width="50">
+</li>
+          
+          <li>
+            <a href="https://github.com/arielelkin"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">arielelkin</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/AriVocals"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">AriVocals</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

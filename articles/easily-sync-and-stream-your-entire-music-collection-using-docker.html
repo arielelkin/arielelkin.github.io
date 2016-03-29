@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>easily sync and stream your entire music collection using docker</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://arielelkin.github.io/articles/easily-sync-and-stream-your-entire-music-collection-using-docker.html">
+  <link rel="alternate" type="application/rss+xml" title="Ariel Elkin" href="http://arielelkin.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Ariel Elkin's Website</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+          <a href="/apps">Apps</a><span> |</span>
+          <a href="/libraries">Libraries</a><span> |</span>
+          <a href="/articles">Articles</a><span> |</span>
+          <a href="/talks">Talks</a><span> |</span>
+          <a href="/cooking">Cooking</a><span> |</span>
+          <a href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51731054-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">easily sync and stream your entire music collection using docker</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="easily-sync-and-stream-your-entire-music-collection-using-docker-owncloud-and-ampache">Easily sync and stream your entire music collection using Docker, ownCloud, and Ampache</h1>
+
+<p>You like owning your music, but you own so many gigabytes of it that it’s hard, if not impossible, to carry around.</p>
+
+<p>Luckily, you own a server too.</p>
+
+<blockquote>
+  <p><em>What? So you’re saying I should upload my eight terabytes of music up on my server? But dude, I add five gigabytes of music every day. And on a bad day I delete six gigabytes of music. And on a very bad day, I will obsessively edit the cover art, genre, and year recorded of 600 megabytes’ worth of files, and the server is too stupid to know the difference.</em></p>
+</blockquote>
+
+<p>Your life evolves, and your music collection evolves with you. But before you give up and start renting your music from Spotify, consider elevating your obsession for music collection by building your own music synchronisation and streaming service.</p>
+
+<h2 id="goal">Goal</h2>
+
+<ol>
+  <li>
+    <p>Ensure that our music database at home and the music database on the server are fully and automatically synchronized. (So if a file is added at home, I shouldn’t have to worry about uploading it to the server.)</p>
+  </li>
+  <li>
+    <p>Use separate and independent systems for synchronising the music collection and streaming the music to devices. (I want to be able to offer different streaming services and front-ends for the music streaming.)</p>
+  </li>
+</ol>
+
+<h2 id="architecture">Architecture</h2>
+
+<p>We will create a directory <em>on the server</em> for storing the music.</p>
+
+<p>We will use ownCloud, an open-source file hosting app to handle the uploading and synchronization of our music collection from our personal computer to our server. We’ll run the ownCloud instance inside a Docker container and mount the aforementioned music directory onto it.</p>
+
+<p>We will use Ampache, an open-source music database browser and streamer as a user-facing front-end to our music database, and for streaming the music. We’ll also run the Ampache instance inside a Docker container and mount the music directory into it.</p>
+
+<p>Both containers will thus share the music data volume.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>You’ll need:</p>
+
+<ul>
+  <li>Your server</li>
+  <li>Docker</li>
+</ul>
+
+<h2 id="steps">Steps</h2>
+
+<ol>
+  <li>Create a directory on your server where the music collection will be stored. This directory will be managed by ownCloud’s and so will include ownCloud’s own configuration files:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir owncloud_music
+</code></pre>
+</div>
+
+<p>We need to note down the absolute path of this directory, so <code class="highlighter-rouge">cd</code> into it and print the working directory:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd owncloud_music
+$ pwd
+/home/your_username/owncloud_music
+</code></pre>
+</div>
+
+<p>The directory doesn’t need to be in your home folder, but it should be somewhere where you’re not likely to move it around. For the rest of this tutorial, we’ll assume that <code class="highlighter-rouge">/home/your_username/owncloud_music</code> is the absolute path of your music directory.</p>
+
+<ol>
+  <li>Install an ownCloud instance on your server, mount the above directory onto it as a data volume:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
+</code></pre>
+</div>
+
+<p>Let’s break down the above command.</p>
+
+<p><code class="highlighter-rouge">docker run</code> tells docker to pull the ownCloud image and its dependencies, build it, and start the container from that image with a particular set of options that I’ll get into more detail below:</p>
+
+<p><code class="highlighter-rouge">--name audiosync</code> allows us to name our container in order to be able to refer to it more easily. We could have several owncloud instances running, but this one’s dedicated to synchronizing our audio, so let’s call it <code class="highlighter-rouge">audiosync</code>.</p>
+
+<p><code class="highlighter-rouge">-v /home/your_username/owncloud_music:/var/www/html</code> is the money shot. This mounts the music directory we created before into the ownCloud container at <code class="highlighter-rouge">/var/www/html</code>, which is the directory <em>within the ownCloud container</em> where ownCloud stores its data and local configuration. ownCloud is under the impression of running in its own lonely operating system, yet little does it know, it’s writing directly onto our server filesystem. Make sure you pass in the absolute path to the music directory.</p>
+
+<p><code class="highlighter-rouge">-p 1996:80</code> ownCloud listens to incoming web traffic on port 80. But so does Ampache, and so might other things running on your server. (Port 80 is the default port that your server listens to, it’s what you see when you access <code class="highlighter-rouge">http://yourdomain.com/</code>). So our server will listen to traffic on port 1996 and route it to ownCloud’s port 80. I recommend using port 1996 because that’s the year that the album <em>Below the Bassline</em> by Ernest Ranglin was released.</p>
+
+<p><code class="highlighter-rouge">-d</code> starts the container in detached mode. This runs the container in the background rather than in the foreground.</p>
+
+<p><code class="highlighter-rouge">owncloud:9</code> is the particular version of owncloud we want. This pulls the official ownCloud image from Docker Hub.</p>
+
+<p>Depending on whether or not you’ve already pulled owncloud images, running this command should give you an output similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
+9: Pulling from library/owncloud
+Digest: sha256:55323ed9980e09e5eb5d21d605145e989c8e92d5fe3db31cfdd047efaf1832a0
+
+Status: Downloaded newer image for owncloud:9
+77e25848399e8b3b56f4cb23d5490155a16482f382ac690ae98fb999f8ab4f7e
+</code></pre>
+</div>
+
+<p>When Docker is done building and running, you can check the ownCloud container is correctly running by asking Docker to list the last container you created:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker ps -l
+</code></pre>
+</div>
+
+<p>Next, open your web browser, and go to <code class="highlighter-rouge">http://yourdomain.com:1996</code></p>
+
+<p><img src="http://i.imgur.com/nza2Lar.png" alt="" /></p>
+
+<p>Create a username and password for your ownCloud account, and you should be in!</p>
+
+<p>If you get the “You are accessing the server from an untrusted domain.” error:</p>
+
+<p><code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music/config/</code> directory on your server. Then <code class="highlighter-rouge">sudo</code> edit the config.php file so that your domain in the <code class="highlighter-rouge">trusted_domains</code> array does not specify a port:</p>
+
+<p>So change this part of the file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt; 
+  array (
+    0 =&gt; 'yourdomain.com:1996',
+  ),
+</code></pre>
+</div>
+
+<p>to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt; 
+  array (
+    0 =&gt; 'yourdomain.com',
+  ),
+</code></pre>
+</div>
+
+<p>Now, <a href="https://owncloud.org/install/">install the ownCloud desktop client on your personal computer</a>. Add an account:<br />
+<img src="http://i.imgur.com/rUD11j2.png" alt="" /></p>
+
+<p>Now tell the ownCloud client where your music folder is, make sure you select “Keep local data”, and click <strong>Connect…</strong>:<br />
+<img src="http://i.imgur.com/fMJrrxj.png" alt="" /></p>
+
+<p>“Everything set up”, as far as ownCloud is concerned, you can click “Finish”.</p>
+
+<p><img src="http://i.imgur.com/OgXfJ5O.png" alt="" /></p>
+
+<p>ownCloud should have now started uploading your music to your server:<br />
+<img src="http://i.imgur.com/NIte8sz.png" alt="" /></p>
+
+<p>The <code class="highlighter-rouge">Documents</code> and <code class="highlighter-rouge">Photos</code> folders are created by default by ownCloud, you can delete them.</p>
+
+<p>Onto the streamer. But before we can build and start it, we need to find out exactly where our music is inside <code class="highlighter-rouge">my_music</code>.</p>
+
+<p>You now need root privileges to <code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music</code> directory. Run <code class="highlighter-rouge">sudo -i</code> and <code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music</code> directory. You should be able to find your files here: <code class="highlighter-rouge">owncloud_music/data/your_owncloud_username/files</code></p>
+
+<p>Copy that path.</p>
+
+<p>OK, now let’s setup the streamer. Run this command:<br />
+<code class="highlighter-rouge">
+$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
+</code></p>
+
+<p>And let’s break that down:</p>
+
+<p><code class="highlighter-rouge">docker run --name=ampache</code> Here we’re pulling, building, and running a container with the Ampache, and we’re naming it <code class="highlighter-rouge">ampache</code>.</p>
+
+<p><code class="highlighter-rouge">-v /owncloud_music/data/your_owncloud_username/files:/media:ro</code> This mounts the server’s music directory we created before into the ampache container where ampache looks for music files. We add <code class="highlighter-rouge">:ro</code> option to specify that the mount should be read-only. Remember that the path to the music folder <strong>must</strong> be absolute. In this example, we assume that <code class="highlighter-rouge">owncloud_music</code> is at in the root directory <code class="highlighter-rouge">/</code>, but you should make sure that the path you place after the <code class="highlighter-rouge">-v</code>is the path you get when you run <code class="highlighter-rouge">pwd</code> in the <code class="highlighter-rouge">owncloud_music</code> directory.</p>
+
+<p><code class="highlighter-rouge">-p 2008:80</code> as above, this routes traffic coming and going to our server’s port 2008, into Ampache’s port 80. Again, I recommend port 2008 for technical reasons as it’s the year that Will Bernard’s <em>Blue Plate Special</em> was released, with Stanton Moore on drums, you should listen to it.</p>
+
+<p><code class="highlighter-rouge">ampache/ampache</code> tells Docker to pull and build the official Ampache image.</p>
+
+<p>Once Ampache has been pulled and built, open your web browser and visit <code class="highlighter-rouge">yourdomain.com:2008</code></p>
+
+<p>You’ll be greeted with Ampache’s installation wizard:</p>
+
+<p><img src="http://i.imgur.com/dGEfcZz.png" alt="" /></p>
+
+<p>Click “Start Configuration”.</p>
+
+<p>The next page tells you about if your environment has satisfies Ampache’s technical prerequisites. Click “Continue”.</p>
+
+<p>The next page creates the Ampache database. All you have to do here is:</p>
+
+<ul>
+  <li>Check “Create Database User”</li>
+  <li>Set an “Ampache Database User Password” and note it down.</li>
+</ul>
+
+<p>Leave the other default values, and click “Insert Database”.</p>
+
+<p>In this next page, make sure that <br />
+MySQL Username and MySQL Password match the ones in the previous step (default username is “ampache”, the password should be the one you inputted just before).</p>
+
+<p>Now click on the File Insight menu, and click on the “Write” button</p>
+
+<p>insert the password in the MySQL Password field. You can leave the other default options. Finally, click “Create config”</p>
+
+<p>In the next page, create your Ampache (admin) user account. Pick a username and a password, click “Create Account”. Now you can login into Ampache!</p>
+
+<p><img src="http://i.imgur.com/mWk5MgC.png" alt="" /></p>
+
+<p>Ampache now needs you to add a Catalog for it to start building your music collection. Click on the second button from the left, the one next to the door:</p>
+
+<p><img src="http://i.imgur.com/TRIZYrb.png" alt="" /></p>
+
+<p>Now select “Add a Catalog” from the menu below.</p>
+
+<p>Select “local” as the Catalog Type, and fill in <code class="highlighter-rouge">/media/</code> as the path to the music. You can then “Add Catalog”. Wait for the Catalog to finish building, and your music is ready for streaming! Click on the headphones icon on the top right of the left column, and you can Browse Music. If ownCloud has already uploaded music to your server, they will be there:</p>
+
+<p><img src="http://i.imgur.com/pAnbhAr.png" alt="" /></p>
+
+<p>And… <strong>Happy sync’n’streaming!</strong></p>
+
+<h2 id="a-note-on-owncloud-folder-structure">A note on ownCloud folder structure</h2>
+
+<p>For the sake of simplicity, we instructed ownCloud to store both its own configuration files <em>and</em> our music files into the same directory: <code class="highlighter-rouge">owncloud_music</code>becomes ownCloud’s default volume at <code class="highlighter-rouge">/var/www/html</code>. You could have instead instructed Docker to mount an additional volume into the ownCloud container, in which ownCloud could have save its configuration files:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music_files:/var/www/html/data -v /home/your_username/owncloud_config_files:/var/www/html/config -p 1996:80 -d owncloud:9
+</code></pre>
+</div>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>If you think you missed a step and your ownCloud or Ampache container doesn’t look like it’s been properly configured, the fastest way to fix it is to kill and delete the container, and build it again from scratch. One or both of these commands will do that:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker rm -f ampache
+$ docker rm -f audiosync
+</code></pre>
+</div>
+
+<h2 id="where-is-ampaches-config-file">Where is Ampache’s config file??</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker exec -ti ampache bash #let's go inside the ampache container
+$ cat /var/www/config/ampache.cfg.php
+</code></pre>
+</div>
+
+<h2 id="lossless-files-arent-streaming">Lossless files aren’t streaming</h2>
+<p>Lossless files aren’t made for streaming, and need to be transcoded down to a lower bitrate for them to be streamed. By default, Ampache will silently fail to stream a lossless file, and you need to manually tell it to enable transcoding.</p>
+
+<p>Find the <code class="highlighter-rouge">transcode_m4a</code> key in the file. It’s the first key in the section of transcoding configurations.</p>
+
+<p>Enabling transcoding consists in uncommenting the relevant lines, by removing the <code class="highlighter-rouge">;</code> from the beginning of the lines. First, find the formats you want to transcode and remove the the <code class="highlighter-rouge">;</code> from the line they’re on.</p>
+
+<p>Then, remove the <code class="highlighter-rouge">;</code> from the beginning of the following lines:<br />
+<code class="highlighter-rouge">
+;encode_target = mp3
+;transcode_cmd = "avconv"
+</code></p>
+
+<p>Lossless files should now stream, but at the default very low bitrate (32kbps). So in Ampache’s Web Interface, go to Settings –&gt; Streaming, and set the “Transcode Bitrate” to something acceptable like <code class="highlighter-rouge">256</code>.</p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>… is always welcome. Has this tutorial been helpful? Is something not clear? Do you know of a more efficient way to setup ownCloud and Ampache with Docker?</p>
+
+<p><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#097;&#114;&#105;&#101;&#108;&#101;&#108;&#107;&#105;&#110;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">Drop me a line</a> or send a tweet: <a href="https://twitter.com/arivocals">@AriVocals</a></p>
+
+<h2 id="useful-sites">Useful sites</h2>
+
+<ul>
+  <li><a href="https://github.com/ampache/ampache/wiki">Ampache Documentation</a></li>
+  <li><a href="https://github.com/ampache/ampache/wiki/Clients">Ampache Clients</a> (mobile apps, other web interfaces, etc.)</li>
+  <li><a href="https://doc.owncloud.org/">ownCloud Documentation</a></li>
+  <li><a href="https://docs.docker.com/engine/userguide/containers/dockervolumes/">Docker Documentation: Volumes</a></li>
+</ul>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>Thanks to <a href="http://jpetazzo.github.io/">Jérôme Petazzoni</a> and <a href="https://twitter.com/dataduke">Benjamin Nothdurft</a> for helping me understand Docker and helping me get the above Docker + Ampache + ownCloud equation to work! I’m also grateful to <a href="https://twitter.com/samtuke">Sam Tuke</a> for reviewing the draft.</p>
+
+
+  </div>
+
+
+
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	    var disqus_shortname = 'arielelkin';
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+<li>
+<img src="https://avatars3.githubusercontent.com/u/1756909?v=3&s=460" width="50">
+</li>
+          
+          <li>
+            <a href="https://github.com/arielelkin"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">arielelkin</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/AriVocals"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">AriVocals</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
