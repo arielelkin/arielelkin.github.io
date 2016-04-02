@@ -126,9 +126,7 @@ $ pwd
 
 <p>The directory doesn’t need to be in your home folder, but it should be somewhere where you’re not likely to move it around. For the rest of this tutorial, we’ll assume that <code class="highlighter-rouge">/home/your_username/owncloud_music</code> is the absolute path of your music directory.</p>
 
-<ol>
-  <li>Install an ownCloud instance on your server, mount the above directory onto it as a data volume:</li>
-</ol>
+<p>Install an ownCloud instance on your server, mount the above directory onto it as a data volume:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
 </code></pre>
@@ -138,7 +136,7 @@ $ pwd
 
 <p><code class="highlighter-rouge">docker run</code> tells docker to pull the ownCloud image and its dependencies, build it, and start the container from that image with a particular set of options that I’ll get into more detail below:</p>
 
-<p><code class="highlighter-rouge">--name audiosync</code> allows us to name our container in order to be able to refer to it more easily. We could have several owncloud instances running, but this one’s dedicated to synchronizing our audio, so let’s call it <code class="highlighter-rouge">audiosync</code>.</p>
+<p><code class="highlighter-rouge">--name audiosync</code> allows us to name our container in order to be able to refer to it more easily. We could have several ownCloud instances running, but this one’s dedicated to synchronizing our audio, so let’s call it <code class="highlighter-rouge">audiosync</code>.</p>
 
 <p><code class="highlighter-rouge">-v /home/your_username/owncloud_music:/var/www/html</code> is the money shot. This mounts the music directory we created before into the ownCloud container at <code class="highlighter-rouge">/var/www/html</code>, which is the directory <em>within the ownCloud container</em> where ownCloud stores its data and local configuration. ownCloud is under the impression of running in its own lonely operating system, yet little does it know, it’s writing directly onto our server filesystem. Make sure you pass in the absolute path to the music directory.</p>
 
@@ -146,9 +144,9 @@ $ pwd
 
 <p><code class="highlighter-rouge">-d</code> starts the container in detached mode. This runs the container in the background rather than in the foreground.</p>
 
-<p><code class="highlighter-rouge">owncloud:9</code> is the particular version of owncloud we want. This pulls the official ownCloud image from Docker Hub.</p>
+<p><code class="highlighter-rouge">owncloud:9</code> is the particular version of ownCloud we want. This pulls the official ownCloud image from Docker Hub.</p>
 
-<p>Depending on whether or not you’ve already pulled owncloud images, running this command should give you an output similar to this:</p>
+<p>Depending on whether or not you’ve already pulled ownCloud images, running this command should give you an output similar to this:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
 9: Pulling from library/owncloud
@@ -214,10 +212,11 @@ Status: Downloaded newer image for owncloud:9
 
 <p>Copy that path.</p>
 
-<p>OK, now let’s setup the streamer. Run this command:<br />
-<code class="highlighter-rouge">
-$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
-</code></p>
+<p>OK, now let’s setup the streamer. Run this command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
+</code></pre>
+</div>
 
 <p>And let’s break that down:</p>
 
@@ -302,11 +301,12 @@ $ cat /var/www/config/ampache.cfg.php
 
 <p>Enabling transcoding consists in uncommenting the relevant lines, by removing the <code class="highlighter-rouge">;</code> from the beginning of the lines. First, find the formats you want to transcode and remove the the <code class="highlighter-rouge">;</code> from the line they’re on.</p>
 
-<p>Then, remove the <code class="highlighter-rouge">;</code> from the beginning of the following lines:<br />
-<code class="highlighter-rouge">
-;encode_target = mp3
+<p>Then, remove the <code class="highlighter-rouge">;</code> from the beginning of the following lines:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>;encode_target = mp3
 ;transcode_cmd = "avconv"
-</code></p>
+</code></pre>
+</div>
 
 <p>Lossless files should now stream, but at the default very low bitrate (32kbps). So in Ampache’s Web Interface, go to Settings –&gt; Streaming, and set the “Transcode Bitrate” to something acceptable like <code class="highlighter-rouge">256</code>.</p>
 
@@ -328,6 +328,11 @@ $ cat /var/www/config/ampache.cfg.php
 <h2 id="acknowledgements">Acknowledgements</h2>
 
 <p>Thanks to <a href="http://jpetazzo.github.io/">Jérôme Petazzoni</a> and <a href="https://twitter.com/dataduke">Benjamin Nothdurft</a> for helping me understand Docker and helping me get the above Docker + Ampache + ownCloud equation to work! I’m also grateful to <a href="https://twitter.com/samtuke">Sam Tuke</a> for reviewing the draft.</p>
+
+<p>And thank you <a href="https://www.twitter.com/docker">@Docker</a> for the shout out:</p>
+
+<blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Easily sync and stream your entire music collection using <a href="https://twitter.com/docker">@docker</a> <a href="https://t.co/B5VsFZGdXC">https://t.co/B5VsFZGdXC</a> by <a href="https://twitter.com/AriVocals">@AriVocals</a> <a href="https://t.co/UMUfl9bEgj">pic.twitter.com/UMUfl9bEgj</a></p>&mdash; Docker (@docker) <a href="https://twitter.com/docker/status/714902207024525312">March 29, 2016</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
   </div>

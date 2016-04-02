@@ -96,11 +96,17 @@
   <li>Click <strong>Next</strong> and save the project somewhere dear to you.</li>
 </ol>
 
-<p>##Add the Amazing Audio Engine<br />
-1. Add The Amazing Audio Engine to your project. <br />
-    1. <strong>If you’re using CocoaPods:</strong> add <code class="highlighter-rouge">pod 'TheAmazingAudioEngine'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>. Remember to close <strong>Mandolin.xcodeproj</strong> and use <strong>Mandolin.xcworkspace</strong> instead. <br />
-    1. <strong>If you’re not using CocoaPods:</strong> <a href="http://theamazingaudioengine.com/doc/_getting-_started.html">visit this page</a> and follow steps 1-6 to the letter. <br />
-1. Open <strong>AppDelegate.m</strong>, under <code class="highlighter-rouge">#import "AppDelegate.h"</code> write</p>
+<h2 id="add-the-amazing-audio-engine">Add the Amazing Audio Engine</h2>
+
+<ol>
+  <li>Add The Amazing Audio Engine to your project.
+    <ol>
+      <li><strong>If you’re using CocoaPods:</strong> add <code class="highlighter-rouge">pod 'TheAmazingAudioEngine'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>. Remember to close <strong>Mandolin.xcodeproj</strong> and use <strong>Mandolin.xcworkspace</strong> instead.</li>
+      <li><strong>If you’re not using CocoaPods:</strong> <a href="http://theamazingaudioengine.com/doc/_getting-_started.html">visit this page</a> and follow steps 1-6 to the letter.</li>
+    </ol>
+  </li>
+  <li>Open <strong>AppDelegate.m</strong>, under <code class="highlighter-rouge">#import "AppDelegate.h"</code> write</li>
+</ol>
 
 <pre><code class="language-objective-c">#import "AEAudioController.h"
 </code></pre>
@@ -122,6 +128,7 @@
 
 <pre><code class="language-objective-c">@class AEAudioController;
 </code></pre>
+
 <p>This is a <a href="http://stackoverflow.com/questions/5191487/objective-c-forward-class-declaration">forward declaration</a> of <code class="highlighter-rouge">AEAudioController</code>. We’ll be importing <strong>AEAudioController.h</strong> in the app delegate’s implementation (it’s cleaner to import it here to avoid circular inclusions of files).</p>
 
 <p>Let’s now add an <code class="highlighter-rouge">AEAudioController</code> property to our <code class="highlighter-rouge">AppDelegate</code>:</p>
@@ -142,12 +149,12 @@
 
 <p>This is a <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html">class extension</a> in which we allow the implementation of AppDelegate to actually set its <code class="highlighter-rouge">audioController</code> property.</p>
 
-<p>At the end of the <code class="highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:<br />
-<code class="highlighter-rouge">objective-c
-self.audioController = [[AEAudioController alloc]
+<p>At the end of the <code class="highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:</p>
+
+<pre><code class="language-objective-c">self.audioController = [[AEAudioController alloc]
                         initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
                         inputEnabled:NO];
-</code></p>
+</code></pre>
 
 <p>Your <strong>AppDelegate.m</strong> should look like this:</p>
 
@@ -172,10 +179,10 @@ self.audioController = [[AEAudioController alloc]
 }
 </code></pre>
 
-<p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="highlighter-rouge">#import "ViewController.h"</code>, write:<br />
-<code class="highlighter-rouge">objective-c
-#import "AppDelegate.h"
-</code></p>
+<p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="highlighter-rouge">#import "ViewController.h"</code>, write:</p>
+
+<pre><code class="language-objective-c">#import "AppDelegate.h"
+</code></pre>
 
 <p>In <code class="highlighter-rouge">viewDidLoad</code>, write:</p>
 
@@ -207,18 +214,18 @@ self.audioController = [[AEAudioController alloc]
 
 <p>STK source files are written in C++, so any source file that imports them must be Objective-C++. Rename <strong>ViewController.m</strong> to <strong>ViewController.mm</strong> so that it becomes Objective-C++.</p>
 
-<p>Open <strong>ViewController.mm</strong> and under <code class="highlighter-rouge">#import "AppDelegate.h"</code>, write: <br />
-<code class="highlighter-rouge">objective-c
-#import "AEBlockChannel.h"
+<p>Open <strong>ViewController.mm</strong> and under <code class="highlighter-rouge">#import "AppDelegate.h"</code>, write:</p>
+
+<pre><code class="language-objective-c">#import "AEBlockChannel.h"
 #import "Mandolin.h"
-</code></p>
+</code></pre>
 
 <h3 id="rawwaves">Rawwaves</h3>
 
-<p>The <code class="highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="highlighter-rouge">viewDidLoad</code> code we wrote, add this line:<br />
-<code class="highlighter-rouge">objective-c
-stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
-</code></p>
+<p>The <code class="highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="highlighter-rouge">viewDidLoad</code> code we wrote, add this line:</p>
+
+<pre><code class="language-objective-c">stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
+</code></pre>
 
 <h3 id="the-mandolins-user-interface">The mandolin’s user interface</h3>
 
@@ -260,7 +267,7 @@ stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofT
 
 <p>Those are the basics of our UI.</p>
 
-<p>##The mandolin’s back-end</p>
+<h2 id="the-mandolins-back-end">The mandolin’s back-end</h2>
 
 <p>In <strong>ViewController.mm</strong>, add an instance variable for our <code class="highlighter-rouge">AEBlockChannel</code>:</p>
 
