@@ -34,7 +34,7 @@
 
       <div class="trigger">
           <a href="/apps">Apps</a><span> |</span>
-          <a href="/libraries">Libraries</a><span> |</span>
+          <a href="/open-source">Open-source</a><span> |</span>
           <a href="/articles">Articles</a><span> |</span>
           <a href="/talks">Talks</a><span> |</span>
           <a href="/cooking">Cooking</a><span> |</span>
@@ -166,15 +166,15 @@
 
 <ul>
   <li>You don’t have to create and configure a <code class="highlighter-rouge">NSURLSession</code> object every time you want to create a <code class="highlighter-rouge">NSURLSessionTask</code></li>
-  <li>You centralise all the information relative to the active tasks in one place. For example, you can do:<br />
+  <li>You centralise all the information relative to the active tasks in one place. For example, you can do:
 <code class="highlighter-rouge">objective-c
 [self dataSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
   NSLog(@"Here are my data tasks: %@", dataTasks);
 }
 </code></li>
-  <li>You centralise control of all the <code class="highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:<br />
-```objective-c<br />
-[[self dataSession] invalidateAndCancel];<br />
+  <li>You centralise control of all the <code class="highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:
+```objective-c
+[[self dataSession] invalidateAndCancel];
 [[self dataSession] flushWithCompletionHandler:nil];</li>
 </ul>
 
@@ -230,8 +230,8 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 <h3 id="trying-it-out">Trying it out</h3>
 
-<p>We’re going to put our <code class="highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:<br />
-* We’ll use the Open Weather Map API to get temperature data for Kathmandu.<br />
+<p>We’re going to put our <code class="highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:
+* We’ll use the Open Weather Map API to get temperature data for Kathmandu.
 * We’ll use the Reddit API to download images.</p>
 
 <p>Here’s the idea:</p>

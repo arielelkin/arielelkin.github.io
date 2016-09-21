@@ -104,6 +104,7 @@ pre {
   padding: 8px 12px;
   overflow-x: auto; }
   pre > code {
+    white-space: pre-wrap;
     border: 0;
     padding-right: 0;
     padding-left: 0; }

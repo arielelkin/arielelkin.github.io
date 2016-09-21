@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Why I&#39;m not a React Native Developer</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://arielelkin.github.io/articles/why-im-not-a-react-native-developer.html">
+  <link rel="alternate" type="application/rss+xml" title="Ariel Elkin" href="https://arielelkin.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Ariel Elkin's Website</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+          <a href="/apps">Apps</a><span> |</span>
+          <a href="/open-source">Open-source</a><span> |</span>
+          <a href="/articles">Articles</a><span> |</span>
+          <a href="/talks">Talks</a><span> |</span>
+          <a href="/cooking">Cooking</a><span> |</span>
+          <a href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51731054-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Why I'm not a React Native Developer</h1>
+  </header>
+
+  <div class="post-content">
+    <p>Many people are currently assessing React Native as a <em>platform</em> to develop their next mobile app on. This is no trivial matter. Switching your software development platform involves a high setup cost and will profoundly impact your daily programming workflow. It is also one of the costliest decisions to reverse after anything substantial has been built.</p>
+
+<p>Perhaps more importantly, your software development platforms also shape you as a software engineer. A software development platform encourages (or forces) the use of one language over another, prioritises certain architectures over others, requires using specific tools and workflows, and marries you to an entire ecosystem and its developer community.</p>
+
+<p>Facebook wants you to switch:</p>
+
+<p><img src="https://i.imgur.com/GWXQehS.png" alt="Is Facebook's intention with React Native to wholly replace native mobile development as we know it today? Yes" /></p>
+
+<p>And the React Native Team’s sustained and painstaking efforts match the ambition. The’ve produced a software development platform so substantial that it can legitimately be considered a replacement for our traditional Xcode/Swift/ObjC stack.</p>
+
+<p>Would it be a viable replacement? The blog posts I’ve read about React Native provide a rather cursory assessment of it. None has assessed its advantages <em>and</em> disadvantages with the depth you’d expect from someone trying to persuade you to change your software development platform.</p>
+
+<p>Having spent several months using React Native, I have found that it is neither a platform I would develop in, nor a platform I would recommend the use of. This article proposes to provide a more thorough evaluation of the pros and cons of switching from Swift development to React Native, and will argue against the switch.</p>
+
+<h1 id="pros">Pros</h1>
+
+<h2 id="declarative-style">Declarative style</h2>
+
+<p>One thing I’ve found delightful about working with React Native was the declarative style in which the UI is programmed. In the React way of doing things, UI is <em>a function of</em> state and properties, whereas in Cocoa Touch, UI is imperatively written.</p>
+
+<p>The following example will clarify what I mean. Suppose our UI needs to include a small square on the top left side of the screen, this small square should be red if, say, the user is connected and green if the user is not connected.</p>
+
+<p>Here’s how we typically do it on iOS:</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+  <span class="k">let</span> <span class="nv">indicatorView</span> <span class="o">=</span> <span class="kt">ConnectivityIndicatorView</span><span class="p">()</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+
+    <span class="k">let</span> <span class="nv">indicatorViewFrame</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">origin</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">20</span><span class="p">))</span>
+    <span class="n">indicatorView</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">indicatorViewFrame</span>
+    <span class="n">view</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">indicatorView</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">class</span> <span class="kt">ConnectivityIndicatorView</span><span class="p">:</span> <span class="kt">UIView</span> <span class="p">{</span>
+
+  <span class="k">var</span> <span class="nv">isConnected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">{</span>
+    <span class="k">didSet</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="n">isConnected</span> <span class="p">{</span>
+        <span class="n">backgroundColor</span> <span class="o">=</span> <span class="o">.</span><span class="n">green</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">backgroundColor</span> <span class="o">=</span> <span class="o">.</span><span class="n">red</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">didMoveToSuperview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">didMoveToSuperview</span><span class="p">()</span>
+
+    <span class="k">let</span> <span class="nv">weAreConnected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="nf">arc4random</span><span class="p">()</span><span class="o">%</span><span class="mi">10</span> <span class="o">&gt;</span> <span class="mi">4</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">isConnected</span> <span class="o">=</span> <span class="n">weAreConnected</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>In the imperative style, you specify all the steps required to update the UI. We need to listen for changes in <code class="highlighter-rouge">isConnected</code> and update the view accordingly. We tell iOS <em>how</em> to compute state.</p>
+
+<p>Compare this with React’s declarative way:</p>
+
+<blockquote>
+  <p>Simply express how your app should look at any given point in time, and React will automatically manage all UI updates when your underlying data changes.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Root extends Component {  
+  render() {
+    return (
+      &lt;ConnectivityIndicatorView /&gt;
+    );
+  }
+}
+
+class ConnectivityIndicatorView extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      isConnected: false
+    }
+  }
+
+  componentDidMount() {
+
+    var weAreConnected = Math.floor(Math.random() * 10) &gt; 5;
+
+    if (weAreConnected === true) {
+      this.setState({
+        isConnected: true
+      })
+    } 
+    else {
+      this.setState({
+        isConnected: false
+      })
+    }
+  }
+
+
+  render() {
+    var color;
+    if (this.state.isConnected) {
+      color = 'green'
+    }
+    else {
+      color = 'red'
+    }
+    return (
+      
+      &lt;View style={{'backgroundColor': color, 'width': 20, 'height': 20}}&gt;
+      &lt;/View&gt;
+    )
+  }
+}
+</code></pre>
+</div>
+
+<p>React’s declarative style makes you <em>describe</em> your UI with React within the view’s <code class="highlighter-rouge">render()</code> method. The React framework ensures that any changes in state trigger re-rendering. Changes in your data (i.e. when <code class="highlighter-rouge">backgroundColor</code> changes) automatically trigger a change in the UI.</p>
+
+<p>This effectively does away with you manually updating views in response to changes in the model. Whether or not you like being relieved of that responsibility, React does a very good job at ensuring that the updates are carried out according to your descriptions, and you no longer have to worry about rolling out and maintaining a property setter for that <code class="highlighter-rouge">isConnected</code> variable. All you update is the state.</p>
+
+<p>You’ll also notice that you end up reasoning of UI elements as if they were functions rather than instances of classes. They take in state and render a UIKit object. The purpose of a <code class="highlighter-rouge">Component</code> is to return itself in the state it’s supposed to be, when requested.</p>
+
+<p>I found it to be a useful way to think about UI. And it’s a good evolution from MVC, with the View being just responsible for displaying itself and not for managing data, a welcome departure from <code class="highlighter-rouge">UIViewController</code> and its turning a blind eye to incestuous relationships between V and C.</p>
+
+<h2 id="faster-iterations">Faster iterations</h2>
+
+<p>React Native’s appeal isn’t just intellectual, the framework will appeal to the pragmatically minded too.</p>
+
+<p>When you program in React Native, the framework will create a local server that serves the JavaScript files you’re working on. You build the app <em>once</em>, run it on the iOS Simulator or a device, and React Native ensures that any changes you make in the JavaScript are reflected in the app.</p>
+
+<p>You’re given two options:</p>
+
+<ul>
+  <li>Live Reloading will reload the app every time you edit and save one of its files. Basically saves you from switching to the Simulator and pressing <code class="highlighter-rouge">⌘ + R</code>.</li>
+  <li>Hot Reloading doesn’t reload the entire app, it only reloads the file you just edited. If, say, you’re working on the UI of a table view cell deep inside a navigation stack, the change will be immediately reflected in the cell you see in the Simulator, you won’t have to navigate from the startup screen to the cell to see the changes. And the component will stay in the state it’s already in. It’s a WYSIWYG programming experience, a luxury that Xcode has never afforded you for your apps.</li>
+</ul>
+
+<p>I remember having to add a debug method in AppDelegate for every ViewController I’d want the app to show on startup, so that I wouldn’t have to manually navigate down to it every time I’d run the app to see the changes I had just coded in. Hot Reload now makes me feel like a caveman.</p>
+
+<p>React Native’s feedback loop is <em>bewitchingly</em> low. It takes less than one or two seconds between you saving a file and seeing the change in your app. That’s easily ten times less than the typical Build and Run cycle we’re used to in Xcode.</p>
+
+<p>This allows over-the-air code updates. Any changes in your JavaScript code can be instantly pushed to your users while the app is in production.</p>
+
+<h2 id="cross-platform">Cross-platform</h2>
+
+<p>Remember that graceless and awkward conversation?</p>
+
+<blockquote>
+  <p>“Great app! Does it run on Android? […] Oh. And when do you plan to release an Android version? […] Oh.”</p>
+</blockquote>
+
+<p>Your codebase can now create an app that can run on millions of additional devices, and you’ve increased your outreach by several orders of magnitude.</p>
+
+<p>And I can attest that the same codebase will reliably produce the same-looking and same-acting app on both platforms.</p>
+
+<p>Being able to produce an Android incarnation of your app from the same codebase, graphically and functionally equivalent to its iOS counterpart, is empowering.</p>
+
+<p>The obvious advantages of any cross-platform frameworks are always compelling: market development, unified codebase, and a unified skill set required to maintain the app’s codebase.</p>
+
+<h1 id="cons">Cons</h1>
+
+<h2 id="uncertain-roadmap">Uncertain roadmap</h2>
+
+<p>A major concern with using React Native is the lack of long-term commitment for the project.</p>
+
+<p>If this project were a mere plug-and-play <em>component</em> of my app, like a networking library or an SVG to <code class="highlighter-rouge">CGPath</code> renderer, its long-term survival and maintenance is a secondary concern of mine; for if its developers abandon it, or if its pace of development is unsatisfactory – sad as that may be – I can replace it with a roughly equivalent library or take up maintenance myself. It might be a big deal, but in any case it won’t be a huge deal; I make sure to have loose enough couplings with all my third-party libraries/Cocoapods to ensure that the whole project doesn’t collapse if one library stagnates or goes missing.</p>
+
+<p>But React Native is not a plug-and-play Cocoapod, it’s not a mere SDK, it’s not a mere library, it’s an entire software development platform. Saying my app has a “tight coupling” to it would be an understatement, my app is <em>entirely dependent</em> on it. If Facebook stops maintaining React Native, my app will stagnate, and there won’t be a “React Native replacement” at my disposal. If I want to carry on development of it myself, I’ll have to get familiar with the the React Native source, <em>as well as</em> the React.js codebase, the React Native CLI tools, and <code class="highlighter-rouge">JavaScriptCore</code>. Will the community ensure the project survives? Maybe – and if it does it probably will not be at the pace that we’re used to.</p>
+
+<p>On the GitHub repository you’ll see a new React Native release at a healthy pace of roughly once every two weeks. Not bad for a software development platform that targets two separate and complex software development platforms. Promising as that may be today, Facebook hasn’t made <em>any</em> long-term commitments to maintaining React Native for a sustained period of time. The company hasn’t provided <em>any</em> guarantees that it <em>won’t</em> pull the plug on the project – not just for the foreseeable future, but for the lifetime of <em>your app</em>. In other words, you currently don’t have any guarantees it’ll <em>ever</em> be compatible with iOS 11, or 12.</p>
+
+<blockquote>
+  <p>Here’s to the next year!</p>
+</blockquote>
+
+<p>Ends an official React Native blog post from April 2016. What about the ones after? Facebook is <em>worryingly</em> silent about that.</p>
+
+<blockquote>
+  <p>We will publish plans quite soon - Konstantin</p>
+</blockquote>
+
+<p>Said the React Native team, back in December 2015. Those plans haven’t yet been published. The results of Facebook’s long-term cost-benefit analysis of React Native, if there ever was one, sound less awesome than you thought.</p>
+
+<p>Again, we’re not talking about an individual Cocoapod, we’re talking about <em>the only platform your code can run on</em>. It’s the kind of thing you do need very-long-term visibility on, and you don’t have any.</p>
+
+<h2 id="patently-daunting">Patently daunting</h2>
+
+<p>Alongside its permissive BSD-style license, React Native ships with Facebook’s <strong>Additional Grant of Patent Rights</strong>, Version 2. Facebook’s motives for including this file aren’t clear, nor is the file itself.</p>
+
+<p>It’s a bipolar document. Right after the document grants you a “perpetual, worldwide, royalty-free, non-exclusive, irrevocable” license to use React Native, we are served with the following clause:</p>
+
+<blockquote>
+  <p>The license granted hereunder will terminate, automatically and without notice, if you (or any of your subsidiaries, corporate affiliates or agents) initiate directly or indirectly, or take a direct financial interest in, any Patent Assertion: (i) against Facebook or any of its subsidiaries or corporate affiliates, (ii) against any party if such Patent Assertion arises in whole or in part from any software, technology, product or service of Facebook or any of its subsidiaries or corporate affiliates, or (iii) against any party relating to the Software.</p>
+</blockquote>
+
+<p>I’m not a lawyer, so I’ve asked a lawyer to help me clarify this (and if you’re not a lawyer you should too). According to him, that clause boils down to this: if I initiate <em>any</em> lawsuit alleging patent infringement against Facebook, my license to use React Native would be immediately terminated. (I’ve quoted his more detailed breakdown in the Appendix below.)</p>
+
+<p>In practice, this seems like a deterrent to me suing Facebook over patents. By implication, it also seems to give Facebook a good deal of breathing room to infringe <em>my</em> patents (“nice quantum physics technology you have here, would be a shame if something bad were to happen to your app”).</p>
+
+<p>You may find the above interpretation pessimistic. But you should be pessimistic when evaluating software licenses and patents. We assess the efficiency of our algorithms in terms of how well they perform in the worst <em>possible</em> scenario. I think that’s how we ought to evaluate software licenses and patents too – for exactly the same reasons.</p>
+
+<p>A linear search algorithm will perform optimally in scenarios where the target value happens to be the first in the list, but that fact <em>alone</em> isn’t sufficient to persuade me of using linear search algorithms in any given scenario. <em>If it is possible</em> for the target value to be the last in the list, my linear search algorithm’s average performance will be very poor.</p>
+
+<p>Likewise, the fact that Facebook happens not to be a serial IP infringer <em>today</em> reassures me little <em>if it is possible</em> for Facebook to become a serial IP infringer tomorrow and punish any retaliation from my side by revoking my license to use React Native. If Facebook were to infringe my IP tomorrow (however unrelated to my software it is) and I sue them for it, I have given them the right to pull the plug on my app.</p>
+
+<p>What I’m jeopardising here is both <em>the platform</em> my app depends on <em>as well as</em> my intellectual property.</p>
+
+<p>iOS apps enter the App Store <em>entirely</em> at Apple’s discretion. I don’t want to multiply that uneasy feeling by two.</p>
+
+<h3 id="patently-silent">Patently silent</h3>
+
+<p>Is the interpretation above correct? Is that worst-case scenario a possibility? Do I have a good reason to be worried? Do I have a good reason <strong>not</strong> to be worried?</p>
+
+<p>In various GitHub issues and forums posts, developers have claimed that their legal departments have advised them <em>not</em> to use React or React Native precisely because of this clause. Matters remain deplorably ambiguous for developers who don’t have a legal department at hand.</p>
+
+<p>More worryingly, Facebook hasn’t made any substantial efforts to clarify matters. A 2015 post on the Facebook Open Source blog acknowledges this “confusion” and cheerfully announced clarifications to its Additional Grant of Patent Rights. More than five related GitHub issues later, the fog hasn’t cleared.</p>
+
+<p>Various Facebook developers have responded to the issues, attempting to reassure developers while making it clear that whatever they wrote was not an assurance of anything. One of them even offered links to discussions of the issue on Reddit and Hacker News – unhelpfully, and rather misleadingly.</p>
+
+<p>This has turned into an exercise in hermeneutics and speculation over a question of genuine importance: Can Facebook revoke its React Native license? If so, under what conditions?</p>
+
+<h2 id="javascript">Javascript</h2>
+
+<p>A crucial downside to switching to React Native from Swift is the <strong>technical regress</strong>: you have to adopt and use JavaScript, a language that’s</p>
+
+<ul>
+  <li>technically defective</li>
+  <li>unsafe</li>
+  <li>slowly evolving</li>
+</ul>
+
+<p>Allow me to argue why.</p>
+
+<p>All the examples of JavaScript code hereafter will be of valid JavaScript (ES2016) code</p>
+
+<h3 id="javascripts-inadequacy">Javascript’s inadequacy</h3>
+
+<p>One of my favourite bumper stickers proclaims:</p>
+
+<blockquote>
+  <p>Safety is no accident</p>
+</blockquote>
+
+<p>At first sight, the wit in this quip lies in its double meaning. We are offered a definition of safety as the absence of accidents <em>and</em> the suggestion that it is the product of a set of safeguards.</p>
+
+<p>Is safety the product of the safeguards baked into your car, such as seat belts and airbags, or of your safe driving?</p>
+
+<p>The answer, of course, is <em>both in equal measure</em>.</p>
+
+<p>Drivers should prefer cars that have the widest amount of safeguards built into them. Not because they make driving <em>easier</em>, but because they decrease your chances of having a <em>preventable</em> accident.</p>
+
+<p>Likewise, a programming language should offer safeguards against programmer error.</p>
+
+<p>The fact that millions of drivers productively drive cars without wearing a seatbelt isn’t a good argument for cars with no seat belt. Similarly, the fact that millions of JavaScript developers productively use an inherently unsafe language isn’t a good argument for the use of unsafe languages.</p>
+
+<p>The importance of safety in a programming language is one that I appreciated as the tools for iOS development evolved.</p>
+
+<p>When Automatic Reference Counting came to Objective-C, you had the option to switch it off for your iOS project. Why was it a bad idea to switch off ARC? Because the compiler could now perform an evaluation of the lifetime of your objects that was more accurate than yours. “The compiler is smarter than you” was the mantra, and that was certainly the case at least as far as reference counting was concerned. I remember how satisfied I was to realise that my <code class="highlighter-rouge">EXC_BAD_ACCESS</code> runtime crashes were decimated as a result.</p>
+
+<p>Objective-C gives you the option of setting the type of a variable to <code class="highlighter-rouge">id</code>, which stood for “any type whatsoever”. But it is bad practice to use it for a variable whose type you know because it opens the door to runtime crashes – <em>that the compiler could prevent</em>. If it’s a problem that the compiler can solve, you let the compiler solve it – and tackle interesting problems instead.</p>
+
+<p>You’ll remember <code class="highlighter-rouge">unrecognized selector sent to instance</code> crashes. You were calling a method on an object that didn’t respond to it. Type error. Third of all my bugs.</p>
+
+<p>Unsurprisingly, one of my first reactions after using Swift was “this was made by someone who got tired of preventable runtime crashes in Objective-C”.</p>
+
+<p>Swift is safe. The compiler won’t let you pass in an <code class="highlighter-rouge">Int</code> to a function that expects a <code class="highlighter-rouge">String</code>. In fact, if the compiler isn’t able to infer a type, you have to explicitly set it.</p>
+
+<p>But JavaScript lacks these safeguards against programmer error, making <em>preventable</em> runtime crashes and <em>preventable</em> programmer errors part of your <em>routine</em>.</p>
+
+<h4 id="type-errors">Type errors</h4>
+
+<p>The language does not enforce type of variables and parameters to functions:</p>
+
+<p>Any variable can be anything at any time:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
+
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">j</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">23</span>
+
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="s1">'hello'</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="c1">//hello</span>
+</code></pre>
+</div>
+
+<p>JavaScript makes you believe that it has some notion of types and class, with keywords like <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">typeof</code>, and <code class="highlighter-rouge">instanceof</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+  <span class="c1">//nobody is immortal:</span>
+  <span class="nx">isImmortal</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">()</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">p</span><span class="p">)</span> <span class="c1">//object</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span><span class="p">())</span> <span class="c1">//false</span>
+
+<span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span><span class="p">())</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
+</code></pre>
+</div>
+
+<p>Here we see the following:</p>
+
+<ul>
+  <li>JavaScript’s notion of “class”, “type”, and “instance” is completely different from the majority of the programming world.</li>
+  <li>types serve no useful purpose in JavaScript, as it’s too easy to <em>unreliably</em> define a type.</li>
+</ul>
+
+<p>Remember those <code class="highlighter-rouge">unrecognized selector sent to instance</code> crashes? Thought they were no longer part of your life? Here’s their incarnation in React Native:</p>
+
+<p><img src="https://i.imgur.com/J5ugzMI.png" alt="this.foo is not a function" /></p>
+
+<h4 id="lack-of-optionals">Lack of optionals</h4>
+
+<p>A very large amount of bugs in Objective-C code (and in many other older programming languages) are due to programmers inadvertently calling methods on objects that are <code class="highlighter-rouge">nil</code>.</p>
+
+<p>In the world of React Native and JavaScript, this error is common:</p>
+
+<p><img src="https://i.imgur.com/vAJFl7X.png" alt="screenshot showing null is not an object error" /></p>
+
+<p>And preventable, both in theory and in practice.</p>
+
+<p>Swift did away with this problem by implementing optionals, which force you to take required <code class="highlighter-rouge">nil</code> checks if you know that an object can be <code class="highlighter-rouge">nil</code>.</p>
+
+<h4 id="lack-of-function-signature">Lack of function signature</h4>
+
+<p>In JavaScript, functions don’t have a return type, you don’t know what can be returned by the function, or if it returns anything at all.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'im a number'</span>
+
+<span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">//NaN</span>
+</code></pre>
+</div>
+
+<p>Let’s make this even more fun. In JavaScript, any expression can be evaluated at any time by any function. Consider this example using two functions from the JavaScript standard library; <code class="highlighter-rouge">map</code>, which is supposedly the equivalent of Swift’s <code class="highlighter-rouge">map</code>, and <code class="highlighter-rouge">parseInt</code>, which parses a string into an integer.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="c1">//[1, NaN, NaN]</span>
+</code></pre>
+</div>
+
+<p>This messed up result is due to the fact that <code class="highlighter-rouge">parseInt</code> takes two parameters <code class="highlighter-rouge">(val, radix)</code> but <code class="highlighter-rouge">map</code> passes it 3 parameters <code class="highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
+
+<h4 id="immutability">Immutability</h4>
+
+<p>JavaScript’s support for immutability is very poor.</p>
+
+<p>There is a <code class="highlighter-rouge">const</code> operator, which helps ensure primitives don’t get mutated. But anything that’s not a primitive is as malleable as jell-o:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="nx">array</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="c1">// [3, 6, 32: 9]</span>
+
+
+<span class="kr">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
+<span class="nx">bar</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">999</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">number</span><span class="p">)</span> <span class="c1">// 999</span>
+</code></pre>
+</div>
+
+<p>Unique copies? Nope. Any unique object could be modified by any part of your app at any time. Good luck multithreading. Indeed,</p>
+
+<blockquote>
+  <p>Much of what makes application development difficult is tracking mutation and maintaining state.</p>
+</blockquote>
+
+<p>Says… Facebook, in the documentation of Immutable.js. (A framework designed to bring immutable data structures to JavaScript.)</p>
+
+<p>But here’s how you enforce immutability in React.</p>
+
+<p><img src="https://i.imgur.com/SMvOwOA.png" alt="" /></p>
+
+<p>You politely ask the developers to not mutate state. Yes, that’s a screenshot from the React documentation.</p>
+
+<h4 id="you-cant-trust-arrays">You can’t trust arrays</h4>
+
+<p>You thought arrays were a “systematic arrangement of similar objects, usually in rows and columns”? Think again.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="nx">array</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"watsup"</span>
+
+<span class="nx">array</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">999</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="c1">//0,1,2,999,watsup</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="nx">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="c1">//0,1,2,undefined,999</span>
+<span class="p">}</span>
+
+<span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="c1">//0,1,2,999</span>
+<span class="p">})</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="c1">//undefined</span>
+</code></pre>
+</div>
+
+<p>JavaScript arrays have more in common with ordinary JavaScript objects than with what we’d call an array. Their lack of precise sequentiality and mutability doesn’t make them well-behaved.</p>
+
+<h4 id="poor-error-handling">Poor error handling</h4>
+
+<p>In JavaScript, you can have <em>any</em> function throw a runtime error or exception, without warning.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">tenDividedBy</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="s2">"can't divide by zero"</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">10</span> <span class="o">/</span> <span class="nx">number</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tenDividedBy</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>You can throw <em>anything</em> you want as an exception; a string, a <code class="highlighter-rouge">Date</code>, a function, etc. There is no mechanism for you to mark a function as potentially crashing your teammate’s code or for specifying how to process an exception. Use <code class="highlighter-rouge">if</code> statements instead, say the docs:</p>
+
+<blockquote>
+  <p>It’s best to leave exceptions as a last line of defense, for handling the exceptional errors you can’t anticipate, and to manage anticipated errors with control flow statements.</p>
+</blockquote>
+
+<h4 id="no-support-for-decimals">No support for decimals</h4>
+
+<p>Given that most decimal fractions cannot be accurately represented as binary fractions in hardware, many programming languages (including JavaScript and Swift) will often produce mathematically incorrect decimal arithmetic:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1">//0.30000000000000004</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c1">//false</span>
+</code></pre>
+</div>
+
+<p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
+
+<h4 id="dodgy-maths">Dodgy maths</h4>
+
+<p>Remember to be careful with primary school arithmetic too. JavaScript has a complicated relationship with <code class="highlighter-rouge">0</code> and things that are not numbers.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">0</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="c1">// true</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nx">a</span> <span class="o">===</span> <span class="mi">1</span><span class="o">/</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// false</span>
+
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">)</span> <span class="c1">//false</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="c1">//true</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="s1">'i like pumpkins'</span><span class="p">))</span> <span class="c1">//true</span>
+</code></pre>
+</div>
+
+<h4 id="unsafe-initialisation">Unsafe initialisation</h4>
+
+<p>JavaScript allows for objects to be left in an inconsistent state right after being created, as their properties don’t need to be initialised.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+  <span class="nx">constructor</span> <span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span>
+  <span class="p">}</span>
+  <span class="nx">area</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">width</span> <span class="o">*</span> <span class="nx">height</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Square</span> <span class="kr">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="kr">super</span><span class="p">()</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myRect</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">()</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myRect</span><span class="p">.</span><span class="nx">area</span><span class="p">())</span> <span class="c1">// ReferenceError: width is not defined</span>
+</code></pre>
+</div>
+
+<h4 id="optional-curly-braces-after-an-if">Optional curly braces after an <code class="highlighter-rouge">if</code></h4>
+
+<p>Curly braces after an <code class="highlighter-rouge">if</code> statement are optional:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> 
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ha"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"he"</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ho"</span><span class="p">)</span>
+
+<span class="cm">/*prints: 
+  he
+  hi
+  ho
+  */</span>
+</code></pre>
+</div>
+
+<p>To add that taste of adventure to your control flow statements.</p>
+
+<h4 id="ambiguous-curly-braces">Ambiguous curly braces</h4>
+
+<p>Unless programmer intent can be very accurately inferred, a language shouldn’t let curly braces be optional.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span>
+  <span class="p">{</span>
+    <span class="p">{</span><span class="na">a</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="c1">//undefined</span>
+</code></pre>
+</div>
+
+<h4 id="switch-fallthrough">Switch fallthrough</h4>
+
+<p>If you forget to include a <code class="highlighter-rouge">break</code> statement in a clause of a <code class="highlighter-rouge">switch</code> statement, you fall through. Also, a <code class="highlighter-rouge">swift</code> statement doesn’t carry out checks for case exhaustivity.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">case</span> <span class="mi">32</span><span class="err">:</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'spot on'</span><span class="p">)</span>
+   <span class="k">case</span> <span class="mi">0</span><span class="err">:</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'zero'</span><span class="p">)</span>   
+<span class="p">}</span>
+
+<span class="cm">/* prints:
+
+  spot on
+  zero
+*/</span>
+</code></pre>
+</div>
+
+<h4 id="whats-nothing">What’s nothing?</h4>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">===</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">//false </span>
+<span class="nx">foo</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">//true</span>
+</code></pre>
+</div>
+
+<p>Yes, something that’s not <code class="highlighter-rouge">null</code> could be nothing for all intents and purposes. Not a helpful distinction.</p>
+
+<p>And what if you want to know whether a variable contains any data? Well, for your checks to be exhaustive, you need to check for both <code class="highlighter-rouge">null</code> and <code class="highlighter-rouge">undefined</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">shootMyself</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h4 id="poor-expressivity">Poor expressivity</h4>
+
+<ul>
+  <li>No enums. Let alone enums with associated types. Good luck reliably representing state.</li>
+  <li>No <code class="highlighter-rouge">guard</code> statement.</li>
+  <li>No generics.</li>
+  <li>No <code class="highlighter-rouge">where</code> statement to increase expressivity of control flow statements.</li>
+</ul>
+
+<h4 id="exceedingly-slow-evolution">Exceedingly slow evolution</h4>
+
+<p>Behold, ES2016 brought these new features to JavaScript:</p>
+
+<ol>
+  <li>The <code class="highlighter-rouge">includes</code> method for arrays.</li>
+</ol>
+
+<p>It checks if an array contains a specified value. Here’s how you use it:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}]</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">includes</span><span class="p">({</span><span class="s2">"hello"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}))</span> <span class="c1">// false</span>
+
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span> 
+
+<span class="kd">var</span> <span class="nx">otherArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">otherArray</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">// true</span>
+</code></pre>
+</div>
+
+<p>Try not to.</p>
+
+<ol start="2">
+  <li>The <b>**</b> operator</li>
+</ol>
+
+<p>To be used for exponentiation. <code class="highlighter-rouge">a ** b</code> is shorthand for <code class="highlighter-rouge">Math.pow(x, y)</code>.</p>
+
+<p>Consider this: Python’s <code class="highlighter-rouge">**</code> operator was in Python 1. Ruby’s <code class="highlighter-rouge">**</code> operator has been in Ruby for more than 20 years.</p>
+
+<p>So it took JavaScript 20 years to add a basic arithmetic operator and a quite limited membership-checking method for arrays, as a year’s worth of improvements.</p>
+
+<h4 id="flow-to-the-rescue">Flow to the rescue!</h4>
+
+<p>Flow is Facebook’s answer to many of the above grievances. It’s a static type-checker for JavaScript, capable of inferring and tracking the types of the variables in your code, and alert you of impending doom.</p>
+
+<p>Recall my example above about the problems that arise from lack of function signature in JavaScript (the <code class="highlighter-rouge">divideByFour</code> function which expects a number but is fed a string). Here’s how Flow would deal with it:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'im a number'</span>
+
+<span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span>
+
+<span class="cm">/* console output: 
+
+fooman.js:8
+  8: console.log(divideByFour(foo))
+                 ^^^^^^^^^^^^^^^^^ function call
+  5:   return number / 4
+              ^^^^^^ string. This type is incompatible with
+  5:   return number / 4
+              ^^^^^^^^^^ number
+
+Found 1 error
+*/</span>
+</code></pre>
+</div>
+
+<p>This fixes many of the problems that occur from JavaScript’s lack of enforceable function signature.</p>
+
+<p>It can also produce the equivalent of generic arrays:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="kr">class</span> <span class="nx">J</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="nx">J</span><span class="p">(),</span> <span class="nx">b</span><span class="p">]</span>
+
+<span class="kd">function</span> <span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="err">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span>
+
+<span class="cm">/* console output:
+
+fooman.js:13
+ 13: giveMeAnArrayOfNumbers(array)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ function call
+  9: var array = [1, new J(), b]
+                         ^ J. This type is incompatible with
+ 11: function giveMeAnArrayOfNumbers(numbers: Array&lt;number&gt;) {}
+                                                    ^^^^^^ number
+
+fooman.js:13
+ 13: giveMeAnArrayOfNumbers(array)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ function call
+  9: var array = [1, new J(), b]
+                              ^ function. This type is incompatible with
+ 11: function giveMeAnArrayOfNumbers(numbers: Array&lt;number&gt;) {}
+                                                    ^^^^^^ number
+Found 2 errors
+
+*/</span>
+
+</code></pre>
+</div>
+
+<p>Flow deals very well with nullability, and will warn you if a value you’d expect not to be <code class="highlighter-rouge">null</code> might be <code class="highlighter-rouge">null</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
+
+<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello "</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+
+<span class="cm">/* console output:
+fooman.js:6
+  6:   console.log("hello " + name)
+                              ^^^^ null. This type cannot be added to
+  6:   console.log("hello " + name)
+                   ^^^^^^^^^^^^^^^ string
+
+
+Found 1 error
+*/</span>
+</code></pre>
+</div>
+
+<p>If <code class="highlighter-rouge">j</code> is supposed to be a <code class="highlighter-rouge">string</code>, but could be <code class="highlighter-rouge">null</code> at any point in time, Flow encourages us to annotate it accordingly. It is thus able to complain if we don’t carry out null-checks before feeding it to anything that needs it to be a non-null <code class="highlighter-rouge">string</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+
+<span class="kd">var</span> <span class="nx">j</span><span class="err">:</span> <span class="p">?</span><span class="nx">string</span> <span class="o">=</span> <span class="kc">null</span>
+
+<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello "</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">j</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="cm">/* console output:
+No errors!
+*/</span> 
+</code></pre>
+</div>
+
+<p>Flow’s features go positively beyond type-checking and annotation, and add support for new constructs. One of them is literal types, which we can use to build, for example, enums.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="nx">type</span> <span class="nx">CompassPoint</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="s2">"North"</span>
+  <span class="o">|</span> <span class="s2">"South"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Compass</span> <span class="p">{</span>
+  <span class="nl">direction</span><span class="p">:</span> <span class="nx">CompassPoint</span><span class="p">;</span>
+  <span class="nl">degrees</span><span class="p">:</span> <span class="nx">number</span> 
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="err">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">=</span> <span class="nx">degrees</span>
+  <span class="p">}</span>
+  <span class="nx">direction</span><span class="p">()</span><span class="err">:</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&gt;</span> <span class="mi">270</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">"North"</span>  
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s2">"South"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And Flow will complain if <code class="highlighter-rouge">direction</code> returns anything that’s not <code class="highlighter-rouge">"North"</code> or <code class="highlighter-rouge">"South"</code>.</p>
+
+<p>Another construct I find useful is Union types, which constrain a value to be one and only one of a predefined set of types. Here’s an example from the Flow docs:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="nx">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="nx">number</span> <span class="o">|</span> <span class="nx">string</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="err">:</span> <span class="nx">U</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">x</span> <span class="o">=</span> <span class="s2">"two"</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>Flow is great friends with React Native, as long as you help it help you. The Flow docs offer a good example of how what happens when you correctly annotate the <code class="highlighter-rouge">proptypes</code> of your component:</p>
+
+<pre><code class="language-jsx">const Greeter = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+  },
+  render() {
+    return &lt;p&gt;Hello, {this.props.name}!&lt;/p&gt;;
+  },
+});
+
+&lt;Greeter /&gt;; // Missing `name`
+&lt;Greeter name={null} /&gt;; // `name` should be a string
+&lt;Greeter name="World" /&gt;; // "Hello, World!"
+</code></pre>
+
+<p>The comments indicate where the Flow warnings appear, adequately reprimanding you for not fulfilling your own contract.</p>
+
+<p>Flow’s an altogether powerful tool. Here are some examples of the useful things its command-line interface lets you do:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">suggest         Shows type annotation suggestions for given files</code></li>
+  <li><code class="highlighter-rouge">type-at-pos     Shows the type at a given file and position</code></li>
+  <li><code class="highlighter-rouge">get-def         Gets the definition location of a variable or property</code></li>
+</ul>
+
+<h4 id="flows-like-flossing">Flow’s like flossing</h4>
+
+<p>Is JavaScript fixed now? No.</p>
+
+<p>Impressive as an engineering effort Flow may be, it remains a superset of JavaScript and thus forces you to build on inherently weak foundations. Hailing Flow (or TypeScript, for that matter) as any kind of remedy for JavaScript’s faults reminds me of Swamp Castle and its King (from Monty Python and the Holy Grail):</p>
+
+<p><img src="https://i.imgur.com/yxap6gp.png" alt="" /></p>
+
+<blockquote>
+  <p>When I first came here, this was all swamp. Everyone said I was daft to build a castle on a swamp, but I built it all the same, just to show them. It sank into the swamp. So I built a second one. That sank into the swamp. So I built a third. That burned down, fell over, then sank into the swamp. But the fourth one stayed up. And that’s what you’re going to get, lad, the strongest castle in all of England.</p>
+</blockquote>
+
+<p>The fact that things can be built on unsafe foundations does not make the foundations any safer, nor does it make the process any more efficient. And our insisting in perpetrating this exercise makes us lose sight of its preposterousness.</p>
+
+<p>Perhaps more revealingly, JavaScript supersets, linters, or static analyzers are really palliative measures to mitigate the fact that you’re dealing with a platform that doesn’t give you a choice of a safer language – if it did, you wouldn’t have to resort to using them.</p>
+
+<p>There is another fundamental problem with these palliative measures. Safeguards, like laws, are worth very little if they’re not actually enforced by the authorities and respected by the community.</p>
+
+<p>Flow doesn’t stop you from building and running React Native apps with code bound to generate runtime crashes. And that is a basic safety requirement for a programming language: if it’s a preventable error, the language should <em>actively prevent</em> it, it should stop me from writing and running unsafe code <em>by default</em>, not as an afterthought.</p>
+
+<p>It just <em>should not be possible</em> for my teammate to write functions that are ambiguous as to their return value, it <em>should not be possible</em> for me to call an method on an object that doesn’t respond to it, it <em>should not be possible</em> for someone to not define <code class="highlighter-rouge">proptypes</code> on a component and me having to manually point out during code review that <code class="highlighter-rouge">proptypes</code> should have been defined.</p>
+
+<p>Flow, like unit testing and flossing, has the curse of being beneficial <em>and</em> optional <em>and</em> wearisome. It’s in your next year’s resolutions.</p>
+
+<p>And that’s the reality: how many public <code class="highlighter-rouge">.js</code> files on GitHub use flow (i.e. contain <code class="highlighter-rouge">@flow</code> to signal they’re Flow-checkable) ? Roughly 1,400,000 out of roughly 80,000,000 public <code class="highlighter-rouge">.js</code> files. That’s… less than 2% public usage of a tool to write safer JavaScript.</p>
+
+<p>On a more relevant note, out of the hundred React Native repositories over at <code class="highlighter-rouge">awesome-react-native</code>, I wasn’t able to find one that made any significant use of Flow and its type annotations. Nor was I able to find a single React Native tutorial mentioning (let alone advising you) the use of Flow.</p>
+
+<h3 id="the-javascript-ecosystem-balls-and-chains">The Javascript Ecosystem: balls and chains</h3>
+
+<p>JavaScript’s deficiencies seem to impress everyone except JavaScript developers, for whom the aspects of JavaScript that I outlined above are not awful warts, they’re “quirks” or “gotchas” that <em>you</em>, not your language, have to be on the lookout for.</p>
+
+<p>This is because JavaScript developers also don’t believe that JavaScript is inadequate.</p>
+
+<p><img src="https://i.imgur.com/x6jGooV.jpg" alt="that's just like your opinion, man" /></p>
+
+<p>The language has no support for immutability? Let’s make a library. The language has no support for typing? Let’s make a library. The language has no support for decimals? Let’s make a library. The language doesn’t allow safe functional programming? Let’s make a library. Language has no support for nullability? Let’s make a library.</p>
+
+<p>Or… given that you acknowledge that those features are fundamentally important, you could just… switch to a language that supports them out of the box? (I don’t know, I’m just throwing ideas out there.)</p>
+
+<p>To my mind, there is a generalised obstinate refusal to see JavaScript as inherently deficient and therefore needing <em>replacement</em> rather than <em>polishing</em>. The resulting proliferation of grafts and crutches is seen as signs of a vibrant ecosystem, whereas what it really shows is that the language is lacking in fundamentally important functionality.</p>
+
+<p>The situation is illustrated very well by this cartoon:</p>
+
+<p><img src="https://i.imgur.com/qPlBUp5.png" alt="" /></p>
+
+<p>“Freedom from digging” is simply choosing a language that has built-in support for the things you need. This digging is not a good use of energy. JavaScript is not naturally conducive to good software engineering also for this reason: it forces you to develop and depend on things that other languages offer by default.</p>
+
+<h4 id="chains">Chains</h4>
+
+<p>JavaScript has bigger fish to fry. It’s a language that needs to cater to the needs of literally <em>billions</em> of internet users, who may or may not update their browser or website. That cripples the development of the language.</p>
+
+<p>Remember <code class="highlighter-rouge">typeof(null) === 'object'</code> ? Well, there was a proposal to change the type of <code class="highlighter-rouge">null</code> to <code class="highlighter-rouge">null</code>. But</p>
+
+<blockquote>
+  <p>it turned out that it broke a lot of existing sites. In the spirit of One JavaScript this is not feasible.</p>
+</blockquote>
+
+<p>And the proposal was rejected. As of ES06, <code class="highlighter-rouge">null</code> is still <code class="highlighter-rouge">object</code>.</p>
+
+<p>JavaScript’s evolution, which caters to the needs of:</p>
+
+<ul>
+  <li>millions of different outdated browser users</li>
+  <li>a set of disparate browser vendors</li>
+  <li>billions of websites and their respective developers</li>
+</ul>
+
+<p>is admirably democratic. But on the other hand, it will be much slower than that of other languages, and it probably won’t prioritise developer ergonomics as much as  portability.</p>
+
+<h4 id="wider-angles">Wider angles</h4>
+
+<p>From a historical perspective, the pattern we’re seeing here, of a seemingly deficient language gaining popularity and being repudiated by the incumbents of the platforms it wants to take over, is poignant and familiar.</p>
+
+<p>Come sit by the fire (of the past flame wars) and I’ll tell you a story.</p>
+
+<p>Back in 1994, Richard Stallman wrote to the newsgroup <code class="highlighter-rouge">comp.lang.tcl</code> an article unambiguously titled “Why you should not use Tcl”. Stallman was sourly unforgiving of Tcl’s shortcomings as a programming language, and denounced what he saw as Tcl’s unfitness for purpose. The parallels with my own grievances against JavaScript are spectacular:</p>
+
+<blockquote>
+  <p>The principal lesson of Emacs is that a language for extensions should not be a mere “extension language”. It should be a real programming language, designed for writing and maintaining substantial programs. Because people will want to do that! […] Tcl was not designed to be a serious programming language.  It was designed to be a “scripting language”, on the assumption that a “scripting language” need not try to be a real programming language.
+So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks structures from which you can make linked lists.  It fakes having numbers, which works, but has to be slow.  Tcl is ok for writing small programs, but when you push it beyond that, it becomes insufficient.</p>
+</blockquote>
+
+<p>His article effectively triggered the Tcl War of 1994. Of all the responses he received, I found John Ousterhout’s (who created Tcl) the most imposing:</p>
+
+<blockquote>
+  <p>Language designers love to argue about why this language or that language <em>must</em> be better or worse a priori, but none of these arguments really matter a lot. Ultimately all language issues get settled when users vote with their feet. If Tcl makes people more productive then they will use it; when some other language comes along that is better (or if it is here already), then people will switch to that language. This is The Law, and it is good.</p>
+</blockquote>
+
+<p>Ousterhout’s counter-attack strikes on many of the fronts I’ve been active in, so his artillery is worth taking a closer look at.</p>
+
+<p>(Some readers will notice Ousterhout argues circularly: “Why do people switch to a language? Because it is better. Why is it better? Because many people switched to it.” His argument deserves a more generous interpretation nevertheless, not least because we often see this line of reasoning in many other arguments for any specific tech stacks, such as, you guessed it, React Native.)</p>
+
+<p>According to Ousterhout, programming languages have features that can make them better <em>a priori</em> (i.e. purely intrinsic characteristics such as programming paradigm, syntax, standard library, or portability) and features that can make them better <em>a posteriori</em> (i.e. widespread adoption by many developers). It doesn’t matter that Language A is <em>a priori</em> better than Language B, if Language A isn’t <em>a posteriori</em> better than Language B.</p>
+
+<p>In other words, adoption trumps technical superiority (regardless of how language designers define superiority).</p>
+
+<p>Ousterhout’s argument fits on a record cover:</p>
+
+<p><img src="https://i.imgur.com/sSQXwte.jpg" alt="" /></p>
+
+<p>The more fans a singer has, the better he is. The point is that popularity, whether it’s quantified by fans or hit records, is a good criterion for evaluating singers.</p>
+
+<p>But the fact that a language enjoys widespread adoption and can boast a sparkling app showcase should not influence your judgement as to its merits.</p>
+
+<p>A gallery of complex or nice-looking apps built using Technology X only means that Technology X <em>may</em> be used to build complex or nice-looking apps; but not that it’s an optimal tool for the job.</p>
+
+<p>Dozens of sandcastle competitions across the world show you the beautiful structures you can build using just sand and water. That may warrant the assertion that sand is a great toy, but sandcastle competitions alone shouldn’t be enough to convince you that you should build your own house out of sand. Yet many are convinced.</p>
+
+<p>The King of Swamp Castle is the king of many Hackers.</p>
+
+<p><img src="http://i.imgur.com/hTEOskq.jpg" alt="nice sandcastle" /></p>
+
+<p>Similarly, popularity is an unreliable criterion for evaluating programming languages. For a pretty basic reason: popularity may very well be the result of vendor lock-in (like being the only programming language that can be run in a browser), bandwagon effects, or legacy codebases.</p>
+
+<p>The intrinsic characteristics of a programming language (such as its safeguards against programmer error, standard library, portability, etc.) are what you should base your criteria on. They are the basis for productivity gains.</p>
+
+<p>In fact, many things lead to negative productivity gains. For example:</p>
+
+<ul>
+  <li>lack of safeguards to prevent you making avoidable errors</li>
+  <li>a tiny standard library, unfit for most purposes</li>
+  <li>syntax and semantics that don’t let you express your intent clearly</li>
+  <li>a slow pace of development</li>
+  <li>All the above (JavaScript)</li>
+</ul>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>React Native has a total of 648 dependencies.</p>
+
+<p><img src="http://i.imgur.com/g8B9S7a.png" alt="648 total dependencies" /></p>
+
+<p>Not particularly surprising, as dependency chains can be long in the world of <code class="highlighter-rouge">npm</code>, React Native’s package manager.</p>
+
+<p>This showcases the comradeship of open source: your app is built on more than 600 people’s sustained efforts.</p>
+
+<p>This is also a pitfall: you depend on 648 volunteers to keep maintaining their library for the lifetime of your app, without any formal commitment.</p>
+
+<p>Will their licenses stay compatible with your software? Hopefully.</p>
+
+<p>And will they all implement best practices in security? Or can you tolerate 648 separate potential security risks?</p>
+
+<h2 id="better-alternatives">Better alternatives</h2>
+
+<p>If cross-platform development is what drew you to React Native, consider your options.</p>
+
+<p>React Native faces strong competition from two established cross-platform development platforms: Xamarin and Appcelerator.</p>
+
+<p>Both Xamarin and Appcelerator offer support for iOS, Android, <em>and</em> Windows Phone. They both have:</p>
+
+<ul>
+  <li>more comprehensive APIs</li>
+  <li>more mature IDEs</li>
+  <li>better documentation</li>
+  <li>clearer and friendlier licensing</li>
+  <li>equal (if not better) performance</li>
+</ul>
+
+<p>Xamarin development is in C#, which is usually less bug-prone and more expressive than JavaScript. If you believe in JavaScript, Appcelerator development is in JavaScript.</p>
+
+<p>Compared to React Native, both Xamarin and Appcelerator have better prospects at longevity. Appcelerator (the maker of Titanium) (runs on apps installed on 350 million devices) was acquired in January 2016, and Xamarin (used by more than one hundred Fortune 500 companies) was acquired in February 2016 (by Microsoft). Both had previously raised more than $80M in equity funding.</p>
+
+<p>Projects are more likely to survive and thrive in this red ocean of cross-platform frameworks (I recently counted more than ten in active development), if they’re backed by companies whose <em>business</em> is to supply me with a reliable software development platform.</p>
+
+<p>(An honorable mention goes to Flutter, a cross-platform development platform (iOS and Android) being written by Google. It uses a language that’s safer and more expressive than JavaScript (Dart), it helps you follow principles of Material design, and produces natively compiled code. Unlike Xamarin and Appcelerator, it’s open-source. It’s currently not production-ready, but it’s promising nonetheless.)</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Good software development platforms have four essential features.</p>
+
+<ul>
+  <li>Portability – can target more than one platform.</li>
+  <li>Productivity – the maturity of its IDE and other development tools, documentation, and expressivity of its development language.</li>
+  <li>Safety – the extent to which the platform prevents you making mistakes.</li>
+  <li>Longevity – how likely the platform will be around for the lifetime of your app.</li>
+</ul>
+
+<p>Even though our industry (<em>still</em>) has no established open standard to measure these, I’d like to offer my evaluation based on my experience and research.</p>
+
+<p>React Native’s strengths in terms of portability and productivity are outweighed by its shortfalls in safety, the uncertainty about its long-term roadmap, and a daunting patent license:</p>
+
+<p><img src="http://i.imgur.com/TgMsSwu.png" alt="React Native Radar Chart" /></p>
+
+<p>Mature platforms such as Xamarin and Appcelerator offer the best portability (with support for Windows phone), their mature development tools and choice of programming language will also offer gains in productivity and safety, and the fact that they are the core product of well-funded companies offer good assurances of longevity:</p>
+
+<p><img src="http://i.imgur.com/ag2OzXC.png" alt="Xamarin/Appcelerator Radar Chart" /></p>
+
+<p>Swift development is a winner in terms of safety, longevity, and productivity. Its portability is relatively low but not negligible: it does not allow you to build an Android version of your app, but it allows you to build a macOS version, and lets you write the app’s server backend:</p>
+
+<p><img src="http://i.imgur.com/syAGZym.png" alt="Swift Radar Chart" /></p>
+
+<p>And that is why I am not a React Native developer.</p>
+
+<h1 id="acknowledgements">Acknowledgements</h1>
+
+<p>My thanks to Rami Chowdhury and Alkis Papadakis for their helpful feedback on early version of this article.</p>
+
+<h1 id="changelog">Changelog</h1>
+
+<p>You can track this article’s edits <a href="https://github.com/arielelkin/site_source/commits/master/articles/why-im-not-a-react-native-developer.markdown">here</a>.</p>
+
+<h1 id="comments">Comments</h1>
+
+<p>Please join the discussion on Hacker News.</p>
+
+<h1 id="references">References</h1>
+
+<ul>
+  <li><a href="https://www.reddit.com/r/IAmA/comments/3wyb3m/we_are_the_team_working_on_react_native_ask_us/cxzvfir">We are the Team working on React Native AMA</a></li>
+  <li><a href="https://medium.com/@dschmidt1992/how-to-pitch-react-native-to-developers-dcf092cb4614#.j3qrkbby6">How to pitch React Native to Developers</a></li>
+  <li><a href="http://classicprogrammerpaintings.com/post/146305408264/functional-programmer-listens-to-javascript">Classic Programmer paintings: “Functional programmer listens to JavaScript claims”</a></li>
+  <li><a href="http://artsy.github.io/blog/2016/08/15/React-Native-at-Artsy/">React Native at Artsy</a></li>
+  <li><a href="https://code.facebook.com/posts/597378980427792/react-native-a-year-in-review/">React Native: A Year in Review</a></li>
+  <li><a href="https://news.ycombinator.com/item?id=12338365">Hacker News Discussion: Node.js is one of the worst things to happen to the software industry</a></li>
+  <li><a href="https://ponyfoo.com/articles/npm-meltdown-security-concerns">npm Meltdown Security Concerns</a></li>
+  <li><a href="React Native: It’s not all sugar and spice">https://blog.addjam.com/react-native-its-not-all-sugar-and-spice-cb5d6b25eae9#.gy4fxnpxz</a></li>
+  <li><a href="https://youtu.be/aNaXdLWt17A">The King of Swamp Castle, from <em>Monty Python and the Holy Grail</em></a></li>
+  <li><a href="https://medium.com/javascript-non-grata/the-three-big-lies-about-javascript-e227cabe3beb#.mpvix0q96">The Three Big Lies About JavaScript</a></li>
+  <li><a href="http://www.whitneyland.com/2015/07/xamarin-review-2015.html">Review: Xamarin in 2015 - Data Corruption and Swift are Not Helping</a></li>
+  <li><a href="http://robnapier.net/product-or-process">Product or Process?</a></li>
+  <li><a href="http://stackoverflow.com/q/17072179/1072846">StackOverflow question: Difference between strongly and weakly typed languages?</a></li>
+  <li><a href="https://medium.com/friendship-dot-js/let-s-make-a-webpage-in-2016-55a673ac791c#.5igpj6hz3">Let’s Make A Webpage In 2016</a></li>
+  <li><a href="https://www.sitepoint.com/why-javascript-is-the-future-of-programming/">Why JavaScript is the Future of Programming</a></li>
+  <li><a href="https://discord.engineering/react-native-deep-dive-91fd5e949933">Using React Native: One Year Later</a></li>
+  <li><a href="http://redmonk.com/sogrady/2016/07/20/language-rankings-6-16/?">Redmonk Language Rankings 2016</a></li>
+  <li><a href="https://www.ted.com/talks/seth_godin_this_is_broken_1">Seth Godin: This is Broken</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Argumentum_ad_populum"><em>Argumentum ad populum</em></a></li>
+  <li><a href="https://news.ycombinator.com/item?id=11147031">Hacker News Discussion: Why C++ sucks (2016 edition)</a></li>
+  <li><a href="https://blog.addjam.com/react-native-its-not-all-sugar-and-spice-cb5d6b25eae9#.s2sc2bgna">React Native it’s not all sugar and spice</a></li>
+  <li><a href="http://wiki.ecmascript.org/doku.php?id=harmony:typeof_null">ECMAScript Wiki: harmony:typeof_null</a></li>
+  <li><a href="http://cube-drone.com/comics/c/relentless-persistence">Cube Drone: Relentless Persistence</a></li>
+  <li><a href="https://www.destroyallsoftware.com/talks/wat">Wat</a></li>
+  <li><a href="https://wiki.theory.org/YourLanguageSucks">YourLanguageSucks</a></li>
+  <li><a href="http://yosefk.com/c++fqa/defective.html">Defective C++</a></li>
+  <li><a href="http://es6-features.org/">JavaScript ES6 Features</a></li>
+  <li><a href="https://github.com/jondot/awesome-react-native">awesome-react-native GitHub repository</a></li>
+  <li><a href="https://gist.github.com/garybernhardt/122909856b570c5c457a6cd674795a9c?">Types, by Gary Berhnhardt</a></li>
+  <li><a href="https://github.com/tel/old-blog/blob/master/_posts/2014-07-08-all_you_wanted_to_know_about_types_but_were_afraid_to_ask.md">All you wanted to know about types but were afraid to ask, by Joseph Abrahamson</a></li>
+  <li><a href="https://groups.google.com/forum/#!msg/comp.lang.tcl/7JXGt-Uxqag/3JBTj5I43yAJ">Stallman vs. Ousterhout</a></li>
+  <li><a href="https://groups.google.com/d/msg/comp.lang.tcl/7JXGt-Uxqag/vQNLEgvjmWsJ">Ousterhout vs. Stallman</a></li>
+  <li><a href="http://npm.anvaka.com/#/view/2d/react-native">Visualisation of React Native’s npm dependencies</a></li>
+  <li><a href="https://code.facebook.com/posts/1639473982937255/updating-our-open-source-patent-grant/">Updating Our Open Source Patent Grant</a>. Blog post from Facebook’s <em>Open Source Blog</em>.</li>
+  <li><a href="https://discuss.reactjs.org/t/legal-department-did-not-allow-use-of-react/3309/7">“Legal Department did not allow use of React”</a>. Forum post from the <em>React Discussion Forum</em>.</li>
+  <li><a href="https://github.com/facebook/react/issues/7293">License clarification #7293</a>. Issue opened on the React repository.</li>
+  <li><a href="https://github.com/facebook/react-native/issues/402">Reconsider restrictions in patents file #402</a>. Issue opened on the React Native repository.</li>
+  <li><a href="https://github.com/facebook/react-native/issues/8952">Please reconsider restrictions in PATENTS (Additional Grant of Patent Rights Version 2) #8952</a></li>
+  <li><a href="https://github.com/facebook/react/pull/3554">Update PATENTS #3554</a>. Ambitious pull request on the React repository.</li>
+  <li><a href="https://github.com/facebook/react/issues/3617">clarification on PATENTS grants and termination clauses #3617</a>. Issue opened on the React repository.</li>
+</ul>
+
+<h3 id="appendix-a-more-detailed-breakdown-of-react-natives-patent-issues">Appendix: A more detailed breakdown of React Native’s Patent issues</h3>
+
+<p>From <a href="https://twitter.com/gmcmullen">Greg McMullen</a>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># None of this is legal advice! Just my reading of the license. If you want advice specific to you, see your own lawyer.
+
+# If you sue Facebook for patent infringement and any of these three conditions are met, the license is terminated.
+
+IF 
+You (or any of your subsidiaries, corporate affiliates or agents) initiate directly or indirectly, or take a direct financial interest in, any Patent Assertion
+
+  (i) against Facebook or any of its subsidiaries or corporate affiliates,
+
+  OR
+  (ii) against any party if such Patent Assertion arises in whole or in part from any software, technology, product or 
+        service of Facebook or any of its subsidiaries or corporate affiliates, 
+
+  OR
+  (iii) against any party relating to the Software:
+
+
+THEN
+The license granted hereunder will terminate, automatically and without notice.
+
+
+
+# If Facebook sues you for patent infringement, you can make a patent infringement counter-claim against them without the license being terminated.
+
+IF
+1) Facebook or any of its subsidiaries or corporate affiliates files a lawsuit alleging patent infringement against you in the first instance, 
+
+AND 
+2) you respond by filing a patent infringement counterclaim in that lawsuit against that party that is unrelated to the Software, 
+
+THEN
+The license will not terminate due to such counterclaim.
+
+# Just to be clear, the license also won't terminate if Facebook sues you and you don't make a counterclaim
+</code></pre>
+</div>
+
+
+  </div>
+
+
+
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+<li>
+<img src="https://avatars3.githubusercontent.com/u/1756909?v=3&s=460" width="50">
+</li>
+          
+          <li>
+            <a href="https://github.com/arielelkin"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">arielelkin</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/AriVocals"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">AriVocals</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -34,7 +34,7 @@
 
       <div class="trigger">
           <a href="/apps">Apps</a><span> |</span>
-          <a href="/libraries">Libraries</a><span> |</span>
+          <a href="/open-source">Open-source</a><span> |</span>
           <a href="/articles">Articles</a><span> |</span>
           <a href="/talks">Talks</a><span> |</span>
           <a href="/cooking">Cooking</a><span> |</span>
@@ -161,16 +161,16 @@
 
 <h4 id="problem-2-they-force-you-to-use-their-built-in-event-listeners">Problem 2: They force you to use their built-in event listeners</h4>
 
-<p>KVO forces you to implement at least these two monstrosities:<br />
-```objective-c<br />
+<p>KVO forces you to implement at least these two monstrosities:
+```objective-c
 - (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</p>
 
 <ul>
-  <li>(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;<br />
+  <li>(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 ```</li>
 </ul>
 
-<p><code class="highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:<br />
+<p><code class="highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:
 <code class="highlighter-rouge">objective-c
 - (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
 </code></p>
