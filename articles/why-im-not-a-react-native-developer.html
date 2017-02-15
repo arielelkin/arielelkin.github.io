@@ -66,7 +66,38 @@
   </header>
 
   <div class="post-content">
-    <p>Many people are currently assessing React Native as a <em>platform</em> to develop their next mobile app on. This is no trivial matter. Switching your software development platform involves a high setup cost and will profoundly impact your daily programming workflow. It is also one of the costliest decisions to reverse after anything substantial has been built.</p>
+    <!-- MarkdownTOC -->
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#pros">Pros</a>
+    <ul>
+      <li><a href="#declarative-style">Declarative style</a></li>
+      <li><a href="#faster-iterations">Faster iterations</a></li>
+      <li><a href="#cross-platform">Cross-platform</a></li>
+    </ul>
+  </li>
+  <li><a href="#cons">Cons</a>
+    <ul>
+      <li><a href="#uncertain-roadmap">Uncertain roadmap</a></li>
+      <li><a href="#patently-daunting">Patently daunting</a></li>
+      <li><a href="#javascript">Javascript</a></li>
+      <li><a href="#dependencies">Dependencies</a></li>
+      <li><a href="#better-alternatives">Better alternatives</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#comments">Comments</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Many people are currently assessing React Native as a <em>platform</em> to develop their next mobile app on. This is no trivial matter. Switching your software development platform involves a high setup cost and will profoundly impact your daily programming workflow. It is also one of the costliest decisions to reverse after anything substantial has been built.</p>
 
 <p>Perhaps more importantly, your software development platforms also shape you as a software engineer. A software development platform encourages (or forces) the use of one language over another, prioritises certain architectures over others, requires using specific tools and workflows, and marries you to an entire ecosystem and its developer community.</p>
 
@@ -134,7 +165,7 @@
   <p>Simply express how your app should look at any given point in time, and React will automatically manage all UI updates when your underlying data changes.</p>
 </blockquote>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Root extends Component {  
+<div class="highlighter-rouge"><pre class="highlight"><code>class Root extends Component {
   render() {
     return (
       &lt;ConnectivityIndicatorView /&gt;
@@ -159,7 +190,7 @@ class ConnectivityIndicatorView extends Component {
       this.setState({
         isConnected: true
       })
-    } 
+    }
     else {
       this.setState({
         isConnected: false
@@ -177,7 +208,7 @@ class ConnectivityIndicatorView extends Component {
       color = 'red'
     }
     return (
-      
+
       &lt;View style={{'backgroundColor': color, 'width': 20, 'height': 20}}&gt;
       &lt;/View&gt;
     )
@@ -561,7 +592,7 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="kr">class</span> <span class="nx">Square</span> <span class="kr">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">(){</span>
-    <span class="kr">super</span><span class="p">()</span> 
+    <span class="kr">super</span><span class="p">()</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -575,12 +606,12 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Curly braces after an <code class="highlighter-rouge">if</code> statement are optional:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> 
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ha"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"he"</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ho"</span><span class="p">)</span>
 
-<span class="cm">/*prints: 
+<span class="cm">/*prints:
   he
   hi
   ho
@@ -615,7 +646,7 @@ class ConnectivityIndicatorView extends Component {
    <span class="k">case</span> <span class="mi">32</span><span class="err">:</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'spot on'</span><span class="p">)</span>
    <span class="k">case</span> <span class="mi">0</span><span class="err">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'zero'</span><span class="p">)</span>   
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'zero'</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="cm">/* prints:
@@ -629,7 +660,7 @@ class ConnectivityIndicatorView extends Component {
 <h4 id="whats-nothing">What’s nothing?</h4>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
-<span class="nx">foo</span> <span class="o">===</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">//false </span>
+<span class="nx">foo</span> <span class="o">===</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">//false</span>
 <span class="nx">foo</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">//true</span>
 </code></pre>
 </div>
@@ -670,7 +701,7 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">32</span>
 
-<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span> 
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
 
 <span class="kd">var</span> <span class="nx">otherArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
 
@@ -705,7 +736,7 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span>
 
-<span class="cm">/* console output: 
+<span class="cm">/* console output:
 
 fooman.js:8
   8: console.log(divideByFour(foo))
@@ -801,7 +832,7 @@ Found 1 error
 <span class="p">}</span>
 <span class="cm">/* console output:
 No errors!
-*/</span> 
+*/</span>
 </code></pre>
 </div>
 
@@ -814,14 +845,14 @@ No errors!
 
 <span class="kr">class</span> <span class="nx">Compass</span> <span class="p">{</span>
   <span class="nl">direction</span><span class="p">:</span> <span class="nx">CompassPoint</span><span class="p">;</span>
-  <span class="nl">degrees</span><span class="p">:</span> <span class="nx">number</span> 
+  <span class="nl">degrees</span><span class="p">:</span> <span class="nx">number</span>
 
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="err">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">=</span> <span class="nx">degrees</span>
   <span class="p">}</span>
   <span class="nx">direction</span><span class="p">()</span><span class="err">:</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&gt;</span> <span class="mi">270</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="s2">"North"</span>  
+      <span class="k">return</span> <span class="s2">"North"</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
       <span class="k">return</span> <span class="s2">"South"</span>
@@ -1129,14 +1160,14 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 # If you sue Facebook for patent infringement and any of these three conditions are met, the license is terminated.
 
-IF 
+IF
 You (or any of your subsidiaries, corporate affiliates or agents) initiate directly or indirectly, or take a direct financial interest in, any Patent Assertion
 
   (i) against Facebook or any of its subsidiaries or corporate affiliates,
 
   OR
-  (ii) against any party if such Patent Assertion arises in whole or in part from any software, technology, product or 
-        service of Facebook or any of its subsidiaries or corporate affiliates, 
+  (ii) against any party if such Patent Assertion arises in whole or in part from any software, technology, product or
+        service of Facebook or any of its subsidiaries or corporate affiliates,
 
   OR
   (iii) against any party relating to the Software:
@@ -1150,10 +1181,10 @@ The license granted hereunder will terminate, automatically and without notice.
 # If Facebook sues you for patent infringement, you can make a patent infringement counter-claim against them without the license being terminated.
 
 IF
-1) Facebook or any of its subsidiaries or corporate affiliates files a lawsuit alleging patent infringement against you in the first instance, 
+1) Facebook or any of its subsidiaries or corporate affiliates files a lawsuit alleging patent infringement against you in the first instance,
 
-AND 
-2) you respond by filing a patent infringement counterclaim in that lawsuit against that party that is unrelated to the Software, 
+AND
+2) you respond by filing a patent infringement counterclaim in that lawsuit against that party that is unrelated to the Software,
 
 THEN
 The license will not terminate due to such counterclaim.
