@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Digital Estate Planning</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://arielelkin.github.io/articles/digital-estate-planning.html">
+  <link rel="alternate" type="application/rss+xml" title="Ariel Elkin" href="https://arielelkin.github.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Ariel Elkin's Website</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+          <a href="/apps">Apps</a><span> |</span>
+          <a href="/open-source">Open-source</a><span> |</span>
+          <a href="/articles">Articles</a><span> |</span>
+          <a href="/talks">Talks</a><span> |</span>
+          <a href="/cooking">Cooking</a><span> |</span>
+          <a href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51731054-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Digital Estate Planning</h1>
+  </header>
+
+  <div class="post-content">
+    <h1 id="motivation">Motivation</h1>
+
+<p>Our wishes and rights push us to build tools that preserve our privacy during our life span, but these very tools may hinder our wishes and rights when we are no longer here to control them.</p>
+
+<p>Traditional technologies protect a user’s privacy by upholding the basic information security directive that the user, and only the user, have sole exclusive custody and knowledge of his keys. They also assume, both in theory and in practice, that the user is immortal and perennially healthy. The corollary of many of these policies is that a (deceased) user is buried with his keys.</p>
+
+<p>This is an awkward situation for many people: those of us who are both privacy-conscious and uncomfortable at the prospect of their keys following them to the grave. (Note that death is not the only life event that gives rise to this problem: events such as permanent incapacitation or incarceration are equally problematic). Yet no widely-used technology offers any provisions for passing on the keys to the entirety of a person’s digital assets after their death. Most workarounds, such as sharing a copy of one’s private key with someone else, entail security risks and privacy curtailments.</p>
+
+<p>Indeed, a digital asset can be said to be part of one’s digital estate if one has private have access to it. But passing on one’s digital estate after one’s death is an issue that has received little attention from academic Computer Science, and little originality from the private sector. Prior research in the field of Computer Science has focused on best practices in passing digital assets priorly known to or under custody of a third-party, viz. one’s pre-existing social media account; but so far, no satisfactory overarching strategies have been proposed that can handle the entirety of a person’s digital assets.</p>
+
+<p>The aim here is to suggest a new formal framework for thinking about digital estate planning: A digital estate is a set of <em>assets</em> with pre-assigned <em>persistence types</em>, a predesignated group of <em>executors</em>, and a <em>protocol</em> for the user and the executors to follow.</p>
+
+<p>We will discuss acceptable criteria for reliable, user-friendly, and privacy-enhancing digital estate planning protocols and tools, and argue that these criteria can be satisfied by threshold cryptosystems.</p>
+
+<h1 id="assets">Assets</h1>
+
+<p>A person’s digital estate is the sum of the digital assets that a person has private access to. It includes files stored remotely or locally on the person’s devices, as well as the entitlements granted by the person’s account credentials, passwords, or keys.</p>
+
+<p>Digital files are a type of digital asset, and can be of two kinds as far as a digital estate is concerned. Those not available to the public to which the person has read or write access (such as the person’s personal documents and images), and those available to the public to which the person has private write access (such as images published on the person’s blog).</p>
+
+<p>Assets also include account credentials and the corresponding assets, persona, and entitlements they grant access to. For example, a person’s YouTube account credentials grant access to
+the videos the person uploaded to YouTube, the capability to remove previously uploaded videos or upload new ones, as well as the online identity used by the person to carry out various tasks within YouTube, such as posting comments on videos. Another typical example is a person’s email account credentials, which grant access to the person’s email correspondence, as well as the capability to permanently delete email messages or send new ones.</p>
+
+<p>Assets can take many other forms. They include the person’s private encryption keys (e.g. those used in PGP or SSH), the password for logging into the person’s computer, a mobile device PIN code, or web domain names.</p>
+
+<h1 id="persistence-types">Persistence Types</h1>
+
+<p>For every asset or group of assets in his digital estate, a person must specify if and how the asset should outlast him.
+Assets may be assigned one of the following persistence types:
+1. <em>No Persistence</em>: the asset must be permanently destroyed as soon as possible after the person’s death.
+2. <em>Private Immutable Persistence</em>: the asset must be preserved in the state it was left by the person, its access must be restricted to a predesignated group of people.
+3. <em>Public Immutable Persistence</em>: the asset should be made available to the public and must be preserved in the state it was left by the person.
+4. <em>Public Mutable Persistence</em>: the asset should be made available to the public and may be modified by the public.</p>
+
+<p>(A user’s wishes with regards to a particular asset’s persistence may not necessarily fit with one of the above types, in which case he should simply specify the way he wishes the asset to persist; indeed the purpose of the proposed persistence types is to have the user clarify his intent with regards to the asset’s persistence.)</p>
+
+<h1 id="executors">Executors</h1>
+
+<p>For every asset or group of assets in his digital estate, a person must designate one or more persons or organisations to whom ownership will be transferred for the purposes of assigning it the required persistence type, and, if applicable, managing it thereafter.</p>
+
+<h1 id="requirements-of-privacy-preserving-digital-estate-planning-strategies-and-tools">Requirements Of Privacy-preserving Digital Estate Planning Strategies And Tools</h1>
+
+<p>A digital estate planning strategy is comprehensive, privacy-preserving, reliable, and convenient if it satisfies the following criteria:</p>
+
+<h2 id="comprehensiveness">Comprehensiveness</h2>
+
+<p>It clearly specifies the entirety of the estate assets (to the person’s satisfaction), their desired persistence types, and designates a set of executors.</p>
+
+<h2 id="privacy-preserving">Privacy-Preserving</h2>
+<ol>
+  <li>it demonstrably does not grant access to or knowledge of any part of the estate to any entity other than the person before his death.</li>
+  <li>it demonstrably grants access to the estate’s assets to just the executors predesignated in the estate, but to no executor individually.</li>
+  <li>it can be authenticated as coming from the stated person.</li>
+</ol>
+
+<h2 id="convenience">Convenience</h2>
+<p>The person can, at any point and without compromising ease of use or privacy:</p>
+
+<ol>
+  <li>add, edit, or remove assets</li>
+  <li>edit their persistence types</li>
+  <li>edit the executors list.</li>
+</ol>
+
+<h1 id="implementations">Implementations</h1>
+
+<h2 id="centralised-fiduciaries">Centralised Fiduciaries</h2>
+
+<p>Many online services, such as Securesafe, are designed to assist with digital estate planning. The user typically stores account credentials and files on the service’s cloud and designates beneficiaries who will be given access to the assets in his account in the event of his death.</p>
+
+<p>These services usually satisfy criteria B and E, but fail to satisfy the other criteria. Crucially, they perform poorly from a privacy standpoint: the person must share knowledge of and potentially access to his digital estate with the service. And the majority being closed-source, they require an undue amount of trust placed on a third-party.</p>
+
+<h2 id="the-case-for-threshold-cryptosystems">The Case for Threshold Cryptosystems</h2>
+<p>It will be argued that threshold cryptosystems, in which several parties must cooperate in the decryption process, without the need of a trusted central entity, are adequate for the purposes of privacy-preserving digital estate planning. Shamir’s Secret Sharing is an example of an algorithm in cryptography designed for this kind of use case, and offers information-theoretic security.</p>
+
+<p>Under such a scheme, a user would write a document rounding up his estate, specify individual asset persistence types, and list executors. This document would then be encrypted using one or more keys to be shared among the executors.</p>
+
+<p>Distributing the keys to several parties increases the scheme’s security, as no individual executor can access the plaintext document without collaborating with the other executors, and an attacker would have to compromise either the person’s or all executors’ keys in order to gain access to the document. It also performs better than “dead man’s switch” time-based schemes in granting access to the document at the person’s death, for if the keys are shared among executors relatively close to the person, the executors can personally satisfy themselves that the person is indeed deceased and collaborate to decrypt the document.</p>
+
+  </div>
+
+
+
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li></li>
+          <li><a href="mailto:"></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+<li>
+<img src="https://avatars3.githubusercontent.com/u/1756909?v=3&s=460" width="50">
+</li>
+          
+          <li>
+            <a href="https://github.com/arielelkin"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">arielelkin</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/AriVocals"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">AriVocals</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
