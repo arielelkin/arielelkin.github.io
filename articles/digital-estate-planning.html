@@ -94,14 +94,12 @@
   <li><a href="#comments">Comments</a></li>
   <li><a href="#changelog">Changelog</a></li>
   <li><a href="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#references">References</a></li>
+  <li><a href="#references-and-further-reading">References and Further Reading</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
 <h1 id="motivation">Motivation</h1>
-
-<p>Our wishes and rights push us to build tools that preserve our privacy during our life span, but these very tools may hinder our wishes and rights when we are no longer here to control them.</p>
 
 <p>Traditional technologies protect a user’s privacy by upholding the basic information security directive that the user, and only the user, have sole exclusive custody and knowledge of his keys. They also assume, both in theory and in practice, that the user is immortal and perennially healthy. The corollary of many of these policies is that a (deceased) user is buried with his keys.</p>
 
@@ -109,7 +107,7 @@
 
 <p>Indeed, a digital asset can be said to be part of one’s digital estate if one has private have access to it. But passing on one’s digital estate after one’s death is an issue that has received little attention from academic Computer Science, and little originality from the private sector. Prior research in the field of Computer Science has focused on best practices in passing digital assets priorly known to or under custody of a third-party, viz. one’s pre-existing social media account; but so far, no satisfactory overarching strategies have been proposed that can handle the entirety of a person’s digital assets.</p>
 
-<p>The aim of the present article is to suggest a formal framework for thinking about digital estate planning: A <strong>digital estate</strong> is a set of digital <em>assets</em> with pre-assigned <em>persistence types</em>. Its <strong>planning</strong> refers to the users and a predesignated group of <em>executors</em> following a predefined <em>protocol</em> for the processing the assets after the user’s death.</p>
+<p>The aim of the present article is to suggest a formal framework for thinking about digital estate planning: A <strong>digital estate</strong> is a set of digital <em>assets</em> with pre-assigned <em>persistence types</em>. Its <strong>planning</strong> refers to a testator and a predesignated group of <em>executors</em> following a predefined <em>protocol</em> for the processing the assets after the testator’s death.</p>
 
 <p>We will discuss acceptable criteria for reliable, user-friendly, and privacy-enhancing digital estate planning protocols and tools, and argue that these criteria can be satisfied by threshold cryptosystems.</p>
 
@@ -129,11 +127,14 @@ the videos the person uploaded to YouTube, the capability to remove previously u
 <h2 id="persistence-types">Persistence Types</h2>
 
 <p>For every asset or group of assets in his digital estate, a person, i.e. the <em>testator</em>, must specify if and how the asset should outlast him.
-Assets may be assigned one of the following persistence types:
-1. <em>No Persistence</em>: the asset must be permanently destroyed as soon as possible after the person’s death.
-2. <em>Private Immutable Persistence</em>: the asset must be preserved in the state it was left by the person, its access must be restricted to a predesignated group of people.
-3. <em>Public Immutable Persistence</em>: the asset should be made available to the public and must be preserved in the state it was left by the person.
-4. <em>Public Mutable Persistence</em>: the asset should be made available to the public and may be modified by the public.</p>
+Assets may be assigned one of the following persistence types:</p>
+
+<ol>
+  <li><em>No Persistence</em>: the asset must be permanently destroyed as soon as possible after the person’s death.</li>
+  <li><em>Private Immutable Persistence</em>: the asset must be preserved in the state it was left by the person, its access must be restricted to a predesignated group of people.</li>
+  <li><em>Public Immutable Persistence</em>: the asset should be made available to the public and must be preserved in the state it was left by the person.</li>
+  <li><em>Public Mutable Persistence</em>: the asset should be made available to the public and may be modified by the public.</li>
+</ol>
 
 <p>(A testator’s wishes with regards to a particular asset’s persistence may not necessarily fit with one of the above types, in which case he should simply specify the way he wishes the asset to persist; indeed the purpose of the proposed persistence types is to have the user clarify his intent with regards to the asset’s persistence.)</p>
 
@@ -223,7 +224,7 @@ Assets may be assigned one of the following persistence types:
 
 <p>My thanks to Alejandro A.F. Japkin (NINA Science co-founder), G. Moore, J.M. Lindemann, and Pablo Vasquez.</p>
 
-<h1 id="references">References</h1>
+<h1 id="references-and-further-reading">References and Further Reading</h1>
 
 <ul>
   <li>
