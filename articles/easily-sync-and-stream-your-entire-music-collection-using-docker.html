@@ -175,7 +175,7 @@ Status: Downloaded newer image for owncloud:9
 
 <p>So change this part of the file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt; 
+<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com:1996',
   ),
@@ -184,7 +184,7 @@ Status: Downloaded newer image for owncloud:9
 
 <p>to this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt; 
+<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com',
   ),
@@ -247,12 +247,14 @@ Status: Downloaded newer image for owncloud:9
 
 <p>Leave the other default values, and click “Insert Database”.</p>
 
-<p>In this next page, make sure that 
+<p>In this next page, make sure that
 MySQL Username and MySQL Password match the ones in the previous step (default username is “ampache”, the password should be the one you inputted just before).</p>
 
-<p>Now click on the File Insight menu, and click on the “Write” button</p>
+<p>Now click on the File Insight menu, and click on the “Write” button insert the password in the MySQL Password field if it’s not already inserted.</p>
 
-<p>insert the password in the MySQL Password field. You can leave the other default options. Finally, click “Create config”</p>
+<p>In the Transcoding section, make sure you select <code class="highlighter-rouge">avconv</code> as Template Configuration.</p>
+
+<p>Finally, click “Create config”</p>
 
 <p>In the next page, create your Ampache (admin) user account. Pick a username and a password, click “Create Account”. Now you can login into Ampache!</p>
 
