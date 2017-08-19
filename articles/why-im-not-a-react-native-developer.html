@@ -183,30 +183,13 @@ class ConnectivityIndicatorView extends Component {
   }
 
   componentDidMount() {
-
     var weAreConnected = Math.floor(Math.random() * 10) &gt; 5;
-
-    if (weAreConnected === true) {
-      this.setState({
-        isConnected: true
-      })
-    }
-    else {
-      this.setState({
-        isConnected: false
-      })
-    }
+    this.setState({ isConnected: weAreConnected });
   }
 
 
   render() {
-    var color;
-    if (this.state.isConnected) {
-      color = 'green'
-    }
-    else {
-      color = 'red'
-    }
+    var color = this.state.isConnected ? 'green' : 'red';
     return (
 
       &lt;View style={{'backgroundColor': color, 'width': 20, 'height': 20}}&gt;
