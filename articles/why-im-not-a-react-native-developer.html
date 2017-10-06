@@ -269,41 +269,6 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Again, we’re not talking about an individual Cocoapod, we’re talking about <em>the only platform your code can run on</em>. It’s the kind of thing you do need very-long-term visibility on, and you don’t have any.</p>
 
-<h2 id="patently-daunting">Patently daunting</h2>
-
-<p>Alongside its permissive BSD-style license, React Native ships with Facebook’s <strong>Additional Grant of Patent Rights</strong>, Version 2. Facebook’s motives for including this file aren’t clear, nor is the file itself.</p>
-
-<p>It’s a bipolar document. Right after the document grants you a “perpetual, worldwide, royalty-free, non-exclusive, irrevocable” license to use React Native, we are served with the following clause:</p>
-
-<blockquote>
-  <p>The license granted hereunder will terminate, automatically and without notice, if you (or any of your subsidiaries, corporate affiliates or agents) initiate directly or indirectly, or take a direct financial interest in, any Patent Assertion: (i) against Facebook or any of its subsidiaries or corporate affiliates, (ii) against any party if such Patent Assertion arises in whole or in part from any software, technology, product or service of Facebook or any of its subsidiaries or corporate affiliates, or (iii) against any party relating to the Software.</p>
-</blockquote>
-
-<p>I’m not a lawyer, so I’ve asked a lawyer to help me clarify this (and if you’re not a lawyer you should too). According to him, that clause boils down to this: if I initiate <em>any</em> lawsuit alleging patent infringement against Facebook, my license to use React Native would be immediately terminated. (I’ve quoted his more detailed breakdown in the Appendix below.)</p>
-
-<p>In practice, this seems like a deterrent to me suing Facebook over patents. By implication, it also seems to give Facebook a good deal of breathing room to infringe <em>my</em> patents (“nice quantum physics technology you have here, would be a shame if something bad were to happen to your app”).</p>
-
-<p>You may find the above interpretation pessimistic. But you should be pessimistic when evaluating software licenses and patents. We assess the efficiency of our algorithms in terms of how well they perform in the worst <em>possible</em> scenario. I think that’s how we ought to evaluate software licenses and patents too – for exactly the same reasons.</p>
-
-<p>A linear search algorithm will perform optimally in scenarios where the target value happens to be the first in the list, but that fact <em>alone</em> isn’t sufficient to persuade me of using linear search algorithms in any given scenario. <em>If it is possible</em> for the target value to be the last in the list, my linear search algorithm’s average performance will be very poor.</p>
-
-<p>Likewise, the fact that Facebook happens not to be a serial IP infringer <em>today</em> reassures me little <em>if it is possible</em> for Facebook to become a serial IP infringer tomorrow and punish any retaliation from my side by revoking my license to use React Native. If Facebook were to infringe my IP tomorrow (however unrelated to my software it is) and I sue them for it, I have given them the right to pull the plug on my app.</p>
-
-<p>What I’m jeopardising here is both <em>the platform</em> my app depends on <em>as well as</em> my intellectual property.</p>
-
-<p>iOS apps enter the App Store <em>entirely</em> at Apple’s discretion. I don’t want to multiply that uneasy feeling by two.</p>
-
-<h3 id="patently-silent">Patently silent</h3>
-
-<p>Is the interpretation above correct? Is that worst-case scenario a possibility? Do I have a good reason to be worried? Do I have a good reason <strong>not</strong> to be worried?</p>
-
-<p>In various GitHub issues and forums posts, developers have claimed that their legal departments have advised them <em>not</em> to use React or React Native precisely because of this clause. Matters remain deplorably ambiguous for developers who don’t have a legal department at hand.</p>
-
-<p>More worryingly, Facebook hasn’t made any substantial efforts to clarify matters. A 2015 post on the Facebook Open Source blog acknowledges this “confusion” and cheerfully announced clarifications to its Additional Grant of Patent Rights. More than five related GitHub issues later, the fog hasn’t cleared.</p>
-
-<p>Various Facebook developers have responded to the issues, attempting to reassure developers while making it clear that whatever they wrote was not an assurance of anything. One of them even offered links to discussions of the issue on Reddit and Hacker News – unhelpfully, and rather misleadingly.</p>
-
-<p>This has turned into an exercise in hermeneutics and speculation over a question of genuine importance: Can Facebook revoke its React Native license? If so, under what conditions?</p>
 
 <h2 id="javascript">Javascript</h2>
 
