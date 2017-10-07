@@ -65,6 +65,10 @@
     <h1 class="post-title">NSURLSession Techniques</h1>
   </header>
 
+
+<p><em>First published on March 03, 2014</em><p>
+
+
   <div class="post-content">
     <h2 id="introduction">Introduction</h2>
 
@@ -103,48 +107,48 @@
 
 + (void)fetchContentsOfURL:(NSURL *)url
                 completion:(void (^)(NSData *data, NSError *error)) completionHandler {
-        
+
     NSURLSessionDataTask *dataTask =
     [[self dataSession] dataTaskWithURL:url
                       completionHandler:
-     
+
      ^(NSData *data, NSURLResponse *response, NSError *error) {
-         
+
          if (completionHandler == nil) return;
-         
+
          if (error) {
              completionHandler(nil, error);
              return;
          }
          completionHandler(data, nil);
      }];
-    
+
     [dataTask resume];
 }
 
 + (void)downloadFileAtURL:(NSURL *)url
                toLocation:(NSURL *)destinationURL
                completion:(void (^)(NSError *error)) completionHandler {
-    
+
     NSURLSessionDownloadTask *fileDownloadTask =
     [[self dataSession] downloadTaskWithRequest:[NSURLRequest requestWithURL:url]
                               completionHandler:
-     
+
      ^(NSURL *location, NSURLResponse *response, NSError *error) {
-         
+
          if (completionHandler == nil) return;
-         
+
          if (error) {
              completionHandler(error);
              return;
          }
-         
+
          NSError *fileError = nil;
          [[NSFileManager defaultManager] removeItemAtURL:destinationURL error:NULL];
          [[NSFileManager defaultManager] moveItemAtURL:location toURL:destinationURL error:&amp;fileError];
          completionHandler(fileError);
      }];
-    
+
     [fileDownloadTask resume];
 }
 
@@ -183,7 +187,7 @@
 
 This is partly a matter of style. When you're writing code that uses `Networker`, it tends to be more readable if the sequence of actions is clear.
 
-This is also a matter of convenience, as the block will easily let you use variables available just in the scope of the method in which the networking was invoked. 
+This is also a matter of convenience, as the block will easily let you use variables available just in the scope of the method in which the networking was invoked.
 
 Let's do a quick example. Suppose we are inside a separate class. Now our block-based implementation:
 
@@ -250,25 +254,25 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     NSURL *redditFrontPageJSON = [NSURL URLWithString:@"http://www.reddit.com/r/pics.json"];
-    
+
     [Networker fetchContentsOfURL:redditFrontPageJSON completion:^(NSData *data, NSError *error) {
-        
+
         if (error == nil) {
             NSError *jsonParsingError = nil;
             NSDictionary *redditJSON = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&amp;jsonParsingError];
-            
+
             if (jsonParsingError == nil) {
                 NSArray *redditPosts = redditJSON[@"data"][@"children"];
                 NSDictionary *topPost = [redditPosts firstObject];
-                
+
                 NSString *thumbnailURL = topPost[@"data"][@"thumbnail"];
                 NSURL *documents = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
                 NSURL *fileURL = [documents URLByAppendingPathComponent:[thumbnailURL lastPathComponent]];
-                
+
                 [Networker downloadFileAtURL:[NSURL URLWithString:thumbnailURL] toLocation:fileURL completion:^(NSError *error) {
-                    
+
                     if (error == nil) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             UIImage *image = [UIImage imageWithContentsOfFile:[fileURL path]];
@@ -305,7 +309,6 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
 
 
 

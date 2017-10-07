@@ -65,6 +65,10 @@
     <h1 class="post-title">Using The Amazing Audio Engine with the Synthesis Toolkit in C++</h1>
   </header>
 
+
+<p><em>First published on December 27, 2013</em><p>
+
+
   <div class="post-content">
     <h2 id="intro">Intro</h2>
 
@@ -189,9 +193,9 @@
 <pre><code class="language-objective-c">- (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
+
     NSError *errorAudioSetup = NULL;
     BOOL result = [[appDelegate audioController] start:&amp;errorAudioSetup];
     if ( !result ) {
@@ -286,10 +290,10 @@ myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *ti
                                                             UInt32 frames,
                                                             AudioBufferList *audio) {
     for ( int i=0; i&lt;frames; i++ ) {
-        
+
         ((float*)audio-&gt;mBuffers[0].mData)[i] =
         ((float*)audio-&gt;mBuffers[1].mData)[i] = myMandolin-&gt;tick();
-        
+
     }
 }];
 
@@ -371,7 +375,6 @@ myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *ti
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
 
 
 
