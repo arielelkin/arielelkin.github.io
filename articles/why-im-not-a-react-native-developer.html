@@ -125,7 +125,7 @@
 
 <p>Here’s how we typically do it on iOS:</p>
 
-<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
 
   <span class="k">let</span> <span class="nv">indicatorView</span> <span class="o">=</span> <span class="kt">ConnectivityIndicatorView</span><span class="p">()</span>
 
@@ -158,8 +158,7 @@
     <span class="k">self</span><span class="o">.</span><span class="n">isConnected</span> <span class="o">=</span> <span class="n">weAreConnected</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In the imperative style, you specify all the steps required to update the UI. We need to listen for changes in <code class="highlighter-rouge">isConnected</code> and update the view accordingly. We tell iOS <em>how</em> to compute state.</p>
 
@@ -169,7 +168,7 @@
   <p>Simply express how your app should look at any given point in time, and React will automatically manage all UI updates when your underlying data changes.</p>
 </blockquote>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Root extends Component {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Root extends Component {
   render() {
     return (
       &lt;ConnectivityIndicatorView /&gt;
@@ -201,8 +200,7 @@ class ConnectivityIndicatorView extends Component {
     )
   }
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>React’s declarative style makes you <em>describe</em> your UI with React within the view’s <code class="highlighter-rouge">render()</code> method. The React framework ensures that any changes in state trigger re-rendering. Changes in your data (i.e. when <code class="highlighter-rouge">backgroundColor</code> changes) automatically trigger a change in the UI.</p>
 
@@ -368,7 +366,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Any variable can be anything at any time:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
 
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">j</span>
@@ -379,12 +377,11 @@ class ConnectivityIndicatorView extends Component {
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="s1">'hello'</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="c1">//hello</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>JavaScript makes you believe that it has some notion of types and class, with keywords like <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">typeof</code>, and <code class="highlighter-rouge">instanceof</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Person</span> <span class="p">{</span>
   <span class="c1">//nobody is immortal:</span>
   <span class="nx">isImmortal</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kc">false</span>
@@ -402,8 +399,7 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span><span class="p">())</span> <span class="c1">// true</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Here we see the following:</p>
 
@@ -432,23 +428,21 @@ class ConnectivityIndicatorView extends Component {
 
 <p>In JavaScript, functions don’t have a return type, you don’t know what can be returned by the function, or if it returns anything at all.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'im a number'</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'im a number'</span>
 
 <span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">4</span>
 <span class="p">}</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">//NaN</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Let’s make this even more fun. In JavaScript, any expression can be evaluated at any time by any function. Consider this example using two functions from the JavaScript standard library; <code class="highlighter-rouge">map</code>, which is supposedly the equivalent of Swift’s <code class="highlighter-rouge">map</code>, and <code class="highlighter-rouge">parseInt</code>, which parses a string into an integer.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="c1">//[1, NaN, NaN]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This messed up result is due to the fact that <code class="highlighter-rouge">parseInt</code> takes two parameters <code class="highlighter-rouge">(val, radix)</code> but <code class="highlighter-rouge">map</code> passes it 3 parameters <code class="highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
 
@@ -458,19 +452,18 @@ class ConnectivityIndicatorView extends Component {
 
 <p>There is a <code class="highlighter-rouge">const</code> operator, which helps ensure primitives don’t get mutated. But anything that’s not a primitive is as malleable as jell-o:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="nx">array</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="c1">// [3, 6, 32: 9]</span>
 
 
-<span class="kr">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
+<span class="kd">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
 <span class="nx">bar</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">999</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">number</span><span class="p">)</span> <span class="c1">// 999</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Unique copies? Nope. Any unique object could be modified by any part of your app at any time. Good luck multithreading. Indeed,</p>
 
@@ -490,7 +483,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>You thought arrays were a “systematic arrangement of similar objects, usually in rows and columns”? Think again.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 
 <span class="nx">array</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"watsup"</span>
 
@@ -500,7 +493,7 @@ class ConnectivityIndicatorView extends Component {
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="c1">//0,1,2,999,watsup</span>
 <span class="p">}</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="nx">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="c1">//0,1,2,undefined,999</span>
 <span class="p">}</span>
 
@@ -509,8 +502,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="p">})</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="c1">//undefined</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>JavaScript arrays have more in common with ordinary JavaScript objects than with what we’d call an array. Their lack of precise sequentiality and mutability doesn’t make them well-behaved.</p>
 
@@ -518,7 +510,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>In JavaScript, you can have <em>any</em> function throw a runtime error or exception, without warning.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">tenDividedBy</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">tenDividedBy</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="s2">"can't divide by zero"</span>
   <span class="p">}</span>
@@ -526,8 +518,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="p">}</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tenDividedBy</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can throw <em>anything</em> you want as an exception; a string, a <code class="highlighter-rouge">Date</code>, a function, etc. There is no mechanism for you to mark a function as potentially crashing your teammate’s code or for specifying how to process an exception. Use <code class="highlighter-rouge">if</code> statements instead, say the docs:</p>
 
@@ -539,10 +530,9 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Given that most decimal fractions cannot be accurately represented as binary fractions in hardware, many programming languages (including JavaScript and Swift) will often produce mathematically incorrect decimal arithmetic:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1">//0.30000000000000004</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1">//0.30000000000000004</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c1">//false</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
 
@@ -550,7 +540,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Remember to be careful with primary school arithmetic too. JavaScript has a complicated relationship with <code class="highlighter-rouge">0</code> and things that are not numbers.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">0</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="c1">// true</span>
@@ -565,15 +555,14 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="c1">//true</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="s1">'i like pumpkins'</span><span class="p">))</span> <span class="c1">//true</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="unsafe-initialisation">Unsafe initialisation</h4>
 
 <p>JavaScript allows for objects to be left in an inconsistent state right after being created, as their properties don’t need to be initialised.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Rectangle</span> <span class="p">{</span>
-  <span class="nx">constructor</span> <span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+  <span class="kd">constructor</span> <span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span>
   <span class="p">}</span>
@@ -582,23 +571,22 @@ class ConnectivityIndicatorView extends Component {
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">class</span> <span class="nx">Square</span> <span class="kr">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(){</span>
-    <span class="kr">super</span><span class="p">()</span>
+<span class="kd">class</span> <span class="nx">Square</span> <span class="kd">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(){</span>
+    <span class="k">super</span><span class="p">()</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">myRect</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">()</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myRect</span><span class="p">.</span><span class="nx">area</span><span class="p">())</span> <span class="c1">// ReferenceError: width is not defined</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="optional-curly-braces-after-an-if">Optional curly braces after an <code class="highlighter-rouge">if</code></h4>
 
 <p>Curly braces after an <code class="highlighter-rouge">if</code> statement are optional:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ha"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"he"</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hi"</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ho"</span><span class="p">)</span>
@@ -608,8 +596,7 @@ class ConnectivityIndicatorView extends Component {
   hi
   ho
   */</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To add that taste of adventure to your control flow statements.</p>
 
@@ -617,7 +604,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Unless programmer intent can be very accurately inferred, a language shouldn’t let curly braces be optional.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span>
   <span class="p">{</span>
     <span class="p">{</span><span class="na">a</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
@@ -625,19 +612,18 @@ class ConnectivityIndicatorView extends Component {
 <span class="p">}</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="c1">//undefined</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="switch-fallthrough">Switch fallthrough</h4>
 
 <p>If you forget to include a <code class="highlighter-rouge">break</code> statement in a clause of a <code class="highlighter-rouge">switch</code> statement, you fall through. Also, a <code class="highlighter-rouge">switch</code> statement doesn’t carry out checks for case exhaustivity.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">32</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">32</span>
 
 <span class="k">switch</span> <span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
-   <span class="k">case</span> <span class="mi">32</span><span class="err">:</span>
+   <span class="k">case</span> <span class="mi">32</span><span class="p">:</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'spot on'</span><span class="p">)</span>
-   <span class="k">case</span> <span class="mi">0</span><span class="err">:</span>
+   <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'zero'</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -646,26 +632,23 @@ class ConnectivityIndicatorView extends Component {
   spot on
   zero
 */</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="whats-nothing">What’s nothing?</h4>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
 <span class="nx">foo</span> <span class="o">===</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">//false</span>
 <span class="nx">foo</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">//true</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Yes, something that’s not <code class="highlighter-rouge">null</code> could be nothing for all intents and purposes. Not a helpful distinction.</p>
 
 <p>And what if you want to know whether a variable contains any data? Well, for your checks to be exhaustive, you need to check for both <code class="highlighter-rouge">null</code> and <code class="highlighter-rouge">undefined</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">shootMyself</span><span class="p">()</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="poor-expressivity">Poor expressivity</h4>
 
@@ -686,7 +669,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>It checks if an array contains a specified value. Here’s how you use it:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}]</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}]</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">includes</span><span class="p">({</span><span class="s2">"hello"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}))</span> <span class="c1">// false</span>
 
@@ -698,8 +681,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="kd">var</span> <span class="nx">otherArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">otherArray</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">// true</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Try not to.</p>
 
@@ -719,7 +701,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Recall my example above about the problems that arise from lack of function signature in JavaScript (the <code class="highlighter-rouge">divideByFour</code> function which expects a number but is fed a string). Here’s how Flow would deal with it:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'im a number'</span>
 
 <span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
@@ -740,15 +722,14 @@ fooman.js:8
 
 Found 1 error
 */</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This fixes many of the problems that occur from JavaScript’s lack of enforceable function signature.</p>
 
 <p>It can also produce the equivalent of generic arrays:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
-<span class="kr">class</span> <span class="nx">J</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
+<span class="kd">class</span> <span class="nx">J</span> <span class="p">{</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -757,7 +738,7 @@ Found 1 error
 
 <span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="nx">J</span><span class="p">(),</span> <span class="nx">b</span><span class="p">]</span>
 
-<span class="kd">function</span> <span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="err">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+<span class="kd">function</span> <span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
 
 <span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span>
 
@@ -782,12 +763,11 @@ Found 2 errors
 
 */</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Flow deals very well with nullability, and will warn you if a value you’d expect not to be <code class="highlighter-rouge">null</code> might be <code class="highlighter-rouge">null</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
 
 <span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
@@ -806,14 +786,13 @@ fooman.js:6
 
 Found 1 error
 */</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If <code class="highlighter-rouge">j</code> is supposed to be a <code class="highlighter-rouge">string</code>, but could be <code class="highlighter-rouge">null</code> at any point in time, Flow encourages us to annotate it accordingly. It is thus able to complain if we don’t carry out null-checks before feeding it to anything that needs it to be a non-null <code class="highlighter-rouge">string</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 
-<span class="kd">var</span> <span class="nx">j</span><span class="err">:</span> <span class="p">?</span><span class="nx">string</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="kd">var</span> <span class="nx">j</span><span class="p">:</span> <span class="p">?</span><span class="nx">string</span> <span class="o">=</span> <span class="kc">null</span>
 
 <span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"hello "</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
@@ -825,24 +804,23 @@ Found 1 error
 <span class="cm">/* console output:
 No errors!
 */</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Flow’s features go positively beyond type-checking and annotation, and add support for new constructs. One of them is literal types, which we can use to build, for example, enums.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="nx">type</span> <span class="nx">CompassPoint</span> <span class="o">=</span>
   <span class="o">|</span> <span class="s2">"North"</span>
   <span class="o">|</span> <span class="s2">"South"</span><span class="p">;</span>
 
-<span class="kr">class</span> <span class="nx">Compass</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">Compass</span> <span class="p">{</span>
   <span class="nl">direction</span><span class="p">:</span> <span class="nx">CompassPoint</span><span class="p">;</span>
   <span class="nl">degrees</span><span class="p">:</span> <span class="nx">number</span>
 
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="err">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">=</span> <span class="nx">degrees</span>
   <span class="p">}</span>
-  <span class="nx">direction</span><span class="p">()</span><span class="err">:</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
+  <span class="nx">direction</span><span class="p">():</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&gt;</span> <span class="mi">270</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="s2">"North"</span>
     <span class="p">}</span>
@@ -851,35 +829,33 @@ No errors!
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And Flow will complain if <code class="highlighter-rouge">direction</code> returns anything that’s not <code class="highlighter-rouge">"North"</code> or <code class="highlighter-rouge">"South"</code>.</p>
 
 <p>Another construct I find useful is Union types, which constrain a value to be one and only one of a predefined set of types. Here’s an example from the Flow docs:</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// @flow</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="nx">type</span> <span class="nx">U</span> <span class="o">=</span> <span class="nx">number</span> <span class="o">|</span> <span class="nx">string</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">x</span><span class="err">:</span> <span class="nx">U</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">U</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="nx">x</span> <span class="o">=</span> <span class="s2">"two"</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Flow is great friends with React Native, as long as you help it help you. The Flow docs offer a good example of how what happens when you correctly annotate the <code class="highlighter-rouge">proptypes</code> of your component:</p>
 
-<pre><code class="language-jsx">const Greeter = React.createClass({
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-  },
-  render() {
-    return &lt;p&gt;Hello, {this.props.name}!&lt;/p&gt;;
-  },
-});
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Greeter</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="na">propTypes</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
+  <span class="p">},</span>
+<span class="p">});</span>
 
-&lt;Greeter /&gt;; // Missing `name`
-&lt;Greeter name={null} /&gt;; // `name` should be a string
-&lt;Greeter name="World" /&gt;; // "Hello, World!"
-</code></pre>
+<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="p">/&gt;;</span> <span class="c1">// Missing `name`</span>
+<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name=</span><span class="si">{</span><span class="kc">null</span><span class="si">}</span> <span class="p">/&gt;;</span> <span class="c1">// `name` should be a string</span>
+<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name=</span><span class="s2">"World"</span> <span class="p">/&gt;;</span> <span class="c1">// "Hello, World!"</span>
+</code></pre></div></div>
 
 <p>The comments indicate where the Flow warnings appear, adequately reprimanding you for not fulfilling your own contract.</p>
 
@@ -1149,7 +1125,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p>From <a href="https://twitter.com/gmcmullen">Greg McMullen</a>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># None of this is legal advice! Just my reading of the license. If you want advice specific to you, see your own lawyer.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># None of this is legal advice! Just my reading of the license. If you want advice specific to you, see your own lawyer.
 
 # If you sue Facebook for patent infringement and any of these three conditions are met, the license is terminated.
 
@@ -1183,8 +1159,7 @@ THEN
 The license will not terminate due to such counterclaim.
 
 # Just to be clear, the license also won't terminate if Facebook sues you and you don't make a counterclaim
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
   </div>

@@ -171,18 +171,18 @@
 <ul>
   <li>You don’t have to create and configure a <code class="highlighter-rouge">NSURLSession</code> object every time you want to create a <code class="highlighter-rouge">NSURLSessionTask</code></li>
   <li>You centralise all the information relative to the active tasks in one place. For example, you can do:
-<code class="highlighter-rouge">objective-c
-[self dataSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+    <pre><code class="language-objective-c">[self dataSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
   NSLog(@"Here are my data tasks: %@", dataTasks);
 }
-</code></li>
+</code></pre>
+  </li>
   <li>You centralise control of all the <code class="highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:
 ```objective-c
 [[self dataSession] invalidateAndCancel];
 [[self dataSession] flushWithCompletionHandler:nil];</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ### Technique 3: Provide a completion block as a method parameter
 
 This is partly a matter of style. When you're writing code that uses `Networker`, it tends to be more readable if the sequence of actions is clear.
@@ -198,8 +198,7 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
         [self useData:data forDate:timeButtonPressed];
     }];
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>With a delegate-based implementation:</p>
 
@@ -234,9 +233,11 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 <h3 id="trying-it-out">Trying it out</h3>
 
-<p>We’re going to put our <code class="highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:
-* We’ll use the Open Weather Map API to get temperature data for Kathmandu.
-* We’ll use the Reddit API to download images.</p>
+<p>We’re going to put our <code class="highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:</p>
+<ul>
+  <li>We’ll use the Open Weather Map API to get temperature data for Kathmandu.</li>
+  <li>We’ll use the Reddit API to download images.</li>
+</ul>
 
 <p>Here’s the idea:</p>
 

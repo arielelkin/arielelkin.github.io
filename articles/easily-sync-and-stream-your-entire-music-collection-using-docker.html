@@ -116,25 +116,22 @@
   <li>Create a directory on your server where the music collection will be stored. This directory will be managed by ownCloud’s and so will include ownCloud’s own configuration files:</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir owncloud_music
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir owncloud_music
+</code></pre></div></div>
 
 <p>We need to note down the absolute path of this directory, so <code class="highlighter-rouge">cd</code> into it and print the working directory:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cd owncloud_music
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd owncloud_music
 $ pwd
 /home/your_username/owncloud_music
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The directory doesn’t need to be in your home folder, but it should be somewhere where you’re not likely to move it around. For the rest of this tutorial, we’ll assume that <code class="highlighter-rouge">/home/your_username/owncloud_music</code> is the absolute path of your music directory.</p>
 
 <p>Install an ownCloud instance on your server, mount the above directory onto it as a data volume:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
+</code></pre></div></div>
 
 <p>Let’s break down the above command.</p>
 
@@ -152,20 +149,18 @@ $ pwd
 
 <p>Depending on whether or not you’ve already pulled ownCloud images, running this command should give you an output similar to this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
 9: Pulling from library/owncloud
 Digest: sha256:55323ed9980e09e5eb5d21d605145e989c8e92d5fe3db31cfdd047efaf1832a0
 
 Status: Downloaded newer image for owncloud:9
 77e25848399e8b3b56f4cb23d5490155a16482f382ac690ae98fb999f8ab4f7e
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>When Docker is done building and running, you can check the ownCloud container is correctly running by asking Docker to list the last container you created:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker ps -l
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps -l
+</code></pre></div></div>
 
 <p>Next, open your web browser, and go to <code class="highlighter-rouge">http://yourdomain.com:1996</code></p>
 
@@ -179,21 +174,19 @@ Status: Downloaded newer image for owncloud:9
 
 <p>So change this part of the file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com:1996',
   ),
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>to this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>'trusted_domains' =&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com',
   ),
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Now, <a href="https://owncloud.org/install/">install the ownCloud desktop client on your personal computer</a>. Add an account:
 <img src="https://i.imgur.com/rUD11j2.png" alt="" /></p>
@@ -218,9 +211,8 @@ Status: Downloaded newer image for owncloud:9
 
 <p>OK, now let’s setup the streamer. Run this command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
+</code></pre></div></div>
 
 <p>And let’s break that down:</p>
 
@@ -280,25 +272,22 @@ MySQL Username and MySQL Password match the ones in the previous step (default u
 
 <p>For the sake of simplicity, we instructed ownCloud to store both its own configuration files <em>and</em> our music files into the same directory: <code class="highlighter-rouge">owncloud_music</code>becomes ownCloud’s default volume at <code class="highlighter-rouge">/var/www/html</code>. You could have instead instructed Docker to mount an additional volume into the ownCloud container, in which ownCloud could have save its configuration files:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music_files:/var/www/html/data -v /home/your_username/owncloud_config_files:/var/www/html/config -p 1996:80 -d owncloud:9
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music_files:/var/www/html/data -v /home/your_username/owncloud_config_files:/var/www/html/config -p 1996:80 -d owncloud:9
+</code></pre></div></div>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
 <p>If you think you missed a step and your ownCloud or Ampache container doesn’t look like it’s been properly configured, the fastest way to fix it is to kill and delete the container, and build it again from scratch. One or both of these commands will do that:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker rm -f ampache
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker rm -f ampache
 $ docker rm -f audiosync
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="where-is-ampaches-config-file">Where is Ampache’s config file??</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ docker exec -ti ampache bash #let's go inside the ampache container
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -ti ampache bash #let's go inside the ampache container
 $ cat /var/www/config/ampache.cfg.php
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="lossless-files-arent-streaming">Lossless files aren’t streaming</h2>
 <p>Lossless files aren’t made for streaming, and need to be transcoded down to a lower bitrate for them to be streamed. By default, Ampache will silently fail to stream a lossless file, and you need to manually tell it to enable transcoding.</p>
@@ -309,10 +298,9 @@ $ cat /var/www/config/ampache.cfg.php
 
 <p>Then, remove the <code class="highlighter-rouge">;</code> from the beginning of the following lines:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>;encode_target = mp3
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;encode_target = mp3
 ;transcode_cmd = "avconv"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Lossless files should now stream, but at the default very low bitrate (32kbps). So in Ampache’s Web Interface, go to Settings –&gt; Streaming, and set the “Transcode Bitrate” to something acceptable like <code class="highlighter-rouge">256</code>.</p>
 
@@ -320,7 +308,7 @@ $ cat /var/www/config/ampache.cfg.php
 
 <p>… is always welcome. Has this tutorial been helpful? Is something not clear? Do you know of a more efficient way to setup ownCloud and Ampache with Docker?</p>
 
-<p><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#097;&#114;&#105;&#101;&#108;&#101;&#108;&#107;&#105;&#110;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">Drop me a line</a> or send a tweet: <a href="https://twitter.com/arivocals">@AriVocals</a></p>
+<p><a href="mailto:arielelkin@gmail.com">Drop me a line</a> or send a tweet: <a href="https://twitter.com/arivocals">@AriVocals</a></p>
 
 <h2 id="useful-sites">Useful sites</h2>
 

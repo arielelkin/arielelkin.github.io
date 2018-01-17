@@ -165,19 +165,15 @@
 
 <h4 id="problem-2-they-force-you-to-use-their-built-in-event-listeners">Problem 2: They force you to use their built-in event listeners</h4>
 
-<p>KVO forces you to implement at least these two monstrosities:
-```objective-c
-- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;</p>
+<p>KVO forces you to implement at least these two monstrosities:</p>
+<pre><code class="language-objective-c">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
 
-<ul>
-  <li>(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-```</li>
-</ul>
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+</code></pre>
 
-<p><code class="highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:
-<code class="highlighter-rouge">objective-c
-- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
-</code></p>
+<p><code class="highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:</p>
+<pre><code class="language-objective-c">- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
+</code></pre>
 
 <p>But this method can have one and only one argument, and that argument must be of type <code class="highlighter-rouge">NSNotification</code>, and you have to fit your data into its <code class="highlighter-rouge">userInfo</code> dictionary.</p>
 
