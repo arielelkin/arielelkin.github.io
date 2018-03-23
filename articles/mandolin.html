@@ -250,7 +250,7 @@
 }
 </code></pre>
 
-<p>(You could also declare the mandolin as a property <code class="highlighter-rouge"><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">stk</span><span class="o">::</span><span class="n">Mandolin</span> <span class="o">*</span><span class="n">myMandolin</span><span class="p">;</span></code> but an instance variable is really all you need here.)</p>
+<p>(You could also declare the mandolin as a property <code class="highlighter-rouge">@property (nonatomic) stk::Mandolin *myMandolin;</code> but an instance variable is really all you need here.)</p>
 
 <p>In case you’re wondering, we prefixed <code class="highlighter-rouge">Mandolin</code> with <code class="highlighter-rouge">stk::</code> to indicate that <code class="highlighter-rouge">Mandolin</code> is part of the STK’s <em>namespace</em> (a <a href="http://www.cplusplus.com/doc/tutorial/namespaces/">namespace</a> is a way in which classes and variables are grouped together in C++, and the STK groups its peeps in the <code class="highlighter-rouge">stk</code> namespace).</p>
 
