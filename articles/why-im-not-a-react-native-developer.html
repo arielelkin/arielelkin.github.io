@@ -101,6 +101,7 @@
 
 <!-- /MarkdownTOC -->
 
+<p><a id="introduction"></a></p>
 <h1 id="introduction">Introduction</h1>
 
 <p>Many people are currently assessing React Native as a <em>platform</em> to develop their next mobile app on. This is no trivial matter. Switching your software development platform involves a high setup cost and will profoundly impact your daily programming workflow. It is also one of the costliest decisions to reverse after anything substantial has been built.</p>
@@ -117,8 +118,10 @@
 
 <p>Having spent several months using React Native, I have found that it is neither a platform I would develop in, nor a platform I would recommend the use of. This article proposes to provide a more thorough evaluation of the pros and cons of switching from Swift development to React Native, and will argue against the switch.</p>
 
+<p><a id="pros"></a></p>
 <h1 id="pros">Pros</h1>
 
+<p><a id="declarative-style"></a></p>
 <h2 id="declarative-style">Declarative style</h2>
 
 <p>One thing I’ve found delightful about working with React Native was the declarative style in which the UI is programmed. In the React way of doing things, UI is <em>a function of</em> state and properties, whereas in Cocoa Touch, UI is imperatively written.</p>
@@ -212,6 +215,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>I found it to be a useful way to think about UI. And it’s a good evolution from MVC, with the View being just responsible for displaying itself and not for managing data, a welcome departure from <code class="highlighter-rouge">UIViewController</code> and its turning a blind eye to incestuous relationships between V and C.</p>
 
+<p><a id="faster-iterations"></a></p>
 <h2 id="faster-iterations">Faster iterations</h2>
 
 <p>React Native’s appeal isn’t just intellectual, the framework will appeal to the pragmatically minded too.</p>
@@ -231,6 +235,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>This allows over-the-air code updates. Any changes in your JavaScript code can be instantly pushed to your users while the app is in production.</p>
 
+<p><a id="cross-platform"></a></p>
 <h2 id="cross-platform">Cross-platform</h2>
 
 <p>Remember that graceless and awkward conversation?</p>
@@ -247,8 +252,10 @@ class ConnectivityIndicatorView extends Component {
 
 <p>The obvious advantages of any cross-platform frameworks are always compelling: market development, unified codebase, and a unified skill set required to maintain the app’s codebase.</p>
 
+<p><a id="cons"></a></p>
 <h1 id="cons">Cons</h1>
 
+<p><a id="uncertain-roadmap"></a></p>
 <h2 id="uncertain-roadmap">Uncertain roadmap</h2>
 
 <p>A major concern with using React Native is the lack of long-term commitment for the project.</p>
@@ -273,6 +280,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Again, we’re not talking about an individual Cocoapod, we’re talking about <em>the only platform your code can run on</em>. It’s the kind of thing you do need very-long-term visibility on, and you don’t have any.</p>
 
+<p><a id="patently-daunting"></a></p>
 <h2 id="patently-daunting">Patently daunting</h2>
 
 <p>Alongside its permissive BSD-style license, React Native ships with Facebook’s <strong>Additional Grant of Patent Rights</strong>, Version 2. Facebook’s motives for including this file aren’t clear, nor is the file itself.</p>
@@ -297,6 +305,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>iOS apps enter the App Store <em>entirely</em> at Apple’s discretion. I don’t want to multiply that uneasy feeling by two.</p>
 
+<p><a id="patently-silent"></a></p>
 <h3 id="patently-silent">Patently silent</h3>
 
 <p>Is the interpretation above correct? Is that worst-case scenario a possibility? Do I have a good reason to be worried? Do I have a good reason <strong>not</strong> to be worried?</p>
@@ -309,11 +318,18 @@ class ConnectivityIndicatorView extends Component {
 
 <p>This has turned into an exercise in hermeneutics and speculation over a question of genuine importance: Can Facebook revoke its React Native license? If so, under what conditions?</p>
 
+<p><a id="october-2017-update-facebook-relicensing"></a></p>
 <h3 id="october-2017-update-facebook-relicensing">October 2017 update: Facebook Relicensing</h3>
 <p>“[A]fter several weeks of disappointment and uncertainty for our community”, Facebook relicensed React, Jest, Flow, and Immutable.js under the MIT license. Sadly, React Native’s license and patent haven’t changed since this article was first published.</p>
 
 <p>I commend the claim that the Facebook people “don’t want to hold back forward progress for nontechnical reasons”, but I struggle to see which technical reason they have for maintaining the above situation for React Native.</p>
 
+<p><a id="february-2018-update-facebook-relicensing-again"></a></p>
+<h3 id="february-2018-update-facebook-relicensing-again">February 2018 update: Facebook Relicensing again</h3>
+
+<p>As of 17 February, 2018, <a href="https://github.com/facebook/react-native/commit/26684cf3adf4094eb6c405d345a75bf8c7c0bf88#diff-9879d6db96fd29134fc802214163b95a">Facebook relicensed React Native as MIT</a> 👍</p>
+
+<p><a id="javascript"></a></p>
 <h2 id="javascript">Javascript</h2>
 
 <p>A crucial downside to switching to React Native from Swift is the <strong>technical regress</strong>: you have to adopt and use JavaScript, a language that’s</p>
@@ -328,6 +344,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>All the examples of JavaScript code hereafter will be of valid JavaScript (ES2016) code</p>
 
+<p><a id="javascripts-inadequacy"></a></p>
 <h3 id="javascripts-inadequacy">Javascript’s inadequacy</h3>
 
 <p>One of my favourite bumper stickers proclaims:</p>
@@ -362,6 +379,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>But JavaScript lacks these safeguards against programmer error, making <em>preventable</em> runtime crashes and <em>preventable</em> programmer errors part of your <em>routine</em>.</p>
 
+<p><a id="type-errors"></a></p>
 <h4 id="type-errors">Type errors</h4>
 
 <p>The language does not enforce type of variables and parameters to functions:</p>
@@ -414,6 +432,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p><img src="https://i.imgur.com/J5ugzMI.png" alt="this.foo is not a function" /></p>
 
+<p><a id="lack-of-optionals"></a></p>
 <h4 id="lack-of-optionals">Lack of optionals</h4>
 
 <p>A very large amount of bugs in Objective-C code (and in many other older programming languages) are due to programmers inadvertently calling methods on objects that are <code class="highlighter-rouge">nil</code>.</p>
@@ -426,6 +445,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Swift did away with this problem by implementing optionals, which force you to take required <code class="highlighter-rouge">nil</code> checks if you know that an object can be <code class="highlighter-rouge">nil</code>.</p>
 
+<p><a id="lack-of-function-signature"></a></p>
 <h4 id="lack-of-function-signature">Lack of function signature</h4>
 
 <p>In JavaScript, functions don’t have a return type, you don’t know what can be returned by the function, or if it returns anything at all.</p>
@@ -448,6 +468,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>This messed up result is due to the fact that <code class="highlighter-rouge">parseInt</code> takes two parameters <code class="highlighter-rouge">(val, radix)</code> but <code class="highlighter-rouge">map</code> passes it 3 parameters <code class="highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
 
+<p><a id="immutability"></a></p>
 <h4 id="immutability">Immutability</h4>
 
 <p>JavaScript’s support for immutability is very poor.</p>
@@ -481,6 +502,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>You politely ask the developers to not mutate state. Yes, that’s a screenshot from the React documentation.</p>
 
+<p><a id="you-cant-trust-arrays"></a></p>
 <h4 id="you-cant-trust-arrays">You can’t trust arrays</h4>
 
 <p>You thought arrays were a “systematic arrangement of similar objects, usually in rows and columns”? Think again.</p>
@@ -508,6 +530,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>JavaScript arrays have more in common with ordinary JavaScript objects than with what we’d call an array. Their lack of precise sequentiality and mutability doesn’t make them well-behaved.</p>
 
+<p><a id="poor-error-handling"></a></p>
 <h4 id="poor-error-handling">Poor error handling</h4>
 
 <p>In JavaScript, you can have <em>any</em> function throw a runtime error or exception, without warning.</p>
@@ -528,6 +551,7 @@ class ConnectivityIndicatorView extends Component {
   <p>It’s best to leave exceptions as a last line of defense, for handling the exceptional errors you can’t anticipate, and to manage anticipated errors with control flow statements.</p>
 </blockquote>
 
+<p><a id="no-support-for-decimals"></a></p>
 <h4 id="no-support-for-decimals">No support for decimals</h4>
 
 <p>Given that most decimal fractions cannot be accurately represented as binary fractions in hardware, many programming languages (including JavaScript and Swift) will often produce mathematically incorrect decimal arithmetic:</p>
@@ -538,6 +562,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
 
+<p><a id="dodgy-maths"></a></p>
 <h4 id="dodgy-maths">Dodgy maths</h4>
 
 <p>Remember to be careful with primary school arithmetic too. JavaScript has a complicated relationship with <code class="highlighter-rouge">0</code> and things that are not numbers.</p>
@@ -559,6 +584,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="s1">'i like pumpkins'</span><span class="p">))</span> <span class="c1">//true</span>
 </code></pre></div></div>
 
+<p><a id="unsafe-initialisation"></a></p>
 <h4 id="unsafe-initialisation">Unsafe initialisation</h4>
 
 <p>JavaScript allows for objects to be left in an inconsistent state right after being created, as their properties don’t need to be initialised.</p>
@@ -584,6 +610,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myRect</span><span class="p">.</span><span class="nx">area</span><span class="p">())</span> <span class="c1">// ReferenceError: width is not defined</span>
 </code></pre></div></div>
 
+<p><a id="optional-curly-braces-after-an-if"></a></p>
 <h4 id="optional-curly-braces-after-an-if">Optional curly braces after an <code class="highlighter-rouge">if</code></h4>
 
 <p>Curly braces after an <code class="highlighter-rouge">if</code> statement are optional:</p>
@@ -602,6 +629,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>To add that taste of adventure to your control flow statements.</p>
 
+<p><a id="ambiguous-curly-braces"></a></p>
 <h4 id="ambiguous-curly-braces">Ambiguous curly braces</h4>
 
 <p>Unless programmer intent can be very accurately inferred, a language shouldn’t let curly braces be optional.</p>
@@ -616,6 +644,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="c1">//undefined</span>
 </code></pre></div></div>
 
+<p><a id="switch-fallthrough"></a></p>
 <h4 id="switch-fallthrough">Switch fallthrough</h4>
 
 <p>If you forget to include a <code class="highlighter-rouge">break</code> statement in a clause of a <code class="highlighter-rouge">switch</code> statement, you fall through. Also, a <code class="highlighter-rouge">switch</code> statement doesn’t carry out checks for case exhaustivity.</p>
@@ -636,6 +665,7 @@ class ConnectivityIndicatorView extends Component {
 */</span>
 </code></pre></div></div>
 
+<p><a id="whats-nothing"></a></p>
 <h4 id="whats-nothing">What’s nothing?</h4>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
@@ -652,6 +682,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="p">}</span>
 </code></pre></div></div>
 
+<p><a id="poor-expressivity"></a></p>
 <h4 id="poor-expressivity">Poor expressivity</h4>
 
 <ul>
@@ -661,6 +692,7 @@ class ConnectivityIndicatorView extends Component {
   <li>No <code class="highlighter-rouge">where</code> statement to increase expressivity of control flow statements.</li>
 </ul>
 
+<p><a id="exceedingly-slow-evolution"></a></p>
 <h4 id="exceedingly-slow-evolution">Exceedingly slow evolution</h4>
 
 <p>Behold, ES2016 brought these new features to JavaScript:</p>
@@ -697,6 +729,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>So it took JavaScript 20 years to add a basic arithmetic operator and a quite limited membership-checking method for arrays, as a year’s worth of improvements.</p>
 
+<p><a id="flow-to-the-rescue"></a></p>
 <h4 id="flow-to-the-rescue">Flow to the rescue!</h4>
 
 <p>Flow is Facebook’s answer to many of the above grievances. It’s a static type-checker for JavaScript, capable of inferring and tracking the types of the variables in your code, and alert you of impending doom.</p>
@@ -869,6 +902,7 @@ No errors!
   <li><code class="highlighter-rouge">get-def         Gets the definition location of a variable or property</code></li>
 </ul>
 
+<p><a id="flows-like-flossing"></a></p>
 <h4 id="flows-like-flossing">Flow’s like flossing</h4>
 
 <p>Is JavaScript fixed now? No.</p>
@@ -897,6 +931,7 @@ No errors!
 
 <p>On a more relevant note, out of the hundred React Native repositories over at <code class="highlighter-rouge">awesome-react-native</code>, I wasn’t able to find one that made any significant use of Flow and its type annotations. Nor was I able to find a single React Native tutorial mentioning (let alone advising you) the use of Flow.</p>
 
+<p><a id="the-javascript-ecosystem-balls-and-chains"></a></p>
 <h3 id="the-javascript-ecosystem-balls-and-chains">The Javascript Ecosystem: balls and chains</h3>
 
 <p>JavaScript’s deficiencies seem to impress everyone except JavaScript developers, for whom the aspects of JavaScript that I outlined above are not awful warts, they’re “quirks” or “gotchas” that <em>you</em>, not your language, have to be on the lookout for.</p>
@@ -917,6 +952,7 @@ No errors!
 
 <p>“Freedom from digging” is simply choosing a language that has built-in support for the things you need. This digging is not a good use of energy. JavaScript is not naturally conducive to good software engineering also for this reason: it forces you to develop and depend on things that other languages offer by default.</p>
 
+<p><a id="chains"></a></p>
 <h4 id="chains">Chains</h4>
 
 <p>JavaScript has bigger fish to fry. It’s a language that needs to cater to the needs of literally <em>billions</em> of internet users, who may or may not update their browser or website. That cripples the development of the language.</p>
@@ -939,6 +975,7 @@ No errors!
 
 <p>is admirably democratic. But on the other hand, it will be much slower than that of other languages, and it probably won’t prioritise developer ergonomics as much as  portability.</p>
 
+<p><a id="wider-angles"></a></p>
 <h4 id="wider-angles">Wider angles</h4>
 
 <p>From a historical perspective, the pattern we’re seeing here, of a seemingly deficient language gaining popularity and being repudiated by the incumbents of the platforms it wants to take over, is poignant and familiar.</p>
@@ -996,6 +1033,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
   <li>All the above (JavaScript)</li>
 </ul>
 
+<p><a id="dependencies"></a></p>
 <h2 id="dependencies">Dependencies</h2>
 
 <p>React Native has a total of 648 dependencies.</p>
@@ -1012,6 +1050,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p>And will they all implement best practices in security? Or can you tolerate 648 separate potential security risks?</p>
 
+<p><a id="better-alternatives"></a></p>
 <h2 id="better-alternatives">Better alternatives</h2>
 
 <p>If cross-platform development is what drew you to React Native, consider your options.</p>
@@ -1036,6 +1075,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p>(An honorable mention goes to Flutter, a cross-platform development platform (iOS and Android) being written by Google. It uses a language that’s safer and more expressive than JavaScript (Dart), it helps you follow principles of Material design, and produces natively compiled code. Unlike Xamarin and Appcelerator, it’s open-source. It’s currently not production-ready, but it’s promising nonetheless.)</p>
 
+<p><a id="conclusion"></a></p>
 <h1 id="conclusion">Conclusion</h1>
 
 <p>Good software development platforms have four essential features.</p>
@@ -1063,20 +1103,24 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p>And that is why I am not a React Native developer.</p>
 
+<p><a id="acknowledgements"></a></p>
 <h1 id="acknowledgements">Acknowledgements</h1>
 
 <p>My thanks to Rami Chowdhury and Alkis Papadakis for their helpful feedback on early version of this article. Thanks also to Greg McMullen for helping me decipher esoteric IP texts.</p>
 
+<p><a id="changelog"></a></p>
 <h1 id="changelog">Changelog</h1>
 
 <p>You can track this article’s edits <a href="https://github.com/arielelkin/arielelkin.github.io/commits/master/articles/why-im-not-a-react-native-developer.html">here</a>.</p>
 
+<p><a id="comments"></a></p>
 <h1 id="comments">Comments</h1>
 
 <p>Follow and participate to the discussion of this article on <a href="https://news.ycombinator.com/item?id=12549590">Hacker News</a>, <a href="https://news.ycombinator.com/item?id=12592762">Hacker News (again)</a> and <a href="https://www.reddit.com/r/programming/comments/53yxk5/why_im_not_a_react_native_developer/">/r/programming</a>.</p>
 
 <p>You can read a Korean translation of this article <a href="http://canapio.tistory.com/73">here</a> (courtesy of <a href="https://twitter.com/canapio/status/812803213460049921">canapio</a>).</p>
 
+<p><a id="references"></a></p>
 <h1 id="references">References</h1>
 
 <ul>
@@ -1123,6 +1167,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
   <li><a href="https://code.facebook.com/posts/300798627056246/relicensing-react-jest-flow-and-immutable-js/">Facebook relicenses React, Jest, Flow, and Immutable.js under the MIT license</a></li>
 </ul>
 
+<p><a id="appendix-a-more-detailed-breakdown-of-react-natives-patent-issues"></a></p>
 <h3 id="appendix-a-more-detailed-breakdown-of-react-natives-patent-issues">Appendix: A more detailed breakdown of React Native’s Patent issues</h3>
 
 <p>From <a href="https://twitter.com/gmcmullen">Greg McMullen</a>.</p>
