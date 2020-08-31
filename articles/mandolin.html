@@ -107,11 +107,11 @@
 <ol>
   <li>Add The Amazing Audio Engine to your project.
     <ol>
-      <li><strong>If you’re using CocoaPods:</strong> add <code class="highlighter-rouge">pod 'TheAmazingAudioEngine'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>. Remember to close <strong>Mandolin.xcodeproj</strong> and use <strong>Mandolin.xcworkspace</strong> instead.</li>
+      <li><strong>If you’re using CocoaPods:</strong> add <code class="language-plaintext highlighter-rouge">pod 'TheAmazingAudioEngine'</code> to your podfile and run <code class="language-plaintext highlighter-rouge">pod install</code>. Remember to close <strong>Mandolin.xcodeproj</strong> and use <strong>Mandolin.xcworkspace</strong> instead.</li>
       <li><strong>If you’re not using CocoaPods:</strong> <a href="http://theamazingaudioengine.com/doc/_getting-_started.html">visit this page</a> and follow steps 1-6 to the letter.</li>
     </ol>
   </li>
-  <li>Open <strong>AppDelegate.m</strong>, under <code class="highlighter-rouge">#import "AppDelegate.h"</code> write</li>
+  <li>Open <strong>AppDelegate.m</strong>, under <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code> write</li>
 </ol>
 
 <pre><code class="language-objective-c">#import "AEAudioController.h"
@@ -123,28 +123,28 @@
 
 <p>We’ll be generating our Mandolin sound within a <em>channel</em>, and we’ll connect this channel directly to the <em>audio engine</em>. The audio engine gathers the sound it receives from all the channels connected to it, and sends it to the headphones or speaker.</p>
 
-<p>Let’s now set up our app’s <em>audio engine</em>. Our audio engine will be the entity responsible for managing audio sources and outputs, and communicating with the OS. In TAAE, <code class="highlighter-rouge">AEAudioController</code> is the class that wraps the audio engine. We will place it inside our app delegate, for a couple of reasons:</p>
+<p>Let’s now set up our app’s <em>audio engine</em>. Our audio engine will be the entity responsible for managing audio sources and outputs, and communicating with the OS. In TAAE, <code class="language-plaintext highlighter-rouge">AEAudioController</code> is the class that wraps the audio engine. We will place it inside our app delegate, for a couple of reasons:</p>
 
 <ul>
   <li>The app delegate should handle launch-time initialization of our core app components, and those include our audio engine.</li>
   <li>Given that the app delegate manages transitions to and from the background, it should deal with the audio engine during those transitions. For example, it should suspend audio rendering when our app is sent to the background.</li>
 </ul>
 
-<p>Open <strong>AppDelegate.h</strong>, write this above <code class="highlighter-rouge">#import &lt;UIKit/UIKit.h&gt;</code>:</p>
+<p>Open <strong>AppDelegate.h</strong>, write this above <code class="language-plaintext highlighter-rouge">#import &lt;UIKit/UIKit.h&gt;</code>:</p>
 
 <pre><code class="language-objective-c">@class AEAudioController;
 </code></pre>
 
-<p>This is a <a href="http://stackoverflow.com/questions/5191487/objective-c-forward-class-declaration">forward declaration</a> of <code class="highlighter-rouge">AEAudioController</code>. We’ll be importing <strong>AEAudioController.h</strong> in the app delegate’s implementation (it’s cleaner to import it here to avoid circular inclusions of files).</p>
+<p>This is a <a href="http://stackoverflow.com/questions/5191487/objective-c-forward-class-declaration">forward declaration</a> of <code class="language-plaintext highlighter-rouge">AEAudioController</code>. We’ll be importing <strong>AEAudioController.h</strong> in the app delegate’s implementation (it’s cleaner to import it here to avoid circular inclusions of files).</p>
 
-<p>Let’s now add an <code class="highlighter-rouge">AEAudioController</code> property to our <code class="highlighter-rouge">AppDelegate</code>:</p>
+<p>Let’s now add an <code class="language-plaintext highlighter-rouge">AEAudioController</code> property to our <code class="language-plaintext highlighter-rouge">AppDelegate</code>:</p>
 
 <pre><code class="language-objective-c">@property (nonatomic, readonly) AEAudioController *audioController;
 </code></pre>
 
-<p>Other files will be able to refer to the <code class="highlighter-rouge">audioController</code> variable, but we’re adding the <code class="highlighter-rouge">readonly</code> identifier because we don’t want to let them change what it points to.</p>
+<p>Other files will be able to refer to the <code class="language-plaintext highlighter-rouge">audioController</code> variable, but we’re adding the <code class="language-plaintext highlighter-rouge">readonly</code> identifier because we don’t want to let them change what it points to.</p>
 
-<p>Open <strong>AppDelegate.m</strong>. Under the <code class="highlighter-rouge">#import "AppDelegate.h"</code> line we wrote earlier on, write:</p>
+<p>Open <strong>AppDelegate.m</strong>. Under the <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code> line we wrote earlier on, write:</p>
 
 <pre><code class="language-objective-c">@interface AppDelegate()
 
@@ -153,9 +153,9 @@
 @end
 </code></pre>
 
-<p>This is a <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html">class extension</a> in which we allow the implementation of AppDelegate to actually set its <code class="highlighter-rouge">audioController</code> property.</p>
+<p>This is a <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html">class extension</a> in which we allow the implementation of AppDelegate to actually set its <code class="language-plaintext highlighter-rouge">audioController</code> property.</p>
 
-<p>At the end of the <code class="highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:</p>
+<p>At the end of the <code class="language-plaintext highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:</p>
 
 <pre><code class="language-objective-c">self.audioController = [[AEAudioController alloc]
                         initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
@@ -185,12 +185,12 @@
 }
 </code></pre>
 
-<p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="highlighter-rouge">#import "ViewController.h"</code>, write:</p>
+<p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="language-plaintext highlighter-rouge">#import "ViewController.h"</code>, write:</p>
 
 <pre><code class="language-objective-c">#import "AppDelegate.h"
 </code></pre>
 
-<p>In <code class="highlighter-rouge">viewDidLoad</code>, write:</p>
+<p>In <code class="language-plaintext highlighter-rouge">viewDidLoad</code>, write:</p>
 
 <pre><code class="language-objective-c">- (void)viewDidLoad
 {
@@ -206,13 +206,13 @@
 }
 </code></pre>
 
-<p>Let’s break this down. First, we get a reference to our app delegate instance. It needs to be of class <code class="highlighter-rouge">AppDelegate</code> because we need to use its <code class="highlighter-rouge">audioController</code> property.</p>
+<p>Let’s break this down. First, we get a reference to our app delegate instance. It needs to be of class <code class="language-plaintext highlighter-rouge">AppDelegate</code> because we need to use its <code class="language-plaintext highlighter-rouge">audioController</code> property.</p>
 
-<p>Then, we send a <code class="highlighter-rouge">start</code> message to the audioController, to tell it to start processing audio. <code class="highlighter-rouge">start</code> returns a <code class="highlighter-rouge">BOOL</code>: <code class="highlighter-rouge">YES</code> if it successfully started the audio engine, and <code class="highlighter-rouge">NO</code> otherwise. <code class="highlighter-rouge">start</code>’s only parameter is a pointer to an <code class="highlighter-rouge">NSError</code> object, and if an error occurs, the pointer is set to an error object containing the error information.  We want to be prepared for any errors; so we’ll check <code class="highlighter-rouge">start</code>’s return value, if there’s an error, print <code class="highlighter-rouge">errorAudioSetup</code>, let the user gracefully know, etc.</p>
+<p>Then, we send a <code class="language-plaintext highlighter-rouge">start</code> message to the audioController, to tell it to start processing audio. <code class="language-plaintext highlighter-rouge">start</code> returns a <code class="language-plaintext highlighter-rouge">BOOL</code>: <code class="language-plaintext highlighter-rouge">YES</code> if it successfully started the audio engine, and <code class="language-plaintext highlighter-rouge">NO</code> otherwise. <code class="language-plaintext highlighter-rouge">start</code>’s only parameter is a pointer to an <code class="language-plaintext highlighter-rouge">NSError</code> object, and if an error occurs, the pointer is set to an error object containing the error information.  We want to be prepared for any errors; so we’ll check <code class="language-plaintext highlighter-rouge">start</code>’s return value, if there’s an error, print <code class="language-plaintext highlighter-rouge">errorAudioSetup</code>, let the user gracefully know, etc.</p>
 
 <h2 id="add-the-stk">Add the STK</h2>
 
-<p>If you’re using CocoaPods: add <code class="highlighter-rouge">pod 'STK'</code> to your podfile and run <code class="highlighter-rouge">pod install</code>.</p>
+<p>If you’re using CocoaPods: add <code class="language-plaintext highlighter-rouge">pod 'STK'</code> to your podfile and run <code class="language-plaintext highlighter-rouge">pod install</code>.</p>
 
 <p>If you’re not using CocoaPods: <a href="https://github.com/thestk/stk/blob/master/iOS/README-iOS.md">visit this page</a> and follow the instructions there to add the STK to your project.</p>
 
@@ -220,7 +220,7 @@
 
 <p>STK source files are written in C++, so any source file that imports them must be Objective-C++. Rename <strong>ViewController.m</strong> to <strong>ViewController.mm</strong> so that it becomes Objective-C++.</p>
 
-<p>Open <strong>ViewController.mm</strong> and under <code class="highlighter-rouge">#import "AppDelegate.h"</code>, write:</p>
+<p>Open <strong>ViewController.mm</strong> and under <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code>, write:</p>
 
 <pre><code class="language-objective-c">#import "AEBlockChannel.h"
 #import "Mandolin.h"
@@ -228,7 +228,7 @@
 
 <h3 id="rawwaves">Rawwaves</h3>
 
-<p>The <code class="highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="highlighter-rouge">viewDidLoad</code> code we wrote, add this line:</p>
+<p>The <code class="language-plaintext highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="language-plaintext highlighter-rouge">viewDidLoad</code> code we wrote, add this line:</p>
 
 <pre><code class="language-objective-c">stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
 </code></pre>
@@ -239,22 +239,22 @@
 
 <p><img src="https://i.imgur.com/RDFxrAI.png" /></p>
 
-<p>A mandolin’s frequency usually varies between 200Hz and 3000Hz, but by default <code class="highlighter-rouge">UISliders</code> send values between <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">1</code>. So we want the slider’s minimum and maximum values to reflect that. Click on the slider, then click on the fourth button at the top of the inspector pane on the right. Set “Minimum” to <strong>200</strong> and set “Maximum” to <strong>1000</strong> (yes, we could set this to <strong>3000</strong> as mandolins do go above 1000Hz, but for our prototyping purposes <strong>1000</strong> is fine). Set “Current” to <strong>400</strong>.</p>
+<p>A mandolin’s frequency usually varies between 200Hz and 3000Hz, but by default <code class="language-plaintext highlighter-rouge">UISliders</code> send values between <code class="language-plaintext highlighter-rouge">0</code> to <code class="language-plaintext highlighter-rouge">1</code>. So we want the slider’s minimum and maximum values to reflect that. Click on the slider, then click on the fourth button at the top of the inspector pane on the right. Set “Minimum” to <strong>200</strong> and set “Maximum” to <strong>1000</strong> (yes, we could set this to <strong>3000</strong> as mandolins do go above 1000Hz, but for our prototyping purposes <strong>1000</strong> is fine). Set “Current” to <strong>400</strong>.</p>
 
 <p><img src="https://imgur.com/sBLC5dn.png" /></p>
 
-<p>Open <strong>ViewController.mm</strong> and add an instance variable for our <code class="highlighter-rouge">Mandolin</code>:</p>
+<p>Open <strong>ViewController.mm</strong> and add an instance variable for our <code class="language-plaintext highlighter-rouge">Mandolin</code>:</p>
 
 <pre><code class="language-objective-c">@implementation ViewController {
     stk::Mandolin *myMandolin;
 }
 </code></pre>
 
-<p>(You could also declare the mandolin as a property <code class="highlighter-rouge">@property (nonatomic) stk::Mandolin *myMandolin;</code> but an instance variable is really all you need here.)</p>
+<p>(You could also declare the mandolin as a property <code class="language-plaintext highlighter-rouge">@property (nonatomic) stk::Mandolin *myMandolin;</code> but an instance variable is really all you need here.)</p>
 
-<p>In case you’re wondering, we prefixed <code class="highlighter-rouge">Mandolin</code> with <code class="highlighter-rouge">stk::</code> to indicate that <code class="highlighter-rouge">Mandolin</code> is part of the STK’s <em>namespace</em> (a <a href="http://www.cplusplus.com/doc/tutorial/namespaces/">namespace</a> is a way in which classes and variables are grouped together in C++, and the STK groups its peeps in the <code class="highlighter-rouge">stk</code> namespace).</p>
+<p>In case you’re wondering, we prefixed <code class="language-plaintext highlighter-rouge">Mandolin</code> with <code class="language-plaintext highlighter-rouge">stk::</code> to indicate that <code class="language-plaintext highlighter-rouge">Mandolin</code> is part of the STK’s <em>namespace</em> (a <a href="http://www.cplusplus.com/doc/tutorial/namespaces/">namespace</a> is a way in which classes and variables are grouped together in C++, and the STK groups its peeps in the <code class="language-plaintext highlighter-rouge">stk</code> namespace).</p>
 
-<p>We’ll be creating a <code class="highlighter-rouge">Mandolin</code> instance which will generate sound when plucked, and whose frequency/pitch we can adjust.</p>
+<p>We’ll be creating a <code class="language-plaintext highlighter-rouge">Mandolin</code> instance which will generate sound when plucked, and whose frequency/pitch we can adjust.</p>
 
 <p>Further down <strong>ViewController.mm</strong>, write the two methods that define the behaviour for the button and slider:</p>
 
@@ -267,15 +267,15 @@
 }
 </code></pre>
 
-<p>Let’s tell the button and the slider that these are the methods they’re dealing with. Save <strong>ViewController.mm</strong> and go back into the Storyboard. Leave <code class="highlighter-rouge">control</code> pressed and click and drag from the “Pluck my mandolin” button to the yellow circle at the bottom of the view controller. Let go, and select <strong>pluckMyMandolin</strong></p>
+<p>Let’s tell the button and the slider that these are the methods they’re dealing with. Save <strong>ViewController.mm</strong> and go back into the Storyboard. Leave <code class="language-plaintext highlighter-rouge">control</code> pressed and click and drag from the “Pluck my mandolin” button to the yellow circle at the bottom of the view controller. Let go, and select <strong>pluckMyMandolin</strong></p>
 
-<p>Do the same for the slider. Leave <code class="highlighter-rouge">control</code> pressed and click and drag from the slider to the yellow circle at the bottom of the view controller. Let go, and this time select <strong>changeFrequency:</strong></p>
+<p>Do the same for the slider. Leave <code class="language-plaintext highlighter-rouge">control</code> pressed and click and drag from the slider to the yellow circle at the bottom of the view controller. Let go, and this time select <strong>changeFrequency:</strong></p>
 
 <p>Those are the basics of our UI.</p>
 
 <h2 id="the-mandolins-back-end">The mandolin’s back-end</h2>
 
-<p>In <strong>ViewController.mm</strong>, add an instance variable for our <code class="highlighter-rouge">AEBlockChannel</code>:</p>
+<p>In <strong>ViewController.mm</strong>, add an instance variable for our <code class="language-plaintext highlighter-rouge">AEBlockChannel</code>:</p>
 
 <pre><code class="language-objective-c">@implementation ViewController {
     AEBlockChannel *myMandolinChannel;
@@ -283,7 +283,7 @@
 }
 </code></pre>
 
-<p>Now let’s create our Mandolin and place it inside a channel. At the bottom of <code class="highlighter-rouge">viewDidLoad</code>, write:</p>
+<p>Now let’s create our Mandolin and place it inside a channel. At the bottom of <code class="language-plaintext highlighter-rouge">viewDidLoad</code>, write:</p>
 
 <pre><code class="language-objective-c">myMandolin = new stk::Mandolin(400);
 myMandolin-&gt;setFrequency(400);
@@ -302,27 +302,27 @@ myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *ti
 [[appDelegate audioController] addChannels:@[myMandolinChannel]];
 </code></pre>
 
-<p>We first initialise a new <code class="highlighter-rouge">Mandolin</code> object, and set its frequency to 400.</p>
+<p>We first initialise a new <code class="language-plaintext highlighter-rouge">Mandolin</code> object, and set its frequency to 400.</p>
 
-<p>We then create an <code class="highlighter-rouge">AEBlockChannel</code>, which takes in a block as a parameter. This block, in turn, has parameters <em>in which</em> you have to store the audio you generate: we’ll be generating audio one sample at a time and placing it in the audio buffers on their way to the headphones.</p>
+<p>We then create an <code class="language-plaintext highlighter-rouge">AEBlockChannel</code>, which takes in a block as a parameter. This block, in turn, has parameters <em>in which</em> you have to store the audio you generate: we’ll be generating audio one sample at a time and placing it in the audio buffers on their way to the headphones.</p>
 
-<h3 id="understanding-tick">Understanding <code class="highlighter-rouge">tick()</code></h3>
+<h3 id="understanding-tick">Understanding <code class="language-plaintext highlighter-rouge">tick()</code></h3>
 
-<p>STK classes have a <code class="highlighter-rouge">tick()</code> function which computes and generates one sample of audio; <code class="highlighter-rouge">myMandolin-&gt;tick()</code> returns consecutive samples of mandolin audio.</p>
+<p>STK classes have a <code class="language-plaintext highlighter-rouge">tick()</code> function which computes and generates one sample of audio; <code class="language-plaintext highlighter-rouge">myMandolin-&gt;tick()</code> returns consecutive samples of mandolin audio.</p>
 
-<p>The STK classes compute and output one consecutive sample at a time, their <code class="highlighter-rouge">tick()</code> function returns one sample of computed audio, which we place in our audio buffers. The STK objects tick according to their state. So <code class="highlighter-rouge">tick()</code> returns <code class="highlighter-rouge">0</code> (i.e. silence) if we haven’t plucked the mandolin, but if you pluck it it’ll return a number higher or lower than <code class="highlighter-rouge">0</code>.</p>
+<p>The STK classes compute and output one consecutive sample at a time, their <code class="language-plaintext highlighter-rouge">tick()</code> function returns one sample of computed audio, which we place in our audio buffers. The STK objects tick according to their state. So <code class="language-plaintext highlighter-rouge">tick()</code> returns <code class="language-plaintext highlighter-rouge">0</code> (i.e. silence) if we haven’t plucked the mandolin, but if you pluck it it’ll return a number higher or lower than <code class="language-plaintext highlighter-rouge">0</code>.</p>
 
-<h3 id="understanding-audiobuffers">Understanding <code class="highlighter-rouge">AudioBuffers</code></h3>
+<h3 id="understanding-audiobuffers">Understanding <code class="language-plaintext highlighter-rouge">AudioBuffers</code></h3>
 
-<p>The <code class="highlighter-rouge">for</code> loop places the output of <code class="highlighter-rouge">myMandolin-&gt;tick()</code> in the audio buffers. Let’s take a closer look at how that works.</p>
+<p>The <code class="language-plaintext highlighter-rouge">for</code> loop places the output of <code class="language-plaintext highlighter-rouge">myMandolin-&gt;tick()</code> in the audio buffers. Let’s take a closer look at how that works.</p>
 
-<p>An <code class="highlighter-rouge">AudioBuffer</code> is a <code class="highlighter-rouge">struct</code> that contains audio (and data about the audio). Its <code class="highlighter-rouge">mData</code> member points to the buffer’s audio data. This is an array, each member of this array is a sample. The audio samples we place in this array will be delivered to the headphones.</p>
+<p>An <code class="language-plaintext highlighter-rouge">AudioBuffer</code> is a <code class="language-plaintext highlighter-rouge">struct</code> that contains audio (and data about the audio). Its <code class="language-plaintext highlighter-rouge">mData</code> member points to the buffer’s audio data. This is an array, each member of this array is a sample. The audio samples we place in this array will be delivered to the headphones.</p>
 
-<p>The STK works with <em>non-interleaved</em> audio, which means that there is one <code class="highlighter-rouge">AudioBuffer</code> for the left channel: <code class="highlighter-rouge">audio-&gt;mBuffers[0]</code>, and one <code class="highlighter-rouge">AudioBuffer</code> for the right channel: <code class="highlighter-rouge">audio-&gt;mBuffers[1]</code>.</p>
+<p>The STK works with <em>non-interleaved</em> audio, which means that there is one <code class="language-plaintext highlighter-rouge">AudioBuffer</code> for the left channel: <code class="language-plaintext highlighter-rouge">audio-&gt;mBuffers[0]</code>, and one <code class="language-plaintext highlighter-rouge">AudioBuffer</code> for the right channel: <code class="language-plaintext highlighter-rouge">audio-&gt;mBuffers[1]</code>.</p>
 
-<p>The <code class="highlighter-rouge">frames</code> argument in the block specifies the number of samples in a buffer, i.e. the length of the array over which the <code class="highlighter-rouge">for</code> loop is iterating.</p>
+<p>The <code class="language-plaintext highlighter-rouge">frames</code> argument in the block specifies the number of samples in a buffer, i.e. the length of the array over which the <code class="language-plaintext highlighter-rouge">for</code> loop is iterating.</p>
 
-<p><code class="highlighter-rouge">Mandolin</code> produces mono sound, which is why we’re placing its sample in both the left and the right channel.</p>
+<p><code class="language-plaintext highlighter-rouge">Mandolin</code> produces mono sound, which is why we’re placing its sample in both the left and the right channel.</p>
 
 <h2 id="outro">Outro</h2>
 
@@ -347,7 +347,7 @@ myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *ti
 
 <h2 id="further-reading">Further reading</h2>
 <ul>
-  <li><a href="https://ccrma.stanford.edu/software/stk/classstk_1_1Mandolin.html"><code class="highlighter-rouge">Mandolin</code>’s Documentation</a>
+  <li><a href="https://ccrma.stanford.edu/software/stk/classstk_1_1Mandolin.html"><code class="language-plaintext highlighter-rouge">Mandolin</code>’s Documentation</a>
     <ul>
       <li>There are many more things you can do with the mandolin, read this thoroughly.</li>
     </ul>

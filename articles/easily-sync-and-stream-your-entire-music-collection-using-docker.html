@@ -118,40 +118,40 @@
   <li>Create a directory on your server where the music collection will be stored. This directory will be managed by ownCloud’s and so will include ownCloud’s own configuration files:</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir owncloud_music
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir owncloud_music
 </code></pre></div></div>
 
-<p>We need to note down the absolute path of this directory, so <code class="highlighter-rouge">cd</code> into it and print the working directory:</p>
+<p>We need to note down the absolute path of this directory, so <code class="language-plaintext highlighter-rouge">cd</code> into it and print the working directory:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd owncloud_music
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd owncloud_music
 $ pwd
 /home/your_username/owncloud_music
 </code></pre></div></div>
 
-<p>The directory doesn’t need to be in your home folder, but it should be somewhere where you’re not likely to move it around. For the rest of this tutorial, we’ll assume that <code class="highlighter-rouge">/home/your_username/owncloud_music</code> is the absolute path of your music directory.</p>
+<p>The directory doesn’t need to be in your home folder, but it should be somewhere where you’re not likely to move it around. For the rest of this tutorial, we’ll assume that <code class="language-plaintext highlighter-rouge">/home/your_username/owncloud_music</code> is the absolute path of your music directory.</p>
 
 <p>Install an ownCloud instance on your server, mount the above directory onto it as a data volume:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music:/var/www/html -p 1996:80 -d owncloud:9
 </code></pre></div></div>
 
 <p>Let’s break down the above command.</p>
 
-<p><code class="highlighter-rouge">docker run</code> tells docker to pull the ownCloud image and its dependencies, build it, and start the container from that image with a particular set of options that I’ll get into more detail below:</p>
+<p><code class="language-plaintext highlighter-rouge">docker run</code> tells docker to pull the ownCloud image and its dependencies, build it, and start the container from that image with a particular set of options that I’ll get into more detail below:</p>
 
-<p><code class="highlighter-rouge">--name audiosync</code> allows us to name our container in order to be able to refer to it more easily. We could have several ownCloud instances running, but this one’s dedicated to synchronizing our audio, so let’s call it <code class="highlighter-rouge">audiosync</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">--name audiosync</code> allows us to name our container in order to be able to refer to it more easily. We could have several ownCloud instances running, but this one’s dedicated to synchronizing our audio, so let’s call it <code class="language-plaintext highlighter-rouge">audiosync</code>.</p>
 
-<p><code class="highlighter-rouge">-v /home/your_username/owncloud_music:/var/www/html</code> is the money shot. This mounts the music directory we created before into the ownCloud container at <code class="highlighter-rouge">/var/www/html</code>, which is the directory <em>within the ownCloud container</em> where ownCloud stores its data and local configuration. ownCloud is under the impression of running in its own lonely operating system, yet little does it know, it’s writing directly onto our server filesystem. Make sure you pass in the absolute path to the music directory.</p>
+<p><code class="language-plaintext highlighter-rouge">-v /home/your_username/owncloud_music:/var/www/html</code> is the money shot. This mounts the music directory we created before into the ownCloud container at <code class="language-plaintext highlighter-rouge">/var/www/html</code>, which is the directory <em>within the ownCloud container</em> where ownCloud stores its data and local configuration. ownCloud is under the impression of running in its own lonely operating system, yet little does it know, it’s writing directly onto our server filesystem. Make sure you pass in the absolute path to the music directory.</p>
 
-<p><code class="highlighter-rouge">-p 1996:80</code> ownCloud listens to incoming web traffic on port 80. But so does Ampache, and so might other things running on your server. (Port 80 is the default port that your server listens to, it’s what you see when you access <code class="highlighter-rouge">http://yourdomain.com/</code>). So our server will listen to traffic on port 1996 and route it to ownCloud’s port 80. I recommend using port 1996 because that’s the year that the album <em>Below the Bassline</em> by Ernest Ranglin was released.</p>
+<p><code class="language-plaintext highlighter-rouge">-p 1996:80</code> ownCloud listens to incoming web traffic on port 80. But so does Ampache, and so might other things running on your server. (Port 80 is the default port that your server listens to, it’s what you see when you access <code class="language-plaintext highlighter-rouge">http://yourdomain.com/</code>). So our server will listen to traffic on port 1996 and route it to ownCloud’s port 80. I recommend using port 1996 because that’s the year that the album <em>Below the Bassline</em> by Ernest Ranglin was released.</p>
 
-<p><code class="highlighter-rouge">-d</code> starts the container in detached mode. This runs the container in the background rather than in the foreground.</p>
+<p><code class="language-plaintext highlighter-rouge">-d</code> starts the container in detached mode. This runs the container in the background rather than in the foreground.</p>
 
-<p><code class="highlighter-rouge">owncloud:9</code> is the particular version of ownCloud we want. This pulls the official ownCloud image from Docker Hub.</p>
+<p><code class="language-plaintext highlighter-rouge">owncloud:9</code> is the particular version of ownCloud we want. This pulls the official ownCloud image from Docker Hub.</p>
 
 <p>Depending on whether or not you’ve already pulled ownCloud images, running this command should give you an output similar to this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unable to find image 'owncloud:9' locally
 9: Pulling from library/owncloud
 Digest: sha256:55323ed9980e09e5eb5d21d605145e989c8e92d5fe3db31cfdd047efaf1832a0
 
@@ -161,10 +161,10 @@ Status: Downloaded newer image for owncloud:9
 
 <p>When Docker is done building and running, you can check the ownCloud container is correctly running by asking Docker to list the last container you created:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps -l
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker ps -l
 </code></pre></div></div>
 
-<p>Next, open your web browser, and go to <code class="highlighter-rouge">http://yourdomain.com:1996</code></p>
+<p>Next, open your web browser, and go to <code class="language-plaintext highlighter-rouge">http://yourdomain.com:1996</code></p>
 
 <p><img src="https://i.imgur.com/nza2Lar.png" alt="" /></p>
 
@@ -172,11 +172,11 @@ Status: Downloaded newer image for owncloud:9
 
 <p>If you get the “You are accessing the server from an untrusted domain.” error:</p>
 
-<p><code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music/config/</code> directory on your server. Then <code class="highlighter-rouge">sudo</code> edit the config.php file so that your domain in the <code class="highlighter-rouge">trusted_domains</code> array does not specify a port:</p>
+<p><code class="language-plaintext highlighter-rouge">cd</code> into the <code class="language-plaintext highlighter-rouge">owncloud_music/config/</code> directory on your server. Then <code class="language-plaintext highlighter-rouge">sudo</code> edit the config.php file so that your domain in the <code class="language-plaintext highlighter-rouge">trusted_domains</code> array does not specify a port:</p>
 
 <p>So change this part of the file:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com:1996',
   ),
@@ -184,7 +184,7 @@ Status: Downloaded newer image for owncloud:9
 
 <p>to this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'trusted_domains' =&gt;
   array (
     0 =&gt; 'yourdomain.com',
   ),
@@ -203,30 +203,30 @@ Status: Downloaded newer image for owncloud:9
 <p>ownCloud should have now started uploading your music to your server:
 <img src="https://i.imgur.com/NIte8sz.png" alt="" /></p>
 
-<p>The <code class="highlighter-rouge">Documents</code> and <code class="highlighter-rouge">Photos</code> folders are created by default by ownCloud, you can delete them.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Documents</code> and <code class="language-plaintext highlighter-rouge">Photos</code> folders are created by default by ownCloud, you can delete them.</p>
 
-<p>Onto the streamer. But before we can build and start it, we need to find out exactly where our music is inside <code class="highlighter-rouge">my_music</code>.</p>
+<p>Onto the streamer. But before we can build and start it, we need to find out exactly where our music is inside <code class="language-plaintext highlighter-rouge">my_music</code>.</p>
 
-<p>You now need root privileges to <code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music</code> directory. Run <code class="highlighter-rouge">sudo -i</code> and <code class="highlighter-rouge">cd</code> into the <code class="highlighter-rouge">owncloud_music</code> directory. You should be able to find your files here: <code class="highlighter-rouge">owncloud_music/data/your_owncloud_username/files</code></p>
+<p>You now need root privileges to <code class="language-plaintext highlighter-rouge">cd</code> into the <code class="language-plaintext highlighter-rouge">owncloud_music</code> directory. Run <code class="language-plaintext highlighter-rouge">sudo -i</code> and <code class="language-plaintext highlighter-rouge">cd</code> into the <code class="language-plaintext highlighter-rouge">owncloud_music</code> directory. You should be able to find your files here: <code class="language-plaintext highlighter-rouge">owncloud_music/data/your_owncloud_username/files</code></p>
 
 <p>Copy that path.</p>
 
 <p>OK, now let’s setup the streamer. Run this command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name=ampache -v /owncloud_music/data/your_owncloud_username/files:/media:ro -p 2008:80 -d ampache/ampache
 </code></pre></div></div>
 
 <p>And let’s break that down:</p>
 
-<p><code class="highlighter-rouge">docker run --name=ampache</code> Here we’re pulling, building, and running a container with the Ampache, and we’re naming it <code class="highlighter-rouge">ampache</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">docker run --name=ampache</code> Here we’re pulling, building, and running a container with the Ampache, and we’re naming it <code class="language-plaintext highlighter-rouge">ampache</code>.</p>
 
-<p><code class="highlighter-rouge">-v /owncloud_music/data/your_owncloud_username/files:/media:ro</code> This mounts the server’s music directory we created before into the ampache container where ampache looks for music files. We add <code class="highlighter-rouge">:ro</code> option to specify that the mount should be read-only. Remember that the path to the music folder <strong>must</strong> be absolute. In this example, we assume that <code class="highlighter-rouge">owncloud_music</code> is at in the root directory <code class="highlighter-rouge">/</code>, but you should make sure that the path you place after the <code class="highlighter-rouge">-v</code>is the path you get when you run <code class="highlighter-rouge">pwd</code> in the <code class="highlighter-rouge">owncloud_music</code> directory.</p>
+<p><code class="language-plaintext highlighter-rouge">-v /owncloud_music/data/your_owncloud_username/files:/media:ro</code> This mounts the server’s music directory we created before into the ampache container where ampache looks for music files. We add <code class="language-plaintext highlighter-rouge">:ro</code> option to specify that the mount should be read-only. Remember that the path to the music folder <strong>must</strong> be absolute. In this example, we assume that <code class="language-plaintext highlighter-rouge">owncloud_music</code> is at in the root directory <code class="language-plaintext highlighter-rouge">/</code>, but you should make sure that the path you place after the <code class="language-plaintext highlighter-rouge">-v</code>is the path you get when you run <code class="language-plaintext highlighter-rouge">pwd</code> in the <code class="language-plaintext highlighter-rouge">owncloud_music</code> directory.</p>
 
-<p><code class="highlighter-rouge">-p 2008:80</code> as above, this routes traffic coming and going to our server’s port 2008, into Ampache’s port 80. Again, I recommend port 2008 for technical reasons as it’s the year that Will Bernard’s <em>Blue Plate Special</em> was released, with Stanton Moore on drums, you should listen to it.</p>
+<p><code class="language-plaintext highlighter-rouge">-p 2008:80</code> as above, this routes traffic coming and going to our server’s port 2008, into Ampache’s port 80. Again, I recommend port 2008 for technical reasons as it’s the year that Will Bernard’s <em>Blue Plate Special</em> was released, with Stanton Moore on drums, you should listen to it.</p>
 
-<p><code class="highlighter-rouge">ampache/ampache</code> tells Docker to pull and build the official Ampache image.</p>
+<p><code class="language-plaintext highlighter-rouge">ampache/ampache</code> tells Docker to pull and build the official Ampache image.</p>
 
-<p>Once Ampache has been pulled and built, open your web browser and visit <code class="highlighter-rouge">yourdomain.com:2008</code></p>
+<p>Once Ampache has been pulled and built, open your web browser and visit <code class="language-plaintext highlighter-rouge">yourdomain.com:2008</code></p>
 
 <p>You’ll be greeted with Ampache’s installation wizard:</p>
 
@@ -250,7 +250,7 @@ MySQL Username and MySQL Password match the ones in the previous step (default u
 
 <p>Now click on the File Insight menu, and click on the “Write” button insert the password in the MySQL Password field if it’s not already inserted.</p>
 
-<p>In the Transcoding section, make sure you select <code class="highlighter-rouge">avconv</code> as Template Configuration.</p>
+<p>In the Transcoding section, make sure you select <code class="language-plaintext highlighter-rouge">avconv</code> as Template Configuration.</p>
 
 <p>Finally, click “Create config”</p>
 
@@ -264,7 +264,7 @@ MySQL Username and MySQL Password match the ones in the previous step (default u
 
 <p>Now select “Add a Catalog” from the menu below.</p>
 
-<p>Select “local” as the Catalog Type, and fill in <code class="highlighter-rouge">/media/</code> as the path to the music. You can then “Add Catalog”. Wait for the Catalog to finish building, and your music is ready for streaming! Click on the headphones icon on the top right of the left column, and you can Browse Music. If ownCloud has already uploaded music to your server, they will be there:</p>
+<p>Select “local” as the Catalog Type, and fill in <code class="language-plaintext highlighter-rouge">/media/</code> as the path to the music. You can then “Add Catalog”. Wait for the Catalog to finish building, and your music is ready for streaming! Click on the headphones icon on the top right of the left column, and you can Browse Music. If ownCloud has already uploaded music to your server, they will be there:</p>
 
 <p><img src="https://i.imgur.com/pAnbhAr.png" alt="" /></p>
 
@@ -272,39 +272,39 @@ MySQL Username and MySQL Password match the ones in the previous step (default u
 
 <h2 id="a-note-on-owncloud-folder-structure">A note on ownCloud folder structure</h2>
 
-<p>For the sake of simplicity, we instructed ownCloud to store both its own configuration files <em>and</em> our music files into the same directory: <code class="highlighter-rouge">owncloud_music</code>becomes ownCloud’s default volume at <code class="highlighter-rouge">/var/www/html</code>. You could have instead instructed Docker to mount an additional volume into the ownCloud container, in which ownCloud could have save its configuration files:</p>
+<p>For the sake of simplicity, we instructed ownCloud to store both its own configuration files <em>and</em> our music files into the same directory: <code class="language-plaintext highlighter-rouge">owncloud_music</code>becomes ownCloud’s default volume at <code class="language-plaintext highlighter-rouge">/var/www/html</code>. You could have instead instructed Docker to mount an additional volume into the ownCloud container, in which ownCloud could have save its configuration files:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music_files:/var/www/html/data -v /home/your_username/owncloud_config_files:/var/www/html/config -p 1996:80 -d owncloud:9
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --name audiosync -v /home/your_username/owncloud_music_files:/var/www/html/data -v /home/your_username/owncloud_config_files:/var/www/html/config -p 1996:80 -d owncloud:9
 </code></pre></div></div>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
 <p>If you think you missed a step and your ownCloud or Ampache container doesn’t look like it’s been properly configured, the fastest way to fix it is to kill and delete the container, and build it again from scratch. One or both of these commands will do that:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker rm -f ampache
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker rm -f ampache
 $ docker rm -f audiosync
 </code></pre></div></div>
 
 <h2 id="where-is-ampaches-config-file">Where is Ampache’s config file??</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -ti ampache bash #let's go inside the ampache container
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec -ti ampache bash #let's go inside the ampache container
 $ cat /var/www/config/ampache.cfg.php
 </code></pre></div></div>
 
 <h2 id="lossless-files-arent-streaming">Lossless files aren’t streaming</h2>
 <p>Lossless files aren’t made for streaming, and need to be transcoded down to a lower bitrate for them to be streamed. By default, Ampache will silently fail to stream a lossless file, and you need to manually tell it to enable transcoding.</p>
 
-<p>Find the <code class="highlighter-rouge">transcode_m4a</code> key in the file. It’s the first key in the section of transcoding configurations.</p>
+<p>Find the <code class="language-plaintext highlighter-rouge">transcode_m4a</code> key in the file. It’s the first key in the section of transcoding configurations.</p>
 
-<p>Enabling transcoding consists in uncommenting the relevant lines, by removing the <code class="highlighter-rouge">;</code> from the beginning of the lines. First, find the formats you want to transcode and remove the the <code class="highlighter-rouge">;</code> from the line they’re on.</p>
+<p>Enabling transcoding consists in uncommenting the relevant lines, by removing the <code class="language-plaintext highlighter-rouge">;</code> from the beginning of the lines. First, find the formats you want to transcode and remove the the <code class="language-plaintext highlighter-rouge">;</code> from the line they’re on.</p>
 
-<p>Then, remove the <code class="highlighter-rouge">;</code> from the beginning of the following lines:</p>
+<p>Then, remove the <code class="language-plaintext highlighter-rouge">;</code> from the beginning of the following lines:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;encode_target = mp3
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;encode_target = mp3
 ;transcode_cmd = "avconv"
 </code></pre></div></div>
 
-<p>Lossless files should now stream, but at the default very low bitrate (32kbps). So in Ampache’s Web Interface, go to Settings –&gt; Streaming, and set the “Transcode Bitrate” to something acceptable like <code class="highlighter-rouge">256</code>.</p>
+<p>Lossless files should now stream, but at the default very low bitrate (32kbps). So in Ampache’s Web Interface, go to Settings –&gt; Streaming, and set the “Transcode Bitrate” to something acceptable like <code class="language-plaintext highlighter-rouge">256</code>.</p>
 
 <h2 id="feedback">Feedback</h2>
 

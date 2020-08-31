@@ -114,12 +114,12 @@
 <p>Here are the main benefits of this implementation:</p>
 
 <ul>
-  <li>Any number of objects that add themselves as delegates of a <code class="highlighter-rouge">Delegator</code> object can expect <code class="highlighter-rouge">eventHappened</code> to be called.</li>
-  <li>If a delegate object is deallocated, you don’t need to worry about anything. The <code class="highlighter-rouge">delegates</code> hash table stores a weak reference to it, so the delegator won’t call it in <code class="highlighter-rouge">somethingHappened</code>. This also means that there are no strong reference cycles incurred.</li>
+  <li>Any number of objects that add themselves as delegates of a <code class="language-plaintext highlighter-rouge">Delegator</code> object can expect <code class="language-plaintext highlighter-rouge">eventHappened</code> to be called.</li>
+  <li>If a delegate object is deallocated, you don’t need to worry about anything. The <code class="language-plaintext highlighter-rouge">delegates</code> hash table stores a weak reference to it, so the delegator won’t call it in <code class="language-plaintext highlighter-rouge">somethingHappened</code>. This also means that there are no strong reference cycles incurred.</li>
   <li>You get compile-time checks for protocol conformance.</li>
-  <li>It doesn’t matter if you accidentally add the same object as a delegate several times, it will only appear once inside <code class="highlighter-rouge">delegates</code>.</li>
+  <li>It doesn’t matter if you accidentally add the same object as a delegate several times, it will only appear once inside <code class="language-plaintext highlighter-rouge">delegates</code>.</li>
   <li>You can add and remove delegate objects dynamically.</li>
-  <li>No extraneous abstractions required, i.e. you avoid using KVO and <code class="highlighter-rouge">NSNotificationCenter</code>.</li>
+  <li>No extraneous abstractions required, i.e. you avoid using KVO and <code class="language-plaintext highlighter-rouge">NSNotificationCenter</code>.</li>
 </ul>
 
 <h3 id="when-would-i-want-to-use-this">When would I want to use this?</h3>
@@ -128,14 +128,14 @@
 
 <h3 id="delegate-methods-with-return-values">Delegate methods with return values</h3>
 
-<p>Consider this method in <code class="highlighter-rouge">UITableViewDelegate</code>:</p>
+<p>Consider this method in <code class="language-plaintext highlighter-rouge">UITableViewDelegate</code>:</p>
 
 <pre><code class="language-objective-c">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 </code></pre>
 
 <p>The tableview object calls this method when it needs to know what height its rows should have. If it has more than one delegate returning row heights, the delegates could potentially return contradicting values and leave the tableview in an inconsistent state.</p>
 
-<p>Therefore, don’t use one-to-many delegation for delegate methods whose return value could leave a delegator object in an inconsistent state. Use traditional one-to-one delegation instead: declare a new formal protocol specifically for a one-to-one delegative relationship, and declare an adequately named <code class="highlighter-rouge">delegate</code> property.</p>
+<p>Therefore, don’t use one-to-many delegation for delegate methods whose return value could leave a delegator object in an inconsistent state. Use traditional one-to-one delegation instead: declare a new formal protocol specifically for a one-to-one delegative relationship, and declare an adequately named <code class="language-plaintext highlighter-rouge">delegate</code> property.</p>
 
 <p>You <em>can</em> combine one-to-many and one-to-one delegate methods in the same protocol, but it’s not good practice as the contract is not clear. The compiler will think that any class that conforms to the protocol should implement all its non-optional methods.</p>
 
@@ -145,7 +145,7 @@
 
 <ul>
   <li>Set the delegate to a manager object which will be responsible for updating other objects.</li>
-  <li>Use The Observer Pattern (via Key-Value Observing), or the Publish-Subscribe pattern (via <code class="highlighter-rouge">NSNotificationCenter</code>)</li>
+  <li>Use The Observer Pattern (via Key-Value Observing), or the Publish-Subscribe pattern (via <code class="language-plaintext highlighter-rouge">NSNotificationCenter</code>)</li>
 </ul>
 
 <p>The first option can be a good choice, but can turn manager objects into complex control centers. It may also add an unecessary layer of abstraction if the manager is created just for the purpose of handling those delegate messages. So this option is often chosen at the expense of simplicity and modularity.</p>
@@ -157,11 +157,11 @@
 <h4 id="problem-1-they-bring-in-a-set-of-problems-that-are-not-worth-solving-if-all-you-need-is-a-one-to-many-delegative-relationship">Problem 1: They bring in a set of problems that are not worth solving if all you need is a one-to-many delegative relationship</h4>
 
 <ul>
-  <li>You’re adding unnecessary complexity by having to deal with new abstractions <em>you</em> never needed: <code class="highlighter-rouge">NSKeyValueObservingOptions</code>, key paths, notification names, <code class="highlighter-rouge">NSNotification</code>,etc.</li>
-  <li>There’s no type-checking. I can shove whatever object I want as the <code class="highlighter-rouge">value</code> in <code class="highlighter-rouge">setValue:forKeyPath:</code>, and I can shove anything I want in an <code class="highlighter-rouge">NSNotification</code>’s <code class="highlighter-rouge">userInfo</code> dictionary. Which means that <em>you</em> need to ensure that your listeners are doing all the type-checking they can.</li>
+  <li>You’re adding unnecessary complexity by having to deal with new abstractions <em>you</em> never needed: <code class="language-plaintext highlighter-rouge">NSKeyValueObservingOptions</code>, key paths, notification names, <code class="language-plaintext highlighter-rouge">NSNotification</code>,etc.</li>
+  <li>There’s no type-checking. I can shove whatever object I want as the <code class="language-plaintext highlighter-rouge">value</code> in <code class="language-plaintext highlighter-rouge">setValue:forKeyPath:</code>, and I can shove anything I want in an <code class="language-plaintext highlighter-rouge">NSNotification</code>’s <code class="language-plaintext highlighter-rouge">userInfo</code> dictionary. Which means that <em>you</em> need to ensure that your listeners are doing all the type-checking they can.</li>
   <li>If you register yourself multiple times for the exact specific notification, NSNotificationCenter will NOT recognize the redundancy and instead will fire off as many notifications as you’ve registered an observation for.</li>
-  <li>Neither KVO nor <code class="highlighter-rouge">NSNotificationCenter</code> provide a way for you to know who the listeners are.</li>
-  <li>They don’t clean up after themselves. <em>You</em> are responsible for ensuring that listeners are alive when either KVO or <code class="highlighter-rouge">NSNotificationCenter</code> fires up a notification. Otherwise they… crash your app.</li>
+  <li>Neither KVO nor <code class="language-plaintext highlighter-rouge">NSNotificationCenter</code> provide a way for you to know who the listeners are.</li>
+  <li>They don’t clean up after themselves. <em>You</em> are responsible for ensuring that listeners are alive when either KVO or <code class="language-plaintext highlighter-rouge">NSNotificationCenter</code> fires up a notification. Otherwise they… crash your app.</li>
   <li>The list goes on (for more in-depth analyses (of people smarter than me who agree with me), check out the relevant articles in the References section below)</li>
 </ul>
 
@@ -173,11 +173,11 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 </code></pre>
 
-<p><code class="highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:</p>
+<p><code class="language-plaintext highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:</p>
 <pre><code class="language-objective-c">- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
 </code></pre>
 
-<p>But this method can have one and only one argument, and that argument must be of type <code class="highlighter-rouge">NSNotification</code>, and you have to fit your data into its <code class="highlighter-rouge">userInfo</code> dictionary.</p>
+<p>But this method can have one and only one argument, and that argument must be of type <code class="language-plaintext highlighter-rouge">NSNotification</code>, and you have to fit your data into its <code class="language-plaintext highlighter-rouge">userInfo</code> dictionary.</p>
 
 <h2 id="other-implementations">Other implementations</h2>
 
@@ -200,7 +200,7 @@ scrollView.delegate = multicastDelegate;
 
 <p>These libraries are useful if you need to give multicasting capabilities to a Cocoa or Cocoa Touch class. But note that they don’t support compile-time checks for protocol conformance.</p>
 
-<p>I liked the idea of the <code class="highlighter-rouge">addDelegate</code> and <code class="highlighter-rouge">removeDelegate:</code> methods, but wanted an implementation that wasn’t as complex, and which did not require a separate class.</p>
+<p>I liked the idea of the <code class="language-plaintext highlighter-rouge">addDelegate</code> and <code class="language-plaintext highlighter-rouge">removeDelegate:</code> methods, but wanted an implementation that wasn’t as complex, and which did not require a separate class.</p>
 
 <h2 id="demo">Demo</h2>
 
@@ -213,8 +213,8 @@ scrollView.delegate = multicastDelegate;
 <ul>
   <li>“Objective-c multicasting delegates” question on Stackoverflow. <a href="http://stackoverflow.com/a/14792617/1072846">Link</a></li>
   <li>Colin Eberhardt, “A Multicast Delegate Pattern for iOS Controls”. <em>Scott Logic</em>. <a href="http://www.scottlogic.com/blog/2012/11/19/a-multicast-delegate-pattern-for-ios-controls.html">Link</a></li>
-  <li>Robbie Hanson, <code class="highlighter-rouge">GCDMulticastDelegate</code>. <a href="https://code.google.com/r/riky-adsfasfasf/source/browse/Utilities/GCDMulticastDelegate.h">Link</a></li>
-  <li>Luka Bernardi, <code class="highlighter-rouge">LBDelegateMatrioska</code>. <a href="https://github.com/lukabernardi/LBDelegateMatrioska">Link</a></li>
+  <li>Robbie Hanson, <code class="language-plaintext highlighter-rouge">GCDMulticastDelegate</code>. <a href="https://code.google.com/r/riky-adsfasfasf/source/browse/Utilities/GCDMulticastDelegate.h">Link</a></li>
+  <li>Luka Bernardi, <code class="language-plaintext highlighter-rouge">LBDelegateMatrioska</code>. <a href="https://github.com/lukabernardi/LBDelegateMatrioska">Link</a></li>
   <li>Martin Rybak, “Why NSNotification is bad”. <em>ObjectiveC#</em>. <a href="http://objcsharp.wordpress.com/2013/08/28/why-nsnotificationcenter-is-bad/">Link</a></li>
   <li>Mattt Thompson, “NSHash​Table &amp; NSMap​Table”. <em>NSHipster</em>. <a href="http://nshipster.com/nshashtable-and-nsmaptable/">Link</a></li>
   <li>Mike Ash, “Key-Value Observing Done Right”. <em>mikeash.com</em>. <a href="https://www.mikeash.com/pyblog/key-value-observing-done-right.html">Link</a>.</li>

@@ -73,9 +73,9 @@
 
   <div class="post-content">
     <h2 id="introduction">Introduction</h2>
-<p>In this article I’ll explain how to easily fit a <code class="highlighter-rouge">UILabel</code> of variable height into a <code class="highlighter-rouge">UIScrollView</code> using Auto Layout, for those scenarios where a <code class="highlighter-rouge">UITextView</code> won’t do.</p>
+<p>In this article I’ll explain how to easily fit a <code class="language-plaintext highlighter-rouge">UILabel</code> of variable height into a <code class="language-plaintext highlighter-rouge">UIScrollView</code> using Auto Layout, for those scenarios where a <code class="language-plaintext highlighter-rouge">UITextView</code> won’t do.</p>
 
-<p>Why? Because Auto Layout will make sure the label’s <code class="highlighter-rouge">frame</code> and the scrollview’s <code class="highlighter-rouge">contentSize</code> will be the ones you want, regardless of orientation and device size. No more calls to <code class="highlighter-rouge">sizeToFit</code> or <code class="highlighter-rouge">setContentSize</code>!</p>
+<p>Why? Because Auto Layout will make sure the label’s <code class="language-plaintext highlighter-rouge">frame</code> and the scrollview’s <code class="language-plaintext highlighter-rouge">contentSize</code> will be the ones you want, regardless of orientation and device size. No more calls to <code class="language-plaintext highlighter-rouge">sizeToFit</code> or <code class="language-plaintext highlighter-rouge">setContentSize</code>!</p>
 
 <p><img src="https://i.imgur.com/Dogopki.png" width="200" /></p>
 
@@ -124,15 +124,15 @@
 
 <h2 id="explanation">Explanation</h2>
 
-<h3 id="hscrollviewlabelscrollview"><code class="highlighter-rouge">@"H:|[scrollViewLabel(scrollView)]"</code></h3>
+<h3 id="hscrollviewlabelscrollview"><code class="language-plaintext highlighter-rouge">@"H:|[scrollViewLabel(scrollView)]"</code></h3>
 
 <p>This means: “The width of the label must be equal to the scrollview’s width”.</p>
 
-<p>In AutoLayout, the <code class="highlighter-rouge">contentSize</code> of a scroll view is determined by the size of its subviews. So because the label is the scrollview’s only subview, that constraint also implicitly means “Set the width of the scrollview’s <code class="highlighter-rouge">contentsize</code> to the width of the label”.</p>
+<p>In AutoLayout, the <code class="language-plaintext highlighter-rouge">contentSize</code> of a scroll view is determined by the size of its subviews. So because the label is the scrollview’s only subview, that constraint also implicitly means “Set the width of the scrollview’s <code class="language-plaintext highlighter-rouge">contentsize</code> to the width of the label”.</p>
 
-<h3 id="vscrollviewlabel"><code class="highlighter-rouge">@"V:|[scrollViewLabel]|"</code></h3>
+<h3 id="vscrollviewlabel"><code class="language-plaintext highlighter-rouge">@"V:|[scrollViewLabel]|"</code></h3>
 
-<p>This means: “The height of the scrollview label must take up all the vertical space it needs within its superview. The scrollview’s <code class="highlighter-rouge">contentSize</code>’s height must also be equal to it”.</p>
+<p>This means: “The height of the scrollview label must take up all the vertical space it needs within its superview. The scrollview’s <code class="language-plaintext highlighter-rouge">contentSize</code>’s height must also be equal to it”.</p>
 
 <h2 id="references-aka-further-reading">References aka Further Reading</h2>
 

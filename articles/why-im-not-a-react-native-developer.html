@@ -165,7 +165,7 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>In the imperative style, you specify all the steps required to update the UI. We need to listen for changes in <code class="highlighter-rouge">isConnected</code> and update the view accordingly. We tell iOS <em>how</em> to compute state.</p>
+<p>In the imperative style, you specify all the steps required to update the UI. We need to listen for changes in <code class="language-plaintext highlighter-rouge">isConnected</code> and update the view accordingly. We tell iOS <em>how</em> to compute state.</p>
 
 <p>Compare this with React’s declarative way:</p>
 
@@ -173,7 +173,7 @@
   <p>Simply express how your app should look at any given point in time, and React will automatically manage all UI updates when your underlying data changes.</p>
 </blockquote>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Root extends Component {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Root extends Component {
   render() {
     return (
       &lt;ConnectivityIndicatorView /&gt;
@@ -207,13 +207,13 @@ class ConnectivityIndicatorView extends Component {
 }
 </code></pre></div></div>
 
-<p>React’s declarative style makes you <em>describe</em> your UI with React within the view’s <code class="highlighter-rouge">render()</code> method. The React framework ensures that any changes in state trigger re-rendering. Changes in your data (i.e. when <code class="highlighter-rouge">backgroundColor</code> changes) automatically trigger a change in the UI.</p>
+<p>React’s declarative style makes you <em>describe</em> your UI with React within the view’s <code class="language-plaintext highlighter-rouge">render()</code> method. The React framework ensures that any changes in state trigger re-rendering. Changes in your data (i.e. when <code class="language-plaintext highlighter-rouge">backgroundColor</code> changes) automatically trigger a change in the UI.</p>
 
-<p>This effectively does away with you manually updating views in response to changes in the model. Whether or not you like being relieved of that responsibility, React does a very good job at ensuring that the updates are carried out according to your descriptions, and you no longer have to worry about rolling out and maintaining a property setter for that <code class="highlighter-rouge">isConnected</code> variable. All you update is the state.</p>
+<p>This effectively does away with you manually updating views in response to changes in the model. Whether or not you like being relieved of that responsibility, React does a very good job at ensuring that the updates are carried out according to your descriptions, and you no longer have to worry about rolling out and maintaining a property setter for that <code class="language-plaintext highlighter-rouge">isConnected</code> variable. All you update is the state.</p>
 
-<p>You’ll also notice that you end up reasoning of UI elements as if they were functions rather than instances of classes. They take in state and render a UIKit object. The purpose of a <code class="highlighter-rouge">Component</code> is to return itself in the state it’s supposed to be, when requested.</p>
+<p>You’ll also notice that you end up reasoning of UI elements as if they were functions rather than instances of classes. They take in state and render a UIKit object. The purpose of a <code class="language-plaintext highlighter-rouge">Component</code> is to return itself in the state it’s supposed to be, when requested.</p>
 
-<p>I found it to be a useful way to think about UI. And it’s a good evolution from MVC, with the View being just responsible for displaying itself and not for managing data, a welcome departure from <code class="highlighter-rouge">UIViewController</code> and its turning a blind eye to incestuous relationships between V and C.</p>
+<p>I found it to be a useful way to think about UI. And it’s a good evolution from MVC, with the View being just responsible for displaying itself and not for managing data, a welcome departure from <code class="language-plaintext highlighter-rouge">UIViewController</code> and its turning a blind eye to incestuous relationships between V and C.</p>
 
 <p><a id="faster-iterations"></a></p>
 <h2 id="faster-iterations">Faster iterations</h2>
@@ -225,7 +225,7 @@ class ConnectivityIndicatorView extends Component {
 <p>You’re given two options:</p>
 
 <ul>
-  <li>Live Reloading will reload the app every time you edit and save one of its files. Basically saves you from switching to the Simulator and pressing <code class="highlighter-rouge">⌘ + R</code>.</li>
+  <li>Live Reloading will reload the app every time you edit and save one of its files. Basically saves you from switching to the Simulator and pressing <code class="language-plaintext highlighter-rouge">⌘ + R</code>.</li>
   <li>Hot Reloading doesn’t reload the entire app, it only reloads the file you just edited. If, say, you’re working on the UI of a table view cell deep inside a navigation stack, the change will be immediately reflected in the cell you see in the Simulator, you won’t have to navigate from the startup screen to the cell to see the changes. And the component will stay in the state it’s already in. It’s a WYSIWYG programming experience, a luxury that Xcode has never afforded you for your apps.</li>
 </ul>
 
@@ -260,9 +260,9 @@ class ConnectivityIndicatorView extends Component {
 
 <p>A major concern with using React Native is the lack of long-term commitment for the project.</p>
 
-<p>If this project were a mere plug-and-play <em>component</em> of my app, like a networking library or an SVG to <code class="highlighter-rouge">CGPath</code> renderer, its long-term survival and maintenance is a secondary concern of mine; for if its developers abandon it, or if its pace of development is unsatisfactory – sad as that may be – I can replace it with a roughly equivalent library or take up maintenance myself. It might be a big deal, but in any case it won’t be a huge deal; I make sure to have loose enough couplings with all my third-party libraries/CocoaPods to ensure that the whole project doesn’t collapse if one library stagnates or goes missing.</p>
+<p>If this project were a mere plug-and-play <em>component</em> of my app, like a networking library or an SVG to <code class="language-plaintext highlighter-rouge">CGPath</code> renderer, its long-term survival and maintenance is a secondary concern of mine; for if its developers abandon it, or if its pace of development is unsatisfactory – sad as that may be – I can replace it with a roughly equivalent library or take up maintenance myself. It might be a big deal, but in any case it won’t be a huge deal; I make sure to have loose enough couplings with all my third-party libraries/CocoaPods to ensure that the whole project doesn’t collapse if one library stagnates or goes missing.</p>
 
-<p>But React Native is not a plug-and-play CocoaPod, it’s not a mere SDK, it’s not a mere library, it’s an entire software development platform. Saying my app has a “tight coupling” to it would be an understatement, my app is <em>entirely dependent</em> on it. If Facebook stops maintaining React Native, my app will stagnate, and there won’t be a “React Native replacement” at my disposal. If I want to carry on development of it myself, I’ll have to get familiar with the the React Native source, <em>as well as</em> the React.js codebase, the React Native CLI tools, and <code class="highlighter-rouge">JavaScriptCore</code>. Will the community ensure the project survives? Maybe – and if it does it probably will not be at the pace that we’re used to.</p>
+<p>But React Native is not a plug-and-play CocoaPod, it’s not a mere SDK, it’s not a mere library, it’s an entire software development platform. Saying my app has a “tight coupling” to it would be an understatement, my app is <em>entirely dependent</em> on it. If Facebook stops maintaining React Native, my app will stagnate, and there won’t be a “React Native replacement” at my disposal. If I want to carry on development of it myself, I’ll have to get familiar with the the React Native source, <em>as well as</em> the React.js codebase, the React Native CLI tools, and <code class="language-plaintext highlighter-rouge">JavaScriptCore</code>. Will the community ensure the project survives? Maybe – and if it does it probably will not be at the pace that we’re used to.</p>
 
 <p>On the GitHub repository you’ll see a new React Native release at a healthy pace of roughly once every two weeks. Not bad for a software development platform that targets two separate and complex software development platforms. Promising as that may be today, Facebook hasn’t made <em>any</em> long-term commitments to maintaining React Native for a sustained period of time. The company hasn’t provided <em>any</em> guarantees that it <em>won’t</em> pull the plug on the project – not just for the foreseeable future, but for the lifetime of <em>your app</em>. In other words, you currently don’t have any guarantees it’ll <em>ever</em> be compatible with iOS 11, or 12.</p>
 
@@ -367,15 +367,15 @@ class ConnectivityIndicatorView extends Component {
 
 <p>The importance of safety in a programming language is one that I appreciated as the tools for iOS development evolved.</p>
 
-<p>When Automatic Reference Counting came to Objective-C, you had the option to switch it off for your iOS project. Why was it a bad idea to switch off ARC? Because the compiler could now perform an evaluation of the lifetime of your objects that was more accurate than yours. “The compiler is smarter than you” was the mantra, and that was certainly the case at least as far as reference counting was concerned. I remember how satisfied I was to realise that my <code class="highlighter-rouge">EXC_BAD_ACCESS</code> runtime crashes were decimated as a result.</p>
+<p>When Automatic Reference Counting came to Objective-C, you had the option to switch it off for your iOS project. Why was it a bad idea to switch off ARC? Because the compiler could now perform an evaluation of the lifetime of your objects that was more accurate than yours. “The compiler is smarter than you” was the mantra, and that was certainly the case at least as far as reference counting was concerned. I remember how satisfied I was to realise that my <code class="language-plaintext highlighter-rouge">EXC_BAD_ACCESS</code> runtime crashes were decimated as a result.</p>
 
-<p>Objective-C gives you the option of setting the type of a variable to <code class="highlighter-rouge">id</code>, which stood for “any type whatsoever”. But it is bad practice to use it for a variable whose type you know because it opens the door to runtime crashes – <em>that the compiler could prevent</em>. If it’s a problem that the compiler can solve, you let the compiler solve it – and tackle interesting problems instead.</p>
+<p>Objective-C gives you the option of setting the type of a variable to <code class="language-plaintext highlighter-rouge">id</code>, which stood for “any type whatsoever”. But it is bad practice to use it for a variable whose type you know because it opens the door to runtime crashes – <em>that the compiler could prevent</em>. If it’s a problem that the compiler can solve, you let the compiler solve it – and tackle interesting problems instead.</p>
 
-<p>You’ll remember <code class="highlighter-rouge">unrecognized selector sent to instance</code> crashes. You were calling a method on an object that didn’t respond to it. Type error. Third of all my bugs.</p>
+<p>You’ll remember <code class="language-plaintext highlighter-rouge">unrecognized selector sent to instance</code> crashes. You were calling a method on an object that didn’t respond to it. Type error. Third of all my bugs.</p>
 
 <p>Unsurprisingly, one of my first reactions after using Swift was “this was made by someone who got tired of preventable runtime crashes in Objective-C”.</p>
 
-<p>Swift is safe. The compiler won’t let you pass in an <code class="highlighter-rouge">Int</code> to a function that expects a <code class="highlighter-rouge">String</code>. In fact, if the compiler isn’t able to infer a type, you have to explicitly set it.</p>
+<p>Swift is safe. The compiler won’t let you pass in an <code class="language-plaintext highlighter-rouge">Int</code> to a function that expects a <code class="language-plaintext highlighter-rouge">String</code>. In fact, if the compiler isn’t able to infer a type, you have to explicitly set it.</p>
 
 <p>But JavaScript lacks these safeguards against programmer error, making <em>preventable</em> runtime crashes and <em>preventable</em> programmer errors part of your <em>routine</em>.</p>
 
@@ -399,7 +399,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="c1">//hello</span>
 </code></pre></div></div>
 
-<p>JavaScript makes you believe that it has some notion of types and class, with keywords like <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">typeof</code>, and <code class="highlighter-rouge">instanceof</code>:</p>
+<p>JavaScript makes you believe that it has some notion of types and class, with keywords like <code class="language-plaintext highlighter-rouge">class</code>, <code class="language-plaintext highlighter-rouge">typeof</code>, and <code class="language-plaintext highlighter-rouge">instanceof</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Person</span> <span class="p">{</span>
   <span class="c1">//nobody is immortal:</span>
@@ -428,14 +428,14 @@ class ConnectivityIndicatorView extends Component {
   <li>types serve no useful purpose in JavaScript, as it’s too easy to <em>unreliably</em> define a type.</li>
 </ul>
 
-<p>Remember those <code class="highlighter-rouge">unrecognized selector sent to instance</code> crashes? Thought they were no longer part of your life? Here’s their incarnation in React Native:</p>
+<p>Remember those <code class="language-plaintext highlighter-rouge">unrecognized selector sent to instance</code> crashes? Thought they were no longer part of your life? Here’s their incarnation in React Native:</p>
 
 <p><img src="https://i.imgur.com/J5ugzMI.png" alt="this.foo is not a function" /></p>
 
 <p><a id="lack-of-optionals"></a></p>
 <h4 id="lack-of-optionals">Lack of optionals</h4>
 
-<p>A very large amount of bugs in Objective-C code (and in many other older programming languages) are due to programmers inadvertently calling methods on objects that are <code class="highlighter-rouge">nil</code>.</p>
+<p>A very large amount of bugs in Objective-C code (and in many other older programming languages) are due to programmers inadvertently calling methods on objects that are <code class="language-plaintext highlighter-rouge">nil</code>.</p>
 
 <p>In the world of React Native and JavaScript, this error is common:</p>
 
@@ -443,7 +443,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>And preventable, both in theory and in practice.</p>
 
-<p>Swift did away with this problem by implementing optionals, which force you to take required <code class="highlighter-rouge">nil</code> checks if you know that an object can be <code class="highlighter-rouge">nil</code>.</p>
+<p>Swift did away with this problem by implementing optionals, which force you to take required <code class="language-plaintext highlighter-rouge">nil</code> checks if you know that an object can be <code class="language-plaintext highlighter-rouge">nil</code>.</p>
 
 <p><a id="lack-of-function-signature"></a></p>
 <h4 id="lack-of-function-signature">Lack of function signature</h4>
@@ -459,21 +459,21 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">//NaN</span>
 </code></pre></div></div>
 
-<p>Let’s make this even more fun. In JavaScript, any expression can be evaluated at any time by any function. Consider this example using two functions from the JavaScript standard library; <code class="highlighter-rouge">map</code>, which is supposedly the equivalent of Swift’s <code class="highlighter-rouge">map</code>, and <code class="highlighter-rouge">parseInt</code>, which parses a string into an integer.</p>
+<p>Let’s make this even more fun. In JavaScript, any expression can be evaluated at any time by any function. Consider this example using two functions from the JavaScript standard library; <code class="language-plaintext highlighter-rouge">map</code>, which is supposedly the equivalent of Swift’s <code class="language-plaintext highlighter-rouge">map</code>, and <code class="language-plaintext highlighter-rouge">parseInt</code>, which parses a string into an integer.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="c1">//[1, NaN, NaN]</span>
 </code></pre></div></div>
 
-<p>This messed up result is due to the fact that <code class="highlighter-rouge">parseInt</code> takes two parameters <code class="highlighter-rouge">(val, radix)</code> but <code class="highlighter-rouge">map</code> passes it 3 parameters <code class="highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
+<p>This messed up result is due to the fact that <code class="language-plaintext highlighter-rouge">parseInt</code> takes two parameters <code class="language-plaintext highlighter-rouge">(val, radix)</code> but <code class="language-plaintext highlighter-rouge">map</code> passes it 3 parameters <code class="language-plaintext highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
 
 <p><a id="immutability"></a></p>
 <h4 id="immutability">Immutability</h4>
 
 <p>JavaScript’s support for immutability is very poor.</p>
 
-<p>There is a <code class="highlighter-rouge">const</code> operator, which helps ensure primitives don’t get mutated. But anything that’s not a primitive is as malleable as jell-o:</p>
+<p>There is a <code class="language-plaintext highlighter-rouge">const</code> operator, which helps ensure primitives don’t get mutated. But anything that’s not a primitive is as malleable as jell-o:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="nx">array</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
@@ -545,7 +545,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tenDividedBy</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 </code></pre></div></div>
 
-<p>You can throw <em>anything</em> you want as an exception; a string, a <code class="highlighter-rouge">Date</code>, a function, etc. There is no mechanism for you to mark a function as potentially crashing your teammate’s code or for specifying how to process an exception. Use <code class="highlighter-rouge">if</code> statements instead, say the docs:</p>
+<p>You can throw <em>anything</em> you want as an exception; a string, a <code class="language-plaintext highlighter-rouge">Date</code>, a function, etc. There is no mechanism for you to mark a function as potentially crashing your teammate’s code or for specifying how to process an exception. Use <code class="language-plaintext highlighter-rouge">if</code> statements instead, say the docs:</p>
 
 <blockquote>
   <p>It’s best to leave exceptions as a last line of defense, for handling the exceptional errors you can’t anticipate, and to manage anticipated errors with control flow statements.</p>
@@ -560,12 +560,12 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c1">//false</span>
 </code></pre></div></div>
 
-<p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
+<p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="language-plaintext highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
 
 <p><a id="dodgy-maths"></a></p>
 <h4 id="dodgy-maths">Dodgy maths</h4>
 
-<p>Remember to be careful with primary school arithmetic too. JavaScript has a complicated relationship with <code class="highlighter-rouge">0</code> and things that are not numbers.</p>
+<p>Remember to be careful with primary school arithmetic too. JavaScript has a complicated relationship with <code class="language-plaintext highlighter-rouge">0</code> and things that are not numbers.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">0</span>
@@ -611,9 +611,9 @@ class ConnectivityIndicatorView extends Component {
 </code></pre></div></div>
 
 <p><a id="optional-curly-braces-after-an-if"></a></p>
-<h4 id="optional-curly-braces-after-an-if">Optional curly braces after an <code class="highlighter-rouge">if</code></h4>
+<h4 id="optional-curly-braces-after-an-if">Optional curly braces after an <code class="language-plaintext highlighter-rouge">if</code></h4>
 
-<p>Curly braces after an <code class="highlighter-rouge">if</code> statement are optional:</p>
+<p>Curly braces after an <code class="language-plaintext highlighter-rouge">if</code> statement are optional:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ha</span><span class="dl">"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">he</span><span class="dl">"</span><span class="p">)</span>
@@ -647,7 +647,7 @@ class ConnectivityIndicatorView extends Component {
 <p><a id="switch-fallthrough"></a></p>
 <h4 id="switch-fallthrough">Switch fallthrough</h4>
 
-<p>If you forget to include a <code class="highlighter-rouge">break</code> statement in a clause of a <code class="highlighter-rouge">switch</code> statement, you fall through. Also, a <code class="highlighter-rouge">switch</code> statement doesn’t carry out checks for case exhaustivity.</p>
+<p>If you forget to include a <code class="language-plaintext highlighter-rouge">break</code> statement in a clause of a <code class="language-plaintext highlighter-rouge">switch</code> statement, you fall through. Also, a <code class="language-plaintext highlighter-rouge">switch</code> statement doesn’t carry out checks for case exhaustivity.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">32</span>
 
@@ -673,9 +673,9 @@ class ConnectivityIndicatorView extends Component {
 <span class="nx">foo</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">//true</span>
 </code></pre></div></div>
 
-<p>Yes, something that’s not <code class="highlighter-rouge">null</code> could be nothing for all intents and purposes. Not a helpful distinction.</p>
+<p>Yes, something that’s not <code class="language-plaintext highlighter-rouge">null</code> could be nothing for all intents and purposes. Not a helpful distinction.</p>
 
-<p>And what if you want to know whether a variable contains any data? Well, for your checks to be exhaustive, you need to check for both <code class="highlighter-rouge">null</code> and <code class="highlighter-rouge">undefined</code>:</p>
+<p>And what if you want to know whether a variable contains any data? Well, for your checks to be exhaustive, you need to check for both <code class="language-plaintext highlighter-rouge">null</code> and <code class="language-plaintext highlighter-rouge">undefined</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">shootMyself</span><span class="p">()</span>
@@ -687,9 +687,9 @@ class ConnectivityIndicatorView extends Component {
 
 <ul>
   <li>No enums. Let alone enums with associated types. Good luck reliably representing state.</li>
-  <li>No <code class="highlighter-rouge">guard</code> statement.</li>
+  <li>No <code class="language-plaintext highlighter-rouge">guard</code> statement.</li>
   <li>No generics.</li>
-  <li>No <code class="highlighter-rouge">where</code> statement to increase expressivity of control flow statements.</li>
+  <li>No <code class="language-plaintext highlighter-rouge">where</code> statement to increase expressivity of control flow statements.</li>
 </ul>
 
 <p><a id="exceedingly-slow-evolution"></a></p>
@@ -698,7 +698,7 @@ class ConnectivityIndicatorView extends Component {
 <p>Behold, ES2016 brought these new features to JavaScript:</p>
 
 <ol>
-  <li>The <code class="highlighter-rouge">includes</code> method for arrays.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">includes</code> method for arrays.</li>
 </ol>
 
 <p>It checks if an array contains a specified value. Here’s how you use it:</p>
@@ -723,9 +723,9 @@ class ConnectivityIndicatorView extends Component {
   <li>The <b>**</b> operator</li>
 </ol>
 
-<p>To be used for exponentiation. <code class="highlighter-rouge">a ** b</code> is shorthand for <code class="highlighter-rouge">Math.pow(x, y)</code>.</p>
+<p>To be used for exponentiation. <code class="language-plaintext highlighter-rouge">a ** b</code> is shorthand for <code class="language-plaintext highlighter-rouge">Math.pow(x, y)</code>.</p>
 
-<p>Consider this: Python’s <code class="highlighter-rouge">**</code> operator was in Python 1. Ruby’s <code class="highlighter-rouge">**</code> operator has been in Ruby for more than 20 years.</p>
+<p>Consider this: Python’s <code class="language-plaintext highlighter-rouge">**</code> operator was in Python 1. Ruby’s <code class="language-plaintext highlighter-rouge">**</code> operator has been in Ruby for more than 20 years.</p>
 
 <p>So it took JavaScript 20 years to add a basic arithmetic operator and a quite limited membership-checking method for arrays, as a year’s worth of improvements.</p>
 
@@ -734,7 +734,7 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Flow is Facebook’s answer to many of the above grievances. It’s a static type-checker for JavaScript, capable of inferring and tracking the types of the variables in your code, and alert you of impending doom.</p>
 
-<p>Recall my example above about the problems that arise from lack of function signature in JavaScript (the <code class="highlighter-rouge">divideByFour</code> function which expects a number but is fed a string). Here’s how Flow would deal with it:</p>
+<p>Recall my example above about the problems that arise from lack of function signature in JavaScript (the <code class="language-plaintext highlighter-rouge">divideByFour</code> function which expects a number but is fed a string). Here’s how Flow would deal with it:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">im a number</span><span class="dl">'</span>
@@ -800,7 +800,7 @@ Found 2 errors
 
 </code></pre></div></div>
 
-<p>Flow deals very well with nullability, and will warn you if a value you’d expect not to be <code class="highlighter-rouge">null</code> might be <code class="highlighter-rouge">null</code>:</p>
+<p>Flow deals very well with nullability, and will warn you if a value you’d expect not to be <code class="language-plaintext highlighter-rouge">null</code> might be <code class="language-plaintext highlighter-rouge">null</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
@@ -823,7 +823,7 @@ Found 1 error
 */</span>
 </code></pre></div></div>
 
-<p>If <code class="highlighter-rouge">j</code> is supposed to be a <code class="highlighter-rouge">string</code>, but could be <code class="highlighter-rouge">null</code> at any point in time, Flow encourages us to annotate it accordingly. It is thus able to complain if we don’t carry out null-checks before feeding it to anything that needs it to be a non-null <code class="highlighter-rouge">string</code>:</p>
+<p>If <code class="language-plaintext highlighter-rouge">j</code> is supposed to be a <code class="language-plaintext highlighter-rouge">string</code>, but could be <code class="language-plaintext highlighter-rouge">null</code> at any point in time, Flow encourages us to annotate it accordingly. It is thus able to complain if we don’t carry out null-checks before feeding it to anything that needs it to be a non-null <code class="language-plaintext highlighter-rouge">string</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 
@@ -866,7 +866,7 @@ No errors!
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>And Flow will complain if <code class="highlighter-rouge">direction</code> returns anything that’s not <code class="highlighter-rouge">"North"</code> or <code class="highlighter-rouge">"South"</code>.</p>
+<p>And Flow will complain if <code class="language-plaintext highlighter-rouge">direction</code> returns anything that’s not <code class="language-plaintext highlighter-rouge">"North"</code> or <code class="language-plaintext highlighter-rouge">"South"</code>.</p>
 
 <p>Another construct I find useful is Union types, which constrain a value to be one and only one of a predefined set of types. Here’s an example from the Flow docs:</p>
 
@@ -876,7 +876,7 @@ No errors!
 <span class="nx">x</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">two</span><span class="dl">"</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Flow is great friends with React Native, as long as you help it help you. The Flow docs offer a good example of how what happens when you correctly annotate the <code class="highlighter-rouge">proptypes</code> of your component:</p>
+<p>Flow is great friends with React Native, as long as you help it help you. The Flow docs offer a good example of how what happens when you correctly annotate the <code class="language-plaintext highlighter-rouge">proptypes</code> of your component:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Greeter</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="na">propTypes</span><span class="p">:</span> <span class="p">{</span>
@@ -888,8 +888,8 @@ No errors!
 <span class="p">});</span>
 
 <span class="p">&lt;</span><span class="nc">Greeter</span> <span class="p">/&gt;;</span> <span class="c1">// Missing `name`</span>
-<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name=</span><span class="si">{</span><span class="kc">null</span><span class="si">}</span> <span class="p">/&gt;;</span> <span class="c1">// `name` should be a string</span>
-<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name=</span><span class="s2">"World"</span> <span class="p">/&gt;;</span> <span class="c1">// "Hello, World!"</span>
+<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name</span><span class="p">=</span><span class="si">{</span><span class="kc">null</span><span class="si">}</span> <span class="p">/&gt;;</span> <span class="c1">// `name` should be a string</span>
+<span class="p">&lt;</span><span class="nc">Greeter</span> <span class="na">name</span><span class="p">=</span><span class="s">"World"</span> <span class="p">/&gt;;</span> <span class="c1">// "Hello, World!"</span>
 </code></pre></div></div>
 
 <p>The comments indicate where the Flow warnings appear, adequately reprimanding you for not fulfilling your own contract.</p>
@@ -897,9 +897,9 @@ No errors!
 <p>Flow’s an altogether powerful tool. Here are some examples of the useful things its command-line interface lets you do:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">suggest         Shows type annotation suggestions for given files</code></li>
-  <li><code class="highlighter-rouge">type-at-pos     Shows the type at a given file and position</code></li>
-  <li><code class="highlighter-rouge">get-def         Gets the definition location of a variable or property</code></li>
+  <li><code class="language-plaintext highlighter-rouge">suggest         Shows type annotation suggestions for given files</code></li>
+  <li><code class="language-plaintext highlighter-rouge">type-at-pos     Shows the type at a given file and position</code></li>
+  <li><code class="language-plaintext highlighter-rouge">get-def         Gets the definition location of a variable or property</code></li>
 </ul>
 
 <p><a id="flows-like-flossing"></a></p>
@@ -923,13 +923,13 @@ No errors!
 
 <p>Flow doesn’t stop you from building and running React Native apps with code bound to generate runtime crashes. And that is a basic safety requirement for a programming language: if it’s a preventable error, the language should <em>actively prevent</em> it, it should stop me from writing and running unsafe code <em>by default</em>, not as an afterthought.</p>
 
-<p>It just <em>should not be possible</em> for my teammate to write functions that are ambiguous as to their return value, it <em>should not be possible</em> for me to call an method on an object that doesn’t respond to it, it <em>should not be possible</em> for someone to not define <code class="highlighter-rouge">proptypes</code> on a component and me having to manually point out during code review that <code class="highlighter-rouge">proptypes</code> should have been defined.</p>
+<p>It just <em>should not be possible</em> for my teammate to write functions that are ambiguous as to their return value, it <em>should not be possible</em> for me to call an method on an object that doesn’t respond to it, it <em>should not be possible</em> for someone to not define <code class="language-plaintext highlighter-rouge">proptypes</code> on a component and me having to manually point out during code review that <code class="language-plaintext highlighter-rouge">proptypes</code> should have been defined.</p>
 
 <p>Flow, like unit testing and flossing, has the curse of being beneficial <em>and</em> optional <em>and</em> wearisome. It’s in your next year’s resolutions.</p>
 
-<p>And that’s the reality: how many public <code class="highlighter-rouge">.js</code> files on GitHub use flow (i.e. contain <code class="highlighter-rouge">@flow</code> to signal they’re Flow-checkable) ? Roughly 1,400,000 out of roughly 80,000,000 public <code class="highlighter-rouge">.js</code> files. That’s… less than 2% public usage of a tool to write safer JavaScript.</p>
+<p>And that’s the reality: how many public <code class="language-plaintext highlighter-rouge">.js</code> files on GitHub use flow (i.e. contain <code class="language-plaintext highlighter-rouge">@flow</code> to signal they’re Flow-checkable) ? Roughly 1,400,000 out of roughly 80,000,000 public <code class="language-plaintext highlighter-rouge">.js</code> files. That’s… less than 2% public usage of a tool to write safer JavaScript.</p>
 
-<p>On a more relevant note, out of the hundred React Native repositories over at <code class="highlighter-rouge">awesome-react-native</code>, I wasn’t able to find one that made any significant use of Flow and its type annotations. Nor was I able to find a single React Native tutorial mentioning (let alone advising you) the use of Flow.</p>
+<p>On a more relevant note, out of the hundred React Native repositories over at <code class="language-plaintext highlighter-rouge">awesome-react-native</code>, I wasn’t able to find one that made any significant use of Flow and its type annotations. Nor was I able to find a single React Native tutorial mentioning (let alone advising you) the use of Flow.</p>
 
 <p><a id="the-javascript-ecosystem-balls-and-chains"></a></p>
 <h3 id="the-javascript-ecosystem-balls-and-chains">The Javascript Ecosystem: balls and chains</h3>
@@ -957,13 +957,13 @@ No errors!
 
 <p>JavaScript has bigger fish to fry. It’s a language that needs to cater to the needs of literally <em>billions</em> of internet users, who may or may not update their browser or website. That cripples the development of the language.</p>
 
-<p>Remember <code class="highlighter-rouge">typeof(null) === 'object'</code> ? Well, there was a proposal to change the type of <code class="highlighter-rouge">null</code> to <code class="highlighter-rouge">null</code>. But</p>
+<p>Remember <code class="language-plaintext highlighter-rouge">typeof(null) === 'object'</code> ? Well, there was a proposal to change the type of <code class="language-plaintext highlighter-rouge">null</code> to <code class="language-plaintext highlighter-rouge">null</code>. But</p>
 
 <blockquote>
   <p>it turned out that it broke a lot of existing sites. In the spirit of One JavaScript this is not feasible.</p>
 </blockquote>
 
-<p>And the proposal was rejected. As of ES06, <code class="highlighter-rouge">null</code> is still <code class="highlighter-rouge">object</code>.</p>
+<p>And the proposal was rejected. As of ES06, <code class="language-plaintext highlighter-rouge">null</code> is still <code class="language-plaintext highlighter-rouge">object</code>.</p>
 
 <p>JavaScript’s evolution, which caters to the needs of:</p>
 
@@ -982,7 +982,7 @@ No errors!
 
 <p>Come sit by the fire (of the past flame wars) and I’ll tell you a story.</p>
 
-<p>Back in 1994, Richard Stallman wrote to the newsgroup <code class="highlighter-rouge">comp.lang.tcl</code> an article unambiguously titled “Why you should not use Tcl”. Stallman was sourly unforgiving of Tcl’s shortcomings as a programming language, and denounced what he saw as Tcl’s unfitness for purpose. The parallels with my own grievances against JavaScript are spectacular:</p>
+<p>Back in 1994, Richard Stallman wrote to the newsgroup <code class="language-plaintext highlighter-rouge">comp.lang.tcl</code> an article unambiguously titled “Why you should not use Tcl”. Stallman was sourly unforgiving of Tcl’s shortcomings as a programming language, and denounced what he saw as Tcl’s unfitness for purpose. The parallels with my own grievances against JavaScript are spectacular:</p>
 
 <blockquote>
   <p>The principal lesson of Emacs is that a language for extensions should not be a mere “extension language”. It should be a real programming language, designed for writing and maintaining substantial programs. Because people will want to do that! […] Tcl was not designed to be a serious programming language.  It was designed to be a “scripting language”, on the assumption that a “scripting language” need not try to be a real programming language.
@@ -1040,7 +1040,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p><img src="https://i.imgur.com/g8B9S7a.png" alt="648 total dependencies" /></p>
 
-<p>Not particularly surprising, as dependency chains can be long in the world of <code class="highlighter-rouge">npm</code>, React Native’s package manager.</p>
+<p>Not particularly surprising, as dependency chains can be long in the world of <code class="language-plaintext highlighter-rouge">npm</code>, React Native’s package manager.</p>
 
 <p>This showcases the comradeship of open source: your app is built on more than 600 people’s sustained efforts.</p>
 
@@ -1172,7 +1172,7 @@ So Tcl doesn’t have the capabilities of one.  It lacks arrays; it lacks struct
 
 <p>From <a href="https://twitter.com/gmcmullen">Greg McMullen</a>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># None of this is legal advice! Just my reading of the license. If you want advice specific to you, see your own lawyer.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># None of this is legal advice! Just my reading of the license. If you want advice specific to you, see your own lawyer.
 
 # If you sue Facebook for patent infringement and any of these three conditions are met, the license is terminated.
 

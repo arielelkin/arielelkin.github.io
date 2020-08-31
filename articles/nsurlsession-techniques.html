@@ -74,7 +74,7 @@
   <div class="post-content">
     <h2 id="introduction">Introduction</h2>
 
-<p>In this article I’ll offer some <code class="highlighter-rouge">NSURLSession</code> techniques to accomplish common networking functionality required in an app:</p>
+<p>In this article I’ll offer some <code class="language-plaintext highlighter-rouge">NSURLSession</code> techniques to accomplish common networking functionality required in an app:</p>
 
 <ul>
   <li><strong>Data fetches</strong>: Reading data from a remote URL to memory.</li>
@@ -160,31 +160,31 @@
 
 <h3 id="technique-1-wrap-nsurlsession">Technique 1: Wrap NSURLSession</h3>
 
-<p>You can see that our networking code is inside a <code class="highlighter-rouge">Networker</code> class, isolated from other code, we didn’t shove it inside, say, a <code class="highlighter-rouge">UIViewController</code> subclass.</p>
+<p>You can see that our networking code is inside a <code class="language-plaintext highlighter-rouge">Networker</code> class, isolated from other code, we didn’t shove it inside, say, a <code class="language-plaintext highlighter-rouge">UIViewController</code> subclass.</p>
 
-<p>You’ll probably have more than one class in your app that needs data from the internet, but you don’t want to replicate the same networking code in every single class that downloads or uploads data. What you should do is create a class that <em>wraps</em> <code class="highlighter-rouge">NSURLSession</code>, and whose responsibility is to be a networking hub that manages all your app’s networking needs. This class will in turn be used by classes which require downloading or uploading, without them having to know or worry about <code class="highlighter-rouge">NSURLSession</code>.</p>
+<p>You’ll probably have more than one class in your app that needs data from the internet, but you don’t want to replicate the same networking code in every single class that downloads or uploads data. What you should do is create a class that <em>wraps</em> <code class="language-plaintext highlighter-rouge">NSURLSession</code>, and whose responsibility is to be a networking hub that manages all your app’s networking needs. This class will in turn be used by classes which require downloading or uploading, without them having to know or worry about <code class="language-plaintext highlighter-rouge">NSURLSession</code>.</p>
 
-<p>This is based on the assumption that all classes that use <code class="highlighter-rouge">Networker</code> are satisfied with an <code class="highlighter-rouge">NSURLSession</code> being configured in a single way. But if we have more complex requirements in which, for example, two different classes using two different remote APIs need to use two different timeout intervals for their requests, you’ll be better off making making a <code class="highlighter-rouge">Networker</code> subclass for each use case, in which you adequately override <code class="highlighter-rouge">dataSession</code>.</p>
+<p>This is based on the assumption that all classes that use <code class="language-plaintext highlighter-rouge">Networker</code> are satisfied with an <code class="language-plaintext highlighter-rouge">NSURLSession</code> being configured in a single way. But if we have more complex requirements in which, for example, two different classes using two different remote APIs need to use two different timeout intervals for their requests, you’ll be better off making making a <code class="language-plaintext highlighter-rouge">Networker</code> subclass for each use case, in which you adequately override <code class="language-plaintext highlighter-rouge">dataSession</code>.</p>
 
 <h3 id="technique-2-provide-the-session-via-a-static-singleton-method">Technique 2: Provide the session via a static singleton method</h3>
 
-<p><code class="highlighter-rouge">+[Networker dataSession]</code> is a static singleton method that returns a singleton <code class="highlighter-rouge">NSURLSession</code> object used for data fetches and file downloads. The more we centralise our networking, the easier it will be to control it. Advantages:</p>
+<p><code class="language-plaintext highlighter-rouge">+[Networker dataSession]</code> is a static singleton method that returns a singleton <code class="language-plaintext highlighter-rouge">NSURLSession</code> object used for data fetches and file downloads. The more we centralise our networking, the easier it will be to control it. Advantages:</p>
 
 <ul>
-  <li>You don’t have to create and configure a <code class="highlighter-rouge">NSURLSession</code> object every time you want to create a <code class="highlighter-rouge">NSURLSessionTask</code></li>
+  <li>You don’t have to create and configure a <code class="language-plaintext highlighter-rouge">NSURLSession</code> object every time you want to create a <code class="language-plaintext highlighter-rouge">NSURLSessionTask</code></li>
   <li>You centralise all the information relative to the active tasks in one place. For example, you can do:
     <pre><code class="language-objective-c">[self dataSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
   NSLog(@"Here are my data tasks: %@", dataTasks);
 }
 </code></pre>
   </li>
-  <li>You centralise control of all the <code class="highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:
+  <li>You centralise control of all the <code class="language-plaintext highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:
 ```objective-c
 [[self dataSession] invalidateAndCancel];
 [[self dataSession] flushWithCompletionHandler:nil];</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ### Technique 3: Provide a completion block as a method parameter
 
 This is partly a matter of style. When you're writing code that uses `Networker`, it tends to be more readable if the sequence of actions is clear.
@@ -223,19 +223,19 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 <p>The block-based alternative is shorter and more readable.</p>
 
-<p>Also, remember that calling a block that’s <code class="highlighter-rouge">nil</code> results in a crash, so we check we do have a <code class="highlighter-rouge">completionHandler</code> before calling it.</p>
+<p>Also, remember that calling a block that’s <code class="language-plaintext highlighter-rouge">nil</code> results in a crash, so we check we do have a <code class="language-plaintext highlighter-rouge">completionHandler</code> before calling it.</p>
 
 <h3 id="technique-4-use-class-methods">Technique 4: Use class methods</h3>
 
-<p>There is little use for <code class="highlighter-rouge">Networker</code> to have instance variables if it is going to be a single, centralised networking hub.</p>
+<p>There is little use for <code class="language-plaintext highlighter-rouge">Networker</code> to have instance variables if it is going to be a single, centralised networking hub.</p>
 
-<p>The main advantage of class methods is that it avoids other objects the hassle about having to manage <code class="highlighter-rouge">Networker</code> instances.</p>
+<p>The main advantage of class methods is that it avoids other objects the hassle about having to manage <code class="language-plaintext highlighter-rouge">Networker</code> instances.</p>
 
-<p>Note that we are assuming that we are not required to report the progress of individual NSURLSessionTasks. If you’re downloading potentially large and need to report the download progress to your users, then you need <code class="highlighter-rouge">Networker</code></p>
+<p>Note that we are assuming that we are not required to report the progress of individual NSURLSessionTasks. If you’re downloading potentially large and need to report the download progress to your users, then you need <code class="language-plaintext highlighter-rouge">Networker</code></p>
 
 <h3 id="trying-it-out">Trying it out</h3>
 
-<p>We’re going to put our <code class="highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:</p>
+<p>We’re going to put our <code class="language-plaintext highlighter-rouge">Networker</code> to the test, by using it on two free online APIs:</p>
 <ul>
   <li>We’ll use the Open Weather Map API to get temperature data for Kathmandu.</li>
   <li>We’ll use the Reddit API to download images.</li>
