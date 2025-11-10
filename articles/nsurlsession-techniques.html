@@ -83,79 +83,79 @@
 
 <p>Here’s the code:</p>
 
-<pre><code class="language-objective-c">#import &lt;Foundation/Foundation.h&gt;
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import &lt;Foundation/Foundation.h&gt;
+</span>
+<span class="k">@interface</span> <span class="nc">Networker</span> <span class="p">:</span> <span class="nc">NSObject</span>
 
-@interface Networker : NSObject
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">fetchContentsOfURL</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span>
+                <span class="nf">completion</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">))</span> <span class="n">completionHandler</span><span class="p">;</span>
 
-+ (void)fetchContentsOfURL:(NSURL *)url
-                completion:(void (^)(NSData *data, NSError *error)) completionHandler;
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">downloadFileAtURL</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span>
+               <span class="nf">toLocation</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">destinationURL</span>
+               <span class="nf">completion</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">))</span> <span class="n">completionHandler</span><span class="p">;</span>
+<span class="k">@end</span>
 
-+ (void)downloadFileAtURL:(NSURL *)url
-               toLocation:(NSURL *)destinationURL
-               completion:(void (^)(NSError *error)) completionHandler;
-@end
+<span class="k">@implementation</span> <span class="nc">Networker</span>
 
-@implementation Networker
+<span class="k">+</span> <span class="p">(</span><span class="n">NSURLSession</span> <span class="o">*</span><span class="p">)</span><span class="n">dataSession</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="n">NSURLSession</span> <span class="o">*</span><span class="n">session</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
+    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLSession</span> <span class="nf">sessionWithConfiguration</span><span class="p">:[</span><span class="n">NSURLSessionConfiguration</span> <span class="nf">defaultSessionConfiguration</span><span class="p">]];</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="n">session</span><span class="p">;</span>
+<span class="p">}</span>
 
-+ (NSURLSession *)dataSession {
-    static NSURLSession *session = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&amp;onceToken, ^{
-        session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    });
-    return session;
-}
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">fetchContentsOfURL</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span>
+                <span class="nf">completion</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">))</span> <span class="n">completionHandler</span> <span class="p">{</span>
 
-+ (void)fetchContentsOfURL:(NSURL *)url
-                completion:(void (^)(NSData *data, NSError *error)) completionHandler {
+    <span class="n">NSURLSessionDataTask</span> <span class="o">*</span><span class="n">dataTask</span> <span class="o">=</span>
+    <span class="p">[[</span><span class="n">self</span> <span class="nf">dataSession</span><span class="p">]</span> <span class="nf">dataTaskWithURL</span><span class="p">:</span><span class="n">url</span>
+                      <span class="nl">completionHandler:</span>
 
-    NSURLSessionDataTask *dataTask =
-    [[self dataSession] dataTaskWithURL:url
-                      completionHandler:
+     <span class="o">^</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
 
-     ^(NSData *data, NSURLResponse *response, NSError *error) {
+         <span class="k">if</span> <span class="p">(</span><span class="n">completionHandler</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 
-         if (completionHandler == nil) return;
+         <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+             <span class="n">completionHandler</span><span class="p">(</span><span class="nb">nil</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+             <span class="k">return</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="n">completionHandler</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">nil</span><span class="p">);</span>
+     <span class="p">}];</span>
 
-         if (error) {
-             completionHandler(nil, error);
-             return;
-         }
-         completionHandler(data, nil);
-     }];
+    <span class="p">[</span><span class="n">dataTask</span> <span class="nf">resume</span><span class="p">];</span>
+<span class="p">}</span>
 
-    [dataTask resume];
-}
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">downloadFileAtURL</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span>
+               <span class="nf">toLocation</span><span class="p">:(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">destinationURL</span>
+               <span class="nf">completion</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">))</span> <span class="n">completionHandler</span> <span class="p">{</span>
 
-+ (void)downloadFileAtURL:(NSURL *)url
-               toLocation:(NSURL *)destinationURL
-               completion:(void (^)(NSError *error)) completionHandler {
+    <span class="n">NSURLSessionDownloadTask</span> <span class="o">*</span><span class="n">fileDownloadTask</span> <span class="o">=</span>
+    <span class="p">[[</span><span class="n">self</span> <span class="nf">dataSession</span><span class="p">]</span> <span class="nf">downloadTaskWithRequest</span><span class="p">:[</span><span class="n">NSURLRequest</span> <span class="nf">requestWithURL</span><span class="p">:</span><span class="n">url</span><span class="p">]</span>
+                              <span class="nl">completionHandler:</span>
 
-    NSURLSessionDownloadTask *fileDownloadTask =
-    [[self dataSession] downloadTaskWithRequest:[NSURLRequest requestWithURL:url]
-                              completionHandler:
+     <span class="o">^</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="n">location</span><span class="p">,</span> <span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
 
-     ^(NSURL *location, NSURLResponse *response, NSError *error) {
+         <span class="k">if</span> <span class="p">(</span><span class="n">completionHandler</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 
-         if (completionHandler == nil) return;
+         <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+             <span class="n">completionHandler</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+             <span class="k">return</span><span class="p">;</span>
+         <span class="p">}</span>
 
-         if (error) {
-             completionHandler(error);
-             return;
-         }
+         <span class="n">NSError</span> <span class="o">*</span><span class="n">fileError</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+         <span class="p">[[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">]</span> <span class="nf">removeItemAtURL</span><span class="p">:</span><span class="n">destinationURL</span> <span class="nf">error</span><span class="p">:</span><span class="nb">NULL</span><span class="p">];</span>
+         <span class="p">[[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">]</span> <span class="nf">moveItemAtURL</span><span class="p">:</span><span class="n">location</span> <span class="nf">toURL</span><span class="p">:</span><span class="n">destinationURL</span> <span class="n">error</span><span class="o">:&amp;</span><span class="n">fileError</span><span class="p">];</span>
+         <span class="n">completionHandler</span><span class="p">(</span><span class="n">fileError</span><span class="p">);</span>
+     <span class="p">}];</span>
 
-         NSError *fileError = nil;
-         [[NSFileManager defaultManager] removeItemAtURL:destinationURL error:NULL];
-         [[NSFileManager defaultManager] moveItemAtURL:location toURL:destinationURL error:&amp;fileError];
-         completionHandler(fileError);
-     }];
+    <span class="p">[</span><span class="n">fileDownloadTask</span> <span class="nf">resume</span><span class="p">];</span>
+<span class="p">}</span>
 
-    [fileDownloadTask resume];
-}
+<span class="k">@end</span>
 
-@end
-
-</code></pre>
+</code></pre></div></div>
 
 <h3 id="technique-1-wrap-nsurlsession">Technique 1: Wrap NSURLSession</h3>
 
@@ -172,10 +172,10 @@
 <ul>
   <li>You don’t have to create and configure a <code class="language-plaintext highlighter-rouge">NSURLSession</code> object every time you want to create a <code class="language-plaintext highlighter-rouge">NSURLSessionTask</code></li>
   <li>You centralise all the information relative to the active tasks in one place. For example, you can do:
-    <pre><code class="language-objective-c">[self dataSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-  NSLog(@"Here are my data tasks: %@", dataTasks);
-}
-</code></pre>
+    <div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">self</span> <span class="nf">dataSession</span><span class="p">]</span> <span class="n">getTasksWithCompletionHandler</span><span class="o">:^</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">dataTasks</span><span class="p">,</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">uploadTasks</span><span class="p">,</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">downloadTasks</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Here are my data tasks: %@"</span><span class="p">,</span> <span class="n">dataTasks</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
   </li>
   <li>You centralise control of all the <code class="language-plaintext highlighter-rouge">NSURLSessionTasks</code>, rather than having to make method calls on each individual one. For example:
 ```objective-c
@@ -203,22 +203,22 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 <p>With a delegate-based implementation:</p>
 
-<pre><code class="language-objective-c">@interface SomeClass : NSObject &lt;NetworkerDelegate&gt;
-@end
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">SomeClass</span> <span class="p">:</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">NetworkerDelegate</span><span class="o">&gt;</span>
+<span class="k">@end</span>
 
-@implementation SomeClass {
-    NSDate *timeButtonPressed;
-}
+<span class="k">@implementation</span> <span class="nc">SomeClass</span> <span class="p">{</span>
+    <span class="n">NSDate</span> <span class="o">*</span><span class="n">timeButtonPressed</span><span class="p">;</span>
+<span class="p">}</span>
 
-- (void)userPressedButton {
-    timeButtonPressed = [NSDate date];
-    [Networker fetchContentsOfURL:url];
-}
-//56 lines further down...
-- (void)networkerDidGetData:(NSData *)data error:(NSError *)error {
-    [self useData:data forDate:timeButtonPressed];
-}
-</code></pre>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">userPressedButton</span> <span class="p">{</span>
+    <span class="n">timeButtonPressed</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="nf">date</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">Networker</span> <span class="nf">fetchContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="c1">//56 lines further down...</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">networkerDidGetData</span><span class="p">:(</span><span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">data</span> <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nv">error</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">self</span> <span class="nf">useData</span><span class="p">:</span><span class="n">data</span> <span class="nf">forDate</span><span class="p">:</span><span class="n">timeButtonPressed</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>The block-based alternative is shorter and more readable.</p>
 
@@ -250,49 +250,49 @@ Let's do a quick example. Suppose we are inside a separate class. Now our block-
 
 <p>Open <strong>ViewController.m</strong> and add these lines:</p>
 
-<pre><code class="language-objective-c">#import "Networker.h"
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "Networker.h"
+</span>
+<span class="k">@implementation</span> <span class="nc">ViewController</span>
 
-@implementation ViewController
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidAppear</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">animated</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidAppear</span><span class="p">:</span><span class="n">animated</span><span class="p">];</span>
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    <span class="n">NSURL</span> <span class="o">*</span><span class="n">redditFrontPageJSON</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"http://www.reddit.com/r/pics.json"</span><span class="p">];</span>
 
-    NSURL *redditFrontPageJSON = [NSURL URLWithString:@"http://www.reddit.com/r/pics.json"];
+    <span class="p">[</span><span class="n">Networker</span> <span class="nf">fetchContentsOfURL</span><span class="p">:</span><span class="n">redditFrontPageJSON</span> <span class="nf">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
 
-    [Networker fetchContentsOfURL:redditFrontPageJSON completion:^(NSData *data, NSError *error) {
+        <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSError</span> <span class="o">*</span><span class="n">jsonParsingError</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+            <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">redditJSON</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)[</span><span class="n">NSJSONSerialization</span> <span class="nf">JSONObjectWithData</span><span class="p">:</span><span class="n">data</span> <span class="nf">options</span><span class="p">:</span><span class="n">kNilOptions</span> <span class="n">error</span><span class="o">:&amp;</span><span class="n">jsonParsingError</span><span class="p">];</span>
 
-        if (error == nil) {
-            NSError *jsonParsingError = nil;
-            NSDictionary *redditJSON = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&amp;jsonParsingError];
+            <span class="k">if</span> <span class="p">(</span><span class="n">jsonParsingError</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">NSArray</span> <span class="o">*</span><span class="n">redditPosts</span> <span class="o">=</span> <span class="n">redditJSON</span><span class="p">[</span><span class="s">@"data"</span><span class="p">][</span><span class="s">@"children"</span><span class="p">];</span>
+                <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">topPost</span> <span class="o">=</span> <span class="p">[</span><span class="n">redditPosts</span> <span class="nf">firstObject</span><span class="p">];</span>
 
-            if (jsonParsingError == nil) {
-                NSArray *redditPosts = redditJSON[@"data"][@"children"];
-                NSDictionary *topPost = [redditPosts firstObject];
+                <span class="n">NSString</span> <span class="o">*</span><span class="n">thumbnailURL</span> <span class="o">=</span> <span class="n">topPost</span><span class="p">[</span><span class="s">@"data"</span><span class="p">][</span><span class="s">@"thumbnail"</span><span class="p">];</span>
+                <span class="n">NSURL</span> <span class="o">*</span><span class="n">documents</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSFileManager</span> <span class="nf">defaultManager</span><span class="p">]</span> <span class="nf">URLsForDirectory</span><span class="p">:</span><span class="n">NSDocumentDirectory</span> <span class="nf">inDomains</span><span class="p">:</span><span class="nf">NSUserDomainMask</span><span class="p">]</span> <span class="n">firstObject</span><span class="p">];</span>
+                <span class="n">NSURL</span> <span class="o">*</span><span class="n">fileURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">documents</span> <span class="nf">URLByAppendingPathComponent</span><span class="p">:[</span><span class="n">thumbnailURL</span> <span class="nf">lastPathComponent</span><span class="p">]];</span>
 
-                NSString *thumbnailURL = topPost[@"data"][@"thumbnail"];
-                NSURL *documents = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-                NSURL *fileURL = [documents URLByAppendingPathComponent:[thumbnailURL lastPathComponent]];
+                <span class="p">[</span><span class="n">Networker</span> <span class="nf">downloadFileAtURL</span><span class="p">:[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="n">thumbnailURL</span><span class="p">]</span> <span class="nf">toLocation</span><span class="p">:</span><span class="n">fileURL</span> <span class="n">completion</span><span class="o">:^</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
 
-                [Networker downloadFileAtURL:[NSURL URLWithString:thumbnailURL] toLocation:fileURL completion:^(NSError *error) {
+                    <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">dispatch_async</span><span class="p">(</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">{</span>
+                            <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:[</span><span class="n">fileURL</span> <span class="nf">path</span><span class="p">]];</span>
+                            <span class="n">UIImageView</span> <span class="o">*</span><span class="n">imageView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImageView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithImage</span><span class="p">:</span><span class="n">image</span><span class="p">];</span>
+                            <span class="p">[</span><span class="n">imageView</span> <span class="nf">setCenter</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">center</span><span class="p">];</span>
+                            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">imageView</span><span class="p">];</span>
+                        <span class="p">});</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Error downloading image: %@"</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+                <span class="p">}];</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="n">NSLog</span><span class="p">(</span><span class="s">@"JSON parsing Error: %@"</span><span class="p">,</span> <span class="n">jsonParsingError</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}];</span>
+<span class="p">}</span>
 
-                    if (error == nil) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            UIImage *image = [UIImage imageWithContentsOfFile:[fileURL path]];
-                            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-                            [imageView setCenter:self.view.center];
-                            [self.view addSubview:imageView];
-                        });
-                    }
-                    else NSLog(@"Error downloading image: %@", error);
-                }];
-            }
-            else NSLog(@"JSON parsing Error: %@", jsonParsingError);
-        }
-    }];
-}
-
-@end
-</code></pre>
+<span class="k">@end</span>
+</code></pre></div></div>
 
 
   </div>

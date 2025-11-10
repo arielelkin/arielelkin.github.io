@@ -113,8 +113,8 @@
   <li>Open <strong>AppDelegate.m</strong>, under <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code> write</li>
 </ol>
 
-<pre><code class="language-objective-c">#import "AEAudioController.h"
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "AEAudioController.h"
+</span></code></pre></div></div>
 
 <p>Let’s see if you’ve correctly added TAAE. Build (⌘+B), make sure the build succeeds. If the build fails, you haven’t followed the above steps to the letter, go back and make sure you do. If the build succeeds, you get to move on.</p>
 
@@ -131,79 +131,79 @@
 
 <p>Open <strong>AppDelegate.h</strong>, write this above <code class="language-plaintext highlighter-rouge">#import &lt;UIKit/UIKit.h&gt;</code>:</p>
 
-<pre><code class="language-objective-c">@class AEAudioController;
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@class</span> <span class="nc">AEAudioController</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>This is a <a href="http://stackoverflow.com/questions/5191487/objective-c-forward-class-declaration">forward declaration</a> of <code class="language-plaintext highlighter-rouge">AEAudioController</code>. We’ll be importing <strong>AEAudioController.h</strong> in the app delegate’s implementation (it’s cleaner to import it here to avoid circular inclusions of files).</p>
 
 <p>Let’s now add an <code class="language-plaintext highlighter-rouge">AEAudioController</code> property to our <code class="language-plaintext highlighter-rouge">AppDelegate</code>:</p>
 
-<pre><code class="language-objective-c">@property (nonatomic, readonly) AEAudioController *audioController;
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">AEAudioController</span> <span class="o">*</span><span class="n">audioController</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>Other files will be able to refer to the <code class="language-plaintext highlighter-rouge">audioController</code> variable, but we’re adding the <code class="language-plaintext highlighter-rouge">readonly</code> identifier because we don’t want to let them change what it points to.</p>
 
 <p>Open <strong>AppDelegate.m</strong>. Under the <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code> line we wrote earlier on, write:</p>
 
-<pre><code class="language-objective-c">@interface AppDelegate()
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">AppDelegate</span><span class="p">()</span>
 
-@property (nonatomic) AEAudioController *audioController;
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">AEAudioController</span> <span class="o">*</span><span class="n">audioController</span><span class="p">;</span>
 
-@end
-</code></pre>
+<span class="k">@end</span>
+</code></pre></div></div>
 
 <p>This is a <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html">class extension</a> in which we allow the implementation of AppDelegate to actually set its <code class="language-plaintext highlighter-rouge">audioController</code> property.</p>
 
 <p>At the end of the <code class="language-plaintext highlighter-rouge">application:didFinishLaunchingWithOptions</code> method, write:</p>
 
-<pre><code class="language-objective-c">self.audioController = [[AEAudioController alloc]
-                        initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
-                        inputEnabled:NO];
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">self</span><span class="p">.</span><span class="n">audioController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AEAudioController</span> <span class="nf">alloc</span><span class="p">]</span>
+                        <span class="nl">initWithAudioDescription:</span><span class="p">[</span><span class="n">AEAudioController</span> <span class="nf">nonInterleavedFloatStereoAudioDescription</span><span class="p">]</span>
+                        <span class="nl">inputEnabled:</span><span class="nf">NO</span><span class="p">];</span>
+</code></pre></div></div>
 
 <p>Your <strong>AppDelegate.m</strong> should look like this:</p>
 
-<pre><code class="language-objective-c">#import "AppDelegate.h"
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "AppDelegate.h"
 #import "AEAudioController.h"
+</span>
+<span class="k">@interface</span> <span class="nc">AppDelegate</span><span class="p">()</span>
 
-@interface AppDelegate()
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">AEAudioController</span> <span class="o">*</span><span class="n">audioController</span><span class="p">;</span>
 
-@property (nonatomic) AEAudioController *audioController;
+<span class="k">@end</span>
 
-@end
+<span class="k">@implementation</span> <span class="nc">AppDelegate</span>
 
-@implementation AppDelegate
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
-    self.audioController = [[AEAudioController alloc]
-                            initWithAudioDescription:[AEAudioController nonInterleavedFloatStereoAudioDescription]
-                            inputEnabled:NO];
-    return YES;
-}
-</code></pre>
+<span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">application</span><span class="p">:(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+<span class="p">{</span>
+    <span class="c1">// Override point for customization after application launch.</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">audioController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AEAudioController</span> <span class="nf">alloc</span><span class="p">]</span>
+                            <span class="nl">initWithAudioDescription:</span><span class="p">[</span><span class="n">AEAudioController</span> <span class="nf">nonInterleavedFloatStereoAudioDescription</span><span class="p">]</span>
+                            <span class="nl">inputEnabled:</span><span class="nf">NO</span><span class="p">];</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>We’ll now start the audio engine in the main view controller. Open up <strong>ViewController.m</strong>. Under <code class="language-plaintext highlighter-rouge">#import "ViewController.h"</code>, write:</p>
 
-<pre><code class="language-objective-c">#import "AppDelegate.h"
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "AppDelegate.h"
+</span></code></pre></div></div>
 
 <p>In <code class="language-plaintext highlighter-rouge">viewDidLoad</code>, write:</p>
 
-<pre><code class="language-objective-c">- (void)viewDidLoad
-{
-    [super viewDidLoad];
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
 
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    <span class="n">AppDelegate</span> <span class="o">*</span><span class="n">appDelegate</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIApplication</span> <span class="nf">sharedApplication</span><span class="p">]</span> <span class="nf">delegate</span><span class="p">];</span>
 
-    NSError *errorAudioSetup = NULL;
-    BOOL result = [[appDelegate audioController] start:&amp;errorAudioSetup];
-    if ( !result ) {
-        NSLog(@"Error starting audio engine: %@", errorAudioSetup.localizedDescription);
-    }
-}
-</code></pre>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">errorAudioSetup</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">BOOL</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[[</span><span class="n">appDelegate</span> <span class="nf">audioController</span><span class="p">]</span> <span class="nf">start</span><span class="p">:</span><span class="o">&amp;</span><span class="n">errorAudioSetup</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">result</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Error starting audio engine: %@"</span><span class="p">,</span> <span class="n">errorAudioSetup</span><span class="p">.</span><span class="n">localizedDescription</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Let’s break this down. First, we get a reference to our app delegate instance. It needs to be of class <code class="language-plaintext highlighter-rouge">AppDelegate</code> because we need to use its <code class="language-plaintext highlighter-rouge">audioController</code> property.</p>
 
@@ -221,16 +221,16 @@
 
 <p>Open <strong>ViewController.mm</strong> and under <code class="language-plaintext highlighter-rouge">#import "AppDelegate.h"</code>, write:</p>
 
-<pre><code class="language-objective-c">#import "AEBlockChannel.h"
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import "AEBlockChannel.h"
 #import "Mandolin.h"
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="rawwaves">Rawwaves</h3>
 
 <p>The <code class="language-plaintext highlighter-rouge">Mandolin</code> class we’ll use makes use of hard-coded waveforms to generate sound. These waveforms are in the STK, but we need to manually tell the STK where they are. To do that, at the bottom of the <code class="language-plaintext highlighter-rouge">viewDidLoad</code> code we wrote, add this line:</p>
 
-<pre><code class="language-objective-c">stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stk</span><span class="o">::</span><span class="n">Stk</span><span class="o">::</span><span class="n">setRawwavePath</span><span class="p">([[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="s">@"rawwaves"</span> <span class="nf">ofType</span><span class="p">:</span><span class="s">@"bundle"</span><span class="p">]</span> <span class="n">UTF8String</span><span class="p">]);</span>
+</code></pre></div></div>
 
 <h3 id="the-mandolins-user-interface">The mandolin’s user interface</h3>
 
@@ -244,10 +244,10 @@
 
 <p>Open <strong>ViewController.mm</strong> and add an instance variable for our <code class="language-plaintext highlighter-rouge">Mandolin</code>:</p>
 
-<pre><code class="language-objective-c">@implementation ViewController {
-    stk::Mandolin *myMandolin;
-}
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">ViewController</span> <span class="p">{</span>
+    <span class="n">stk</span><span class="o">::</span><span class="n">Mandolin</span> <span class="o">*</span><span class="n">myMandolin</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>(You could also declare the mandolin as a property <code class="language-plaintext highlighter-rouge">@property (nonatomic) stk::Mandolin *myMandolin;</code> but an instance variable is really all you need here.)</p>
 
@@ -257,14 +257,14 @@
 
 <p>Further down <strong>ViewController.mm</strong>, write the two methods that define the behaviour for the button and slider:</p>
 
-<pre><code class="language-objective-c">-(IBAction)pluckMyMandolin {
-    self.myMandolin-&gt;pluck(1);
-}
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="n">pluckMyMandolin</span> <span class="p">{</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">myMandolin</span><span class="o">-&gt;</span><span class="n">pluck</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
 
--(IBAction)changeFrequency:(UISlider *)sender {
-    self.myMandolin-&gt;setFrequency(sender.value);
-}
-</code></pre>
+<span class="k">-</span><span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">changeFrequency</span><span class="p">:(</span><span class="n">UISlider</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">myMandolin</span><span class="o">-&gt;</span><span class="n">setFrequency</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Let’s tell the button and the slider that these are the methods they’re dealing with. Save <strong>ViewController.mm</strong> and go back into the Storyboard. Leave <code class="language-plaintext highlighter-rouge">control</code> pressed and click and drag from the “Pluck my mandolin” button to the yellow circle at the bottom of the view controller. Let go, and select <strong>pluckMyMandolin</strong></p>
 
@@ -276,30 +276,30 @@
 
 <p>In <strong>ViewController.mm</strong>, add an instance variable for our <code class="language-plaintext highlighter-rouge">AEBlockChannel</code>:</p>
 
-<pre><code class="language-objective-c">@implementation ViewController {
-    AEBlockChannel *myMandolinChannel;
-    stk::Mandolin *myMandolin;
-}
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">ViewController</span> <span class="p">{</span>
+    <span class="n">AEBlockChannel</span> <span class="o">*</span><span class="n">myMandolinChannel</span><span class="p">;</span>
+    <span class="n">stk</span><span class="o">::</span><span class="n">Mandolin</span> <span class="o">*</span><span class="n">myMandolin</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Now let’s create our Mandolin and place it inside a channel. At the bottom of <code class="language-plaintext highlighter-rouge">viewDidLoad</code>, write:</p>
 
-<pre><code class="language-objective-c">myMandolin = new stk::Mandolin(400);
-myMandolin-&gt;setFrequency(400);
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myMandolin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">stk</span><span class="o">::</span><span class="n">Mandolin</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
+<span class="n">myMandolin</span><span class="o">-&gt;</span><span class="n">setFrequency</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
 
-myMandolinChannel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *time,
-                                                            UInt32 frames,
-                                                            AudioBufferList *audio) {
-    for ( int i=0; i&lt;frames; i++ ) {
+<span class="n">myMandolinChannel</span> <span class="o">=</span> <span class="p">[</span><span class="n">AEBlockChannel</span> <span class="nf">channelWithBlock</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="k">const</span> <span class="n">AudioTimeStamp</span>  <span class="o">*</span><span class="n">time</span><span class="p">,</span>
+                                                            <span class="n">UInt32</span> <span class="n">frames</span><span class="p">,</span>
+                                                            <span class="n">AudioBufferList</span> <span class="o">*</span><span class="n">audio</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">frames</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
 
-        ((float*)audio-&gt;mBuffers[0].mData)[i] =
-        ((float*)audio-&gt;mBuffers[1].mData)[i] = myMandolin-&gt;tick();
+        <span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">audio</span><span class="o">-&gt;</span><span class="n">mBuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mData</span><span class="p">)[</span><span class="nf">i</span><span class="p">]</span> <span class="o">=</span>
+        <span class="p">((</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">audio</span><span class="o">-&gt;</span><span class="n">mBuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">mData</span><span class="p">)[</span><span class="nf">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">myMandolin</span><span class="o">-&gt;</span><span class="n">tick</span><span class="p">();</span>
 
-    }
-}];
+    <span class="p">}</span>
+<span class="p">}];</span>
 
-[[appDelegate audioController] addChannels:@[myMandolinChannel]];
-</code></pre>
+<span class="p">[[</span><span class="n">appDelegate</span> <span class="nf">audioController</span><span class="p">]</span> <span class="nf">addChannels</span><span class="p">:@[</span><span class="n">myMandolinChannel</span><span class="p">]];</span>
+</code></pre></div></div>
 
 <p>We first initialise a new <code class="language-plaintext highlighter-rouge">Mandolin</code> object, and set its frequency to 400.</p>
 

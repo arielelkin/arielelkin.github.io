@@ -82,44 +82,44 @@
 
 <p>You can go ahead and copy and paste this in an empty view controller to see in action:</p>
 
-<pre><code class="language-objective-c">
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
 
-    /*** Init the scrollview and the label ***/
+    <span class="cm">/*** Init the scrollview and the label ***/</span>
 
-    UIScrollView *scrollView= [UIScrollView new];
-    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:scrollView];
+    <span class="n">UIScrollView</span> <span class="o">*</span><span class="n">scrollView</span><span class="o">=</span> <span class="p">[</span><span class="n">UIScrollView</span> <span class="nf">new</span><span class="p">];</span>
+    <span class="n">scrollView</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">scrollView</span><span class="p">];</span>
 
-    UILabel *scrollViewLabel = [[UILabel alloc] init];
-    scrollViewLabel.numberOfLines = 0;
-    scrollViewLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [scrollView addSubview:scrollViewLabel];
+    <span class="n">UILabel</span> <span class="o">*</span><span class="n">scrollViewLabel</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILabel</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">scrollViewLabel</span><span class="p">.</span><span class="n">numberOfLines</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">scrollViewLabel</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">scrollView</span> <span class="nf">addSubview</span><span class="p">:</span><span class="n">scrollViewLabel</span><span class="p">];</span>
 
-    scrollViewLabel.text = @"Bacon ipsum dolor sit amet drumstick meatloaf filet mignon ham t-bone andouille meatball venison cow capicola jerky shankle shoulder ground round. Shank filet mignon pork chop ham hock, short ribs jerky prosciutto tongue porchetta. Biltong kevin strip steak tail jowl jerky boudin drumstick pastrami bresaola. Sirloin tail shoulder salami, hamburger beef doner turducken chuck boudin kielbasa sausage pork loin. Ball tip leberkas fatback, pork chop tail ham ribeye. Bresaola pancetta jerky beef kielbasa frankfurter, corned beef filet mignon ribeye tongue porchetta. Prosciutto short loin sirloin doner brisket jerky swine sausage bresaola chuck. Meatloaf pork chop ribeye bacon jerky turducken, andouille pork belly beef ribs ham hock leberkas. Andouille tri-tip capicola beef t-bone shank tenderloin turducken ball tip salami pork belly shankle. Kielbasa pastrami brisket, kevin spare ribs swine tail beef jerky venison filet mignon. Kevin leberkas ball tip, brisket bresaola chuck meatloaf beef doner drumstick hamburger capicola chicken. Tri-tip biltong drumstick pork prosciutto strip steak pastrami brisket shank hamburger flank tail cow. Pastrami beef ribs ribeye boudin spare ribs pork loin. Meatloaf tail pork belly strip steak doner. T-bone meatball pastrami, pork strip steak salami tail beef boudin leberkas. Venison t-bone fatback, pig brisket pork loin landjaeger turkey tri-tip biltong. Drumstick tri-tip hamburger boudin meatball pork pork chop short ribs chuck doner t-bone bacon frankfurter porchetta beef. Turkey cow meatball andouille pancetta, flank strip steak ham hock. Frankfurter corned beef rump turducken brisket, jerky short loin flank tri-tip ball tip ham hock swine spare ribs.";
+    <span class="n">scrollViewLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">@"Bacon ipsum dolor sit amet drumstick meatloaf filet mignon ham t-bone andouille meatball venison cow capicola jerky shankle shoulder ground round. Shank filet mignon pork chop ham hock, short ribs jerky prosciutto tongue porchetta. Biltong kevin strip steak tail jowl jerky boudin drumstick pastrami bresaola. Sirloin tail shoulder salami, hamburger beef doner turducken chuck boudin kielbasa sausage pork loin. Ball tip leberkas fatback, pork chop tail ham ribeye. Bresaola pancetta jerky beef kielbasa frankfurter, corned beef filet mignon ribeye tongue porchetta. Prosciutto short loin sirloin doner brisket jerky swine sausage bresaola chuck. Meatloaf pork chop ribeye bacon jerky turducken, andouille pork belly beef ribs ham hock leberkas. Andouille tri-tip capicola beef t-bone shank tenderloin turducken ball tip salami pork belly shankle. Kielbasa pastrami brisket, kevin spare ribs swine tail beef jerky venison filet mignon. Kevin leberkas ball tip, brisket bresaola chuck meatloaf beef doner drumstick hamburger capicola chicken. Tri-tip biltong drumstick pork prosciutto strip steak pastrami brisket shank hamburger flank tail cow. Pastrami beef ribs ribeye boudin spare ribs pork loin. Meatloaf tail pork belly strip steak doner. T-bone meatball pastrami, pork strip steak salami tail beef boudin leberkas. Venison t-bone fatback, pig brisket pork loin landjaeger turkey tri-tip biltong. Drumstick tri-tip hamburger boudin meatball pork pork chop short ribs chuck doner t-bone bacon frankfurter porchetta beef. Turkey cow meatball andouille pancetta, flank strip steak ham hock. Frankfurter corned beef rump turducken brisket, jerky short loin flank tri-tip ball tip ham hock swine spare ribs."</span><span class="p">;</span>
 
 
-	  /*** Auto Layout ***/
+	  <span class="cm">/*** Auto Layout ***/</span>
 
-    NSDictionary *views = NSDictionaryOfVariableBindings(scrollView, scrollViewLabel);
+    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">views</span> <span class="o">=</span> <span class="n">NSDictionaryOfVariableBindings</span><span class="p">(</span><span class="n">scrollView</span><span class="p">,</span> <span class="n">scrollViewLabel</span><span class="p">);</span>
 
-    NSArray *scrollViewLabelConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scrollViewLabel(scrollView)]" options:0 metrics:nil views:views];
-    [scrollView addConstraints:scrollViewLabelConstraints];
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">scrollViewLabelConstraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSLayoutConstraint</span> <span class="nf">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@"H:|[scrollViewLabel(scrollView)]"</span> <span class="nf">options</span><span class="p">:</span><span class="mi">0</span> <span class="n">metrics</span><span class="o">:</span><span class="nb">nil</span> <span class="n">views</span><span class="o">:</span><span class="n">views</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">scrollView</span> <span class="nf">addConstraints</span><span class="p">:</span><span class="n">scrollViewLabelConstraints</span><span class="p">];</span>
 
-    scrollViewLabelConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollViewLabel]|" options:0 metrics:nil views:views];
-    [scrollView addConstraints:scrollViewLabelConstraints];
+    <span class="n">scrollViewLabelConstraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSLayoutConstraint</span> <span class="nf">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@"V:|[scrollViewLabel]|"</span> <span class="nf">options</span><span class="p">:</span><span class="mi">0</span> <span class="n">metrics</span><span class="o">:</span><span class="nb">nil</span> <span class="n">views</span><span class="o">:</span><span class="n">views</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">scrollView</span> <span class="nf">addConstraints</span><span class="p">:</span><span class="n">scrollViewLabelConstraints</span><span class="p">];</span>
 
-    NSArray *scrollViewConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[scrollView]-|" options:0 metrics:nil views:views];
-    [self.view addConstraints:scrollViewConstraints];
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">scrollViewConstraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSLayoutConstraint</span> <span class="nf">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@"H:|-[scrollView]-|"</span> <span class="nf">options</span><span class="p">:</span><span class="mi">0</span> <span class="n">metrics</span><span class="o">:</span><span class="nb">nil</span> <span class="n">views</span><span class="o">:</span><span class="n">views</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addConstraints</span><span class="p">:</span><span class="n">scrollViewConstraints</span><span class="p">];</span>
 
-    scrollViewConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[scrollView]-|" options:0 metrics:nil views:views];
-    [self.view addConstraints:scrollViewConstraints];
+    <span class="n">scrollViewConstraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSLayoutConstraint</span> <span class="nf">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@"V:|-[scrollView]-|"</span> <span class="nf">options</span><span class="p">:</span><span class="mi">0</span> <span class="n">metrics</span><span class="o">:</span><span class="nb">nil</span> <span class="n">views</span><span class="o">:</span><span class="n">views</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nf">addConstraints</span><span class="p">:</span><span class="n">scrollViewConstraints</span><span class="p">];</span>
 
-}
+<span class="p">}</span>
 
-</code></pre>
+</code></pre></div></div>
 
 <h2 id="explanation">Explanation</h2>
 

@@ -73,42 +73,42 @@
   <div class="post-content">
     <p>Here’s a simple and reliable way to implement one-to-many delegation in Objective-C:</p>
 
-<pre><code class="language-objective-c">@protocol CoolDelegate &lt;NSObject&gt;
-@required
-- (void)eventHappened;
-@end
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">CoolDelegate</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+<span class="err">@required</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">eventHappened</span><span class="p">;</span>
+<span class="k">@end</span>
 
-@interface Delegator : NSObject
-- (void)addDelegate:(id&lt;CoolDelegate&gt;)delegate;
-- (void)removeDelegate:(id&lt;CoolDelegate&gt;)delegate;
-@end
+<span class="k">@interface</span> <span class="nc">Delegator</span> <span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addDelegate</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">CoolDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeDelegate</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">CoolDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">;</span>
+<span class="k">@end</span>
 
-@implementation Delegator {
-    NSHashTable *delegates;
-}
+<span class="k">@implementation</span> <span class="nc">Delegator</span> <span class="p">{</span>
+    <span class="n">NSHashTable</span> <span class="o">*</span><span class="n">delegates</span><span class="p">;</span>
+<span class="p">}</span>
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        delegates = [NSHashTable weakObjectsHashTable];
-    }
-    return self;
-}
+<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="n">init</span> <span class="p">{</span>
+    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">delegates</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSHashTable</span> <span class="nf">weakObjectsHashTable</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
 
-- (void)addDelegate:(id&lt;SomeDelegate&gt;)delegate {
-    [delegates addObject:delegate];
-}
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addDelegate</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">SomeDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">delegates</span> <span class="nf">addObject</span><span class="p">:</span><span class="n">delegate</span><span class="p">];</span>
+<span class="p">}</span>
 
-- (void)removeDelegate:(id&lt;SomeDelegate&gt;)delegate {
-    [delegates removeObject:delegate];
-}
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeDelegate</span><span class="p">:(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">SomeDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">delegates</span> <span class="nf">removeObject</span><span class="p">:</span><span class="n">delegate</span><span class="p">];</span>
+<span class="p">}</span>
 
-- (void)somethingHappened {
-    for (id delegate in delegates) {
-        [delegate eventHappened];
-    }
-}
-</code></pre>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">somethingHappened</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">id</span> <span class="n">delegate</span> <span class="k">in</span> <span class="n">delegates</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">delegate</span> <span class="nf">eventHappened</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Here are the main benefits of this implementation:</p>
 
@@ -129,8 +129,8 @@
 
 <p>Consider this method in <code class="language-plaintext highlighter-rouge">UITableViewDelegate</code>:</p>
 
-<pre><code class="language-objective-c">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nf">tableView</span><span class="p">:(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">heightForRowAtIndexPath</span><span class="p">:(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>The tableview object calls this method when it needs to know what height its rows should have. If it has more than one delegate returning row heights, the delegates could potentially return contradicting values and leave the tableview in an inconsistent state.</p>
 
@@ -167,14 +167,14 @@
 <h4 id="problem-2-they-force-you-to-use-their-built-in-event-listeners">Problem 2: They force you to use their built-in event listeners</h4>
 
 <p>KVO forces you to implement at least these two monstrosities:</p>
-<pre><code class="language-objective-c">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObserver</span><span class="p">:(</span><span class="n">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">options</span><span class="p">:(</span><span class="n">NSKeyValueObservingOptions</span><span class="p">)</span><span class="nv">options</span> <span class="nf">context</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-</code></pre>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">ofObject</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">change</span><span class="p">:(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> <span class="nf">context</span><span class="p">:(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">NSNotificationCenter</code>, on the other hand, lets you specify which selector will be called when the listener receives the notification:</p>
-<pre><code class="language-objective-c">- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
-</code></pre>
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObserver</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">selector</span><span class="p">:(</span><span class="n">SEL</span><span class="p">)</span><span class="nv">aSelector</span> <span class="nf">name</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">aName</span> <span class="nf">object</span><span class="p">:(</span><span class="n">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>But this method can have one and only one argument, and that argument must be of type <code class="language-plaintext highlighter-rouge">NSNotification</code>, and you have to fit your data into its <code class="language-plaintext highlighter-rouge">userInfo</code> dictionary.</p>
 
@@ -190,12 +190,12 @@
 
 <p>They all offer a class with comprehensive multicast delegate functionality, that you’d use thus:</p>
 
-<pre><code class="language-objective-c">LBDelegateMatrioska *multicastDelegate = [[LBDelegateMatrioska alloc] init];
-[multicastDelegate addDelegate:scrollViewDelegate];
-[multicastDelegate addDelegate:anotherScrollViewDelegate];
+<div class="language-objective-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LBDelegateMatrioska</span> <span class="o">*</span><span class="n">multicastDelegate</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LBDelegateMatrioska</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+<span class="p">[</span><span class="n">multicastDelegate</span> <span class="nf">addDelegate</span><span class="p">:</span><span class="n">scrollViewDelegate</span><span class="p">];</span>
+<span class="p">[</span><span class="n">multicastDelegate</span> <span class="nf">addDelegate</span><span class="p">:</span><span class="n">anotherScrollViewDelegate</span><span class="p">];</span>
 
-scrollView.delegate = multicastDelegate;
-</code></pre>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">multicastDelegate</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>These libraries are useful if you need to give multicasting capabilities to a Cocoa or Cocoa Touch class. But note that they don’t support compile-time checks for protocol conformance.</p>
 

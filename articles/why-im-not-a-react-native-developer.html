@@ -387,7 +387,7 @@ class ConnectivityIndicatorView extends Component {
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
 
-<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kd">function</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">j</span>
 <span class="p">}</span>
 
@@ -395,29 +395,29 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="c1">//hello</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="c1">//hello</span>
 </code></pre></div></div>
 
 <p>JavaScript makes you believe that it has some notion of types and class, with keywords like <code class="language-plaintext highlighter-rouge">class</code>, <code class="language-plaintext highlighter-rouge">typeof</code>, and <code class="language-plaintext highlighter-rouge">instanceof</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Person</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Person</span> <span class="p">{</span>
   <span class="c1">//nobody is immortal:</span>
-  <span class="nx">isImmortal</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">isImmortal</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kc">false</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="p">()</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">p</span><span class="p">)</span> <span class="c1">//object</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">p</span><span class="p">)</span> <span class="c1">//object</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span><span class="p">())</span> <span class="c1">//false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nf">isImmortal</span><span class="p">())</span> <span class="c1">//false</span>
 
 <span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="kc">true</span><span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">isImmortal</span><span class="p">())</span> <span class="c1">// true</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nf">isImmortal</span><span class="p">())</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">p</span> <span class="k">instanceof</span> <span class="nx">Person</span><span class="p">)</span> <span class="c1">//true</span>
 </code></pre></div></div>
 
 <p>Here we see the following:</p>
@@ -451,18 +451,18 @@ class ConnectivityIndicatorView extends Component {
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">im a number</span><span class="dl">'</span>
 
-<span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">4</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">//NaN</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">//NaN</span>
 </code></pre></div></div>
 
 <p>Let’s make this even more fun. In JavaScript, any expression can be evaluated at any time by any function. Consider this example using two functions from the JavaScript standard library; <code class="language-plaintext highlighter-rouge">map</code>, which is supposedly the equivalent of Swift’s <code class="language-plaintext highlighter-rouge">map</code>, and <code class="language-plaintext highlighter-rouge">parseInt</code>, which parses a string into an integer.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">)</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="c1">//[1, NaN, NaN]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="c1">//[1, NaN, NaN]</span>
 </code></pre></div></div>
 
 <p>This messed up result is due to the fact that <code class="language-plaintext highlighter-rouge">parseInt</code> takes two parameters <code class="language-plaintext highlighter-rouge">(val, radix)</code> but <code class="language-plaintext highlighter-rouge">map</code> passes it 3 parameters <code class="language-plaintext highlighter-rouge">(currentValue, index, array)</code>. Still totally legal JavaScript (a language that some people consider viable for functional programming).</p>
@@ -476,7 +476,7 @@ class ConnectivityIndicatorView extends Component {
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="nx">array</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="c1">// [3, 6, 32: 9]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="c1">// [3, 6, 32: 9]</span>
 
 
 <span class="kd">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -484,7 +484,7 @@ class ConnectivityIndicatorView extends Component {
 <span class="p">}</span>
 <span class="kd">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span>
 <span class="nx">bar</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">999</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">number</span><span class="p">)</span> <span class="c1">// 999</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">number</span><span class="p">)</span> <span class="c1">// 999</span>
 </code></pre></div></div>
 
 <p>Unique copies? Nope. Any unique object could be modified by any part of your app at any time. Good luck multithreading. Indeed,</p>
@@ -512,19 +512,19 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="nx">array</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">999</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="c1">//0,1,2,999,watsup</span>
+<span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="c1">//0,1,2,999,watsup</span>
 <span class="p">}</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="c1">//0,1,2,undefined,999</span>
+<span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="c1">//0,1,2,undefined,999</span>
 <span class="p">}</span>
 
-<span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="c1">//0,1,2,999</span>
+<span class="nx">array</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="c1">//0,1,2,999</span>
 <span class="p">})</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="c1">//undefined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="c1">//undefined</span>
 </code></pre></div></div>
 
 <p>JavaScript arrays have more in common with ordinary JavaScript objects than with what we’d call an array. Their lack of precise sequentiality and mutability doesn’t make them well-behaved.</p>
@@ -534,14 +534,14 @@ class ConnectivityIndicatorView extends Component {
 
 <p>In JavaScript, you can have <em>any</em> function throw a runtime error or exception, without warning.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">tenDividedBy</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">tenDividedBy</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="dl">"</span><span class="s2">can't divide by zero</span><span class="dl">"</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="mi">10</span> <span class="o">/</span> <span class="nx">number</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tenDividedBy</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">tenDividedBy</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p>You can throw <em>anything</em> you want as an exception; a string, a <code class="language-plaintext highlighter-rouge">Date</code>, a function, etc. There is no mechanism for you to mark a function as potentially crashing your teammate’s code or for specifying how to process an exception. Use <code class="language-plaintext highlighter-rouge">if</code> statements instead, say the docs:</p>
@@ -555,8 +555,8 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Given that most decimal fractions cannot be accurately represented as binary fractions in hardware, many programming languages (including JavaScript and Swift) will often produce mathematically incorrect decimal arithmetic:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1">//0.30000000000000004</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c1">//false</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1">//0.30000000000000004</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c1">//false</span>
 </code></pre></div></div>
 
 <p>Which is why other languages’ standard libraries often have support for decimal fractions (in Swift, for instance, we can use <code class="language-plaintext highlighter-rouge">Decimal</code>). In JavaScript, you have to resort to using a third-party library – or write your own.</p>
@@ -569,18 +569,18 @@ class ConnectivityIndicatorView extends Component {
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">0</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="c1">// true</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nx">a</span> <span class="o">===</span> <span class="mi">1</span><span class="o">/</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nx">a</span> <span class="o">===</span> <span class="mi">1</span><span class="o">/</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// false</span>
 
 
-<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">)</span> <span class="c1">//false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">)</span> <span class="c1">//false</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="c1">//true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">isNaN</span><span class="p">(</span><span class="nx">x</span><span class="p">))</span> <span class="c1">//true</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="dl">'</span><span class="s1">i like pumpkins</span><span class="dl">'</span><span class="p">))</span> <span class="c1">//true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">isNaN</span><span class="p">(</span><span class="dl">'</span><span class="s1">i like pumpkins</span><span class="dl">'</span><span class="p">))</span> <span class="c1">//true</span>
 </code></pre></div></div>
 
 <p><a id="unsafe-initialisation"></a></p>
@@ -588,25 +588,25 @@ class ConnectivityIndicatorView extends Component {
 
 <p>JavaScript allows for objects to be left in an inconsistent state right after being created, as their properties don’t need to be initialised.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Rectangle</span> <span class="p">{</span>
-  <span class="kd">constructor</span> <span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="p">{</span>
+  <span class="nf">constructor </span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span>
   <span class="p">}</span>
-  <span class="nx">area</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nf">area </span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">width</span> <span class="o">*</span> <span class="nx">height</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">class</span> <span class="nx">Square</span> <span class="kd">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
-  <span class="kd">constructor</span><span class="p">(){</span>
+<span class="kd">class</span> <span class="nc">Square</span> <span class="kd">extends</span> <span class="nc">Rectangle</span> <span class="p">{</span>
+  <span class="nf">constructor</span><span class="p">(){</span>
     <span class="k">super</span><span class="p">()</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">myRect</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">myRect</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Square</span><span class="p">()</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myRect</span><span class="p">.</span><span class="nx">area</span><span class="p">())</span> <span class="c1">// ReferenceError: width is not defined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">myRect</span><span class="p">.</span><span class="nf">area</span><span class="p">())</span> <span class="c1">// ReferenceError: width is not defined</span>
 </code></pre></div></div>
 
 <p><a id="optional-curly-braces-after-an-if"></a></p>
@@ -614,10 +614,10 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Curly braces after an <code class="language-plaintext highlighter-rouge">if</code> statement are optional:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ha</span><span class="dl">"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">he</span><span class="dl">"</span><span class="p">)</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">)</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ho</span><span class="dl">"</span><span class="p">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ha</span><span class="dl">"</span><span class="p">);</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">he</span><span class="dl">"</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ho</span><span class="dl">"</span><span class="p">)</span>
 
 <span class="cm">/*prints:
   he
@@ -633,14 +633,14 @@ class ConnectivityIndicatorView extends Component {
 
 <p>Unless programmer intent can be very accurately inferred, a language shouldn’t let curly braces be optional.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span>
   <span class="p">{</span>
     <span class="p">{</span><span class="na">a</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="c1">//undefined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">foo</span><span class="p">())</span> <span class="c1">//undefined</span>
 </code></pre></div></div>
 
 <p><a id="switch-fallthrough"></a></p>
@@ -650,11 +650,11 @@ class ConnectivityIndicatorView extends Component {
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">32</span>
 
-<span class="k">switch</span> <span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">switch </span><span class="p">(</span><span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
    <span class="k">case</span> <span class="mi">32</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">spot on</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">spot on</span><span class="dl">'</span><span class="p">)</span>
    <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">zero</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">zero</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="cm">/* prints:
@@ -676,8 +676,8 @@ class ConnectivityIndicatorView extends Component {
 
 <p>And what if you want to know whether a variable contains any data? Well, for your checks to be exhaustive, you need to check for both <code class="language-plaintext highlighter-rouge">null</code> and <code class="language-plaintext highlighter-rouge">undefined</code>:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">shootMyself</span><span class="p">()</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="nx">foo</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">shootMyself</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -704,7 +704,7 @@ class ConnectivityIndicatorView extends Component {
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}]</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">includes</span><span class="p">({</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}))</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nf">includes</span><span class="p">({</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="mi">32</span><span class="p">}))</span> <span class="c1">// false</span>
 
 
 <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">32</span>
@@ -713,7 +713,7 @@ class ConnectivityIndicatorView extends Component {
 
 <span class="kd">var</span> <span class="nx">otherArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">otherArray</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">otherArray</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span> <span class="c1">// true</span>
 </code></pre></div></div>
 
 <p>Try not to.</p>
@@ -738,11 +738,11 @@ class ConnectivityIndicatorView extends Component {
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">im a number</span><span class="dl">'</span>
 
-<span class="kd">function</span> <span class="nx">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">divideByFour</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">number</span> <span class="o">/</span> <span class="mi">4</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">divideByFour</span><span class="p">(</span><span class="nx">foo</span><span class="p">))</span>
 
 <span class="cm">/* console output:
 
@@ -763,18 +763,18 @@ Found 1 error
 <p>It can also produce the equivalent of generic arrays:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
-<span class="kd">class</span> <span class="nx">J</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nc">J</span> <span class="p">{</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="mi">2</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="nx">J</span><span class="p">(),</span> <span class="nx">b</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="nc">J</span><span class="p">(),</span> <span class="nx">b</span><span class="p">]</span>
 
-<span class="kd">function</span> <span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+<span class="kd">function</span> <span class="nf">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
 
-<span class="nx">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span>
+<span class="nf">giveMeAnArrayOfNumbers</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span>
 
 <span class="cm">/* console output:
 
@@ -804,11 +804,11 @@ Found 2 errors
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @flow</span>
 <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="kc">null</span>
 
-<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+<span class="kd">function</span> <span class="nf">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="nx">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="nf">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
 
 <span class="cm">/* console output:
 fooman.js:6
@@ -828,12 +828,12 @@ Found 1 error
 
 <span class="kd">var</span> <span class="nx">j</span><span class="p">:</span> <span class="p">?</span><span class="nx">string</span> <span class="o">=</span> <span class="kc">null</span>
 
-<span class="kd">function</span> <span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+<span class="kd">function</span> <span class="nf">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">j</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="k">if </span><span class="p">(</span><span class="nx">j</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">greet</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="cm">/* console output:
 No errors!
@@ -847,15 +847,15 @@ No errors!
   <span class="o">|</span> <span class="dl">"</span><span class="s2">North</span><span class="dl">"</span>
   <span class="o">|</span> <span class="dl">"</span><span class="s2">South</span><span class="dl">"</span><span class="p">;</span>
 
-<span class="kd">class</span> <span class="nx">Compass</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nc">Compass</span> <span class="p">{</span>
   <span class="nl">direction</span><span class="p">:</span> <span class="nx">CompassPoint</span><span class="p">;</span>
   <span class="nl">degrees</span><span class="p">:</span> <span class="nx">number</span>
 
-  <span class="kd">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">constructor</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">=</span> <span class="nx">degrees</span>
   <span class="p">}</span>
-  <span class="nx">direction</span><span class="p">():</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&gt;</span> <span class="mi">270</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">direction</span><span class="p">():</span> <span class="nx">CompassPoint</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&gt;</span> <span class="mi">270</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="dl">"</span><span class="s2">North</span><span class="dl">"</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
@@ -877,11 +877,11 @@ No errors!
 
 <p>Flow is great friends with React Native, as long as you help it help you. The Flow docs offer a good example of how what happens when you correctly annotate the <code class="language-plaintext highlighter-rouge">proptypes</code> of your component:</p>
 
-<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Greeter</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Greeter</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nf">createClass</span><span class="p">({</span>
   <span class="na">propTypes</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">name</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
   <span class="p">},</span>
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, <span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;;</span>
   <span class="p">},</span>
 <span class="p">});</span>
